@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+	<SolidColorBrush x:Key="GlobalBG"
+					 Color="White" />
+	<SolidColorBrush x:Key="GlobalFG"
+					 Color="Black" />
+	<SolidColorBrush x:Key="GlobalCaret"
+					 Color="Black" />
+	<SolidColorBrush x:Key="GlobalMouseoverBG"
+					 Color="White" />
+	<SolidColorBrush x:Key="GlobalMouseoverBD"
+					 Color="CornflowerBlue" />
+	<SolidColorBrush x:Key="GlobalPressedBG"
+					 Color="White" />
+	<SolidColorBrush x:Key="GlobalPressedBD"
+					 Color="Indigo" />
+</ResourceDictionary>
