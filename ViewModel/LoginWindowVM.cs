@@ -1,6 +1,10 @@
-﻿namespace StdEqpTesting.ViewModel
+﻿using CommunityToolkit.Mvvm.Input;
+using StdEqpTesting.Model;
+
+namespace StdEqpTesting.ViewModel
 {
-	public class LoginWindowVM
+	public partial class LoginWindowVM
 	{
+		
 	}
 }

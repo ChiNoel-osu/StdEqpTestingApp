@@ -138,4 +138,16 @@
   <data name="LoginWelcome" xml:space="preserve">
     <value>欢迎!</value>
   </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>注册</value>
+  </data>
+  <data name="RegisterWndTitle" xml:space="preserve">
+    <value>确认您的注册信息</value>
+  </data>
+  <data name="RegisterConfirmUser" xml:space="preserve">
+    <value>您的注册用户名为:</value>
+  </data>
+  <data name="RegisterConfirmPass" xml:space="preserve">
+    <value>请在下方确认您的密码:</value>
+  </data>
 </root>

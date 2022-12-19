@@ -4,6 +4,8 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:loc="clr-namespace:StdEqpTesting.Localization"
+		xmlns:viewmodel="clr-namespace:StdEqpTesting.ViewModel"
+		d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
 		mc:Ignorable="d"
 		ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen"
@@ -41,11 +43,13 @@
 					Margin="20,2">
 			<Label Content="{x:Static loc:Loc.LoginUsername}"
 				   Margin="-4,0,0,-2" />
-			<TextBox Height="20"
+			<TextBox Name="Username"
+					 Height="20"
 					 VerticalContentAlignment="Center" />
 			<Label Content="{x:Static loc:Loc.LoginPassword}"
 				   Margin="-4,0,0,-2" />
-			<PasswordBox Height="20"
+			<PasswordBox Name="Password"
+						 Height="20"
 						 Background="{DynamicResource GlobalBG}"
 						 Foreground="{DynamicResource GlobalFG}"
 						 CaretBrush="{DynamicResource GlobalCaret}"
@@ -56,12 +60,23 @@
 						Height="25"
 						HorizontalAlignment="Left"
 						Content="☀"
-						Click="ThemeBtn_Click"/>
-				<Button Style="{DynamicResource GlobalButtonStyle}"
-						Width="50"
-						Height="25"
-						HorizontalAlignment="Right"
-						Content="{x:Static loc:Loc.LoginButton}" />
+						Click="ThemeBtn_Click" />
+				<StackPanel HorizontalAlignment="Right"
+							Orientation="Horizontal">
+					<Button Style="{DynamicResource GlobalButtonStyle}"
+							Width="50"
+							Height="25"
+							Focusable="False"
+							Margin="0,0,10,0"
+							HorizontalAlignment="Right"
+							Click="RegisterButton_Click"
+							Content="{x:Static loc:Loc.RegisterButton}"/>
+					<Button Style="{DynamicResource GlobalButtonStyle}"
+							Width="50"
+							Height="25"
+							HorizontalAlignment="Right"
+							Content="{x:Static loc:Loc.LoginButton}" />
+				</StackPanel>
 			</Grid>
 		</StackPanel>
 	</Grid>

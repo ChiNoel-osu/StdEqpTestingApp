@@ -118,4 +118,16 @@
   <data name="LoginButton" xml:space="preserve">
     <value>Login</value>
   </data>
+  <data name="RegisterButton" xml:space="preserve">
+    <value>Register</value>
+  </data>
+  <data name="RegisterWndTitle" xml:space="preserve">
+    <value>Confirm your register info</value>
+  </data>
+  <data name="RegisterConfirmUser" xml:space="preserve">
+    <value>You'll be registered as:</value>
+  </data>
+  <data name="RegisterConfirmPass" xml:space="preserve">
+    <value>Confirm your password below:</value>
+  </data>
 </root>

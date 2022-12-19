@@ -122,5 +122,41 @@ namespace StdEqpTesting.Localization {
                 return ResourceManager.GetString("MainWndTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   查找类似 Register 的本地化字符串。
+        /// </summary>
+        public static string RegisterButton {
+            get {
+                return ResourceManager.GetString("RegisterButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Confirm your password below: 的本地化字符串。
+        /// </summary>
+        public static string RegisterConfirmPass {
+            get {
+                return ResourceManager.GetString("RegisterConfirmPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 You&apos;ll be registered as: 的本地化字符串。
+        /// </summary>
+        public static string RegisterConfirmUser {
+            get {
+                return ResourceManager.GetString("RegisterConfirmUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Confirm your register info 的本地化字符串。
+        /// </summary>
+        public static string RegisterWndTitle {
+            get {
+                return ResourceManager.GetString("RegisterWndTitle", resourceCulture);
+            }
+        }
     }
 }
