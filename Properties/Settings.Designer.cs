@@ -23,15 +23,21 @@ namespace StdEqpTesting.Properties {
             }
         }
         
-        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("zh-CN")]
         public string Locale {
             get {
                 return ((string)(this["Locale"]));
             }
-            set {
-                this["Locale"] = value;
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Database/Main.db")]
+        public string DBConnString {
+            get {
+                return ((string)(this["DBConnString"]));
             }
         }
     }

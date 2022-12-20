@@ -150,4 +150,21 @@
   <data name="RegisterConfirmPass" xml:space="preserve">
     <value>请在下方确认您的密码:</value>
   </data>
+  <data name="LoginPWErrorTT" xml:space="preserve">
+    <value>密码只由ASCII字符构成.
+并且不少于4个字符.</value>
+  </data>
+  <data name="LoginUNErrorTT" xml:space="preserve">
+    <value>用户名只由英文字母, 数字和下划线构成.
+并且不超过20个字符.</value>
+  </data>
+  <data name="RegisterDoneMsgBoxContent" xml:space="preserve">
+    <value>请牢记您的账号和密码.</value>
+  </data>
+  <data name="RegisterDoneMsgBoxTitle" xml:space="preserve">
+    <value>注册成功!</value>
+  </data>
+  <data name="RegisterFailMsgBoxTitle" xml:space="preserve">
+    <value>注册失败.</value>
+  </data>
 </root>

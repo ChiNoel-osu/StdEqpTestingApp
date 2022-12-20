@@ -88,6 +88,26 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Password only contains ASCII characters.
+        ///And should have at least 4 characters. 的本地化字符串。
+        /// </summary>
+        public static string LoginPWErrorTT {
+            get {
+                return ResourceManager.GetString("LoginPWErrorTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Username only contains letters, numbers and underscores.
+        ///And have no more than 20 characters. 的本地化字符串。
+        /// </summary>
+        public static string LoginUNErrorTT {
+            get {
+                return ResourceManager.GetString("LoginUNErrorTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Username: 的本地化字符串。
         /// </summary>
         public static string LoginUsername {
@@ -147,6 +167,33 @@ namespace StdEqpTesting.Localization {
         public static string RegisterConfirmUser {
             get {
                 return ResourceManager.GetString("RegisterConfirmUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Please always remember your username and password. 的本地化字符串。
+        /// </summary>
+        public static string RegisterDoneMsgBoxContent {
+            get {
+                return ResourceManager.GetString("RegisterDoneMsgBoxContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Register successful! 的本地化字符串。
+        /// </summary>
+        public static string RegisterDoneMsgBoxTitle {
+            get {
+                return ResourceManager.GetString("RegisterDoneMsgBoxTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Register failed. 的本地化字符串。
+        /// </summary>
+        public static string RegisterFailMsgBoxTitle {
+            get {
+                return ResourceManager.GetString("RegisterFailMsgBoxTitle", resourceCulture);
             }
         }
         

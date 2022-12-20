@@ -5,6 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:loc="clr-namespace:StdEqpTesting.Localization"
 		xmlns:viewmodel="clr-namespace:StdEqpTesting.ViewModel"
+		xmlns:model="clr-namespace:StdEqpTesting.Model"
 		d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
 		mc:Ignorable="d"
 		ResizeMode="NoResize"
@@ -43,19 +44,48 @@
 					Margin="20,2">
 			<Label Content="{x:Static loc:Loc.LoginUsername}"
 				   Margin="-4,0,0,-2" />
-			<TextBox Name="Username"
+			<TextBox Text="{Binding LoginWindowVM.Username, Mode=OneWayToSource, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
 					 Height="20"
-					 VerticalContentAlignment="Center" />
+					 Background="{DynamicResource GlobalBG}"
+					 Foreground="{DynamicResource GlobalFG}"
+					 CaretBrush="{DynamicResource GlobalCaret}"
+					 VerticalContentAlignment="Center">
+				<TextBox.Style>
+					<Style TargetType="{x:Type TextBox}">
+						<Style.Triggers>
+							<Trigger Property="Validation.HasError"
+									 Value="True">
+								<Setter	Property="ToolTip"
+										Value="{x:Static loc:Loc.LoginUNErrorTT}" />
+							</Trigger>
+						</Style.Triggers>
+					</Style>
+				</TextBox.Style>
+			</TextBox>
 			<Label Content="{x:Static loc:Loc.LoginPassword}"
 				   Margin="-4,0,0,-2" />
-			<PasswordBox Name="Password"
+			<PasswordBox model:BindablePasswordBox.Attach="True"
+						 model:BindablePasswordBox.Password="{Binding LoginWindowVM.Password, Mode=OneWayToSource, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
 						 Height="20"
 						 Background="{DynamicResource GlobalBG}"
 						 Foreground="{DynamicResource GlobalFG}"
 						 CaretBrush="{DynamicResource GlobalCaret}"
-						 VerticalContentAlignment="Center" />
+						 VerticalContentAlignment="Center">
+				<PasswordBox.Style>
+					<Style TargetType="{x:Type PasswordBox}">
+						<Style.Triggers>
+							<Trigger Property="Validation.HasError"
+									 Value="True">
+								<Setter	Property="ToolTip"
+										Value="{x:Static loc:Loc.LoginPWErrorTT}" />
+							</Trigger>
+						</Style.Triggers>
+					</Style>
+				</PasswordBox.Style>
+			</PasswordBox>
 			<Grid Margin="0,8,0,0">
-				<Button	Style="{DynamicResource ThemeButtonStyle}"
+				<Button Name="ThemeBtn"
+						Style="{DynamicResource ThemeButtonStyle}"
 						Width="25"
 						Height="25"
 						HorizontalAlignment="Left"
@@ -64,14 +94,17 @@
 				<StackPanel HorizontalAlignment="Right"
 							Orientation="Horizontal">
 					<Button Style="{DynamicResource GlobalButtonStyle}"
+							IsEnabled="{Binding LoginWindowVM.NoInputError, Mode=OneWay}"
 							Width="50"
 							Height="25"
 							Focusable="False"
 							Margin="0,0,10,0"
 							HorizontalAlignment="Right"
-							Click="RegisterButton_Click"
-							Content="{x:Static loc:Loc.RegisterButton}"/>
+							Command="{Binding LoginWindowVM.RegisterCommand}"
+							CommandParameter="{Binding ElementName=ThemeBtn, Path=Content}"
+							Content="{x:Static loc:Loc.RegisterButton}" />
 					<Button Style="{DynamicResource GlobalButtonStyle}"
+							IsEnabled="{Binding LoginWindowVM.NoInputError, Mode=OneWay}"
 							Width="50"
 							Height="25"
 							HorizontalAlignment="Right"

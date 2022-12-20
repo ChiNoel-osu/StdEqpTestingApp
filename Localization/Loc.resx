@@ -130,4 +130,21 @@
   <data name="RegisterConfirmPass" xml:space="preserve">
     <value>Confirm your password below:</value>
   </data>
+  <data name="LoginUNErrorTT" xml:space="preserve">
+    <value>Username only contains letters, numbers and underscores.
+And have no more than 20 characters.</value>
+  </data>
+  <data name="LoginPWErrorTT" xml:space="preserve">
+    <value>Password only contains ASCII characters.
+And should have at least 4 characters.</value>
+  </data>
+  <data name="RegisterDoneMsgBoxContent" xml:space="preserve">
+    <value>Please always remember your username and password.</value>
+  </data>
+  <data name="RegisterDoneMsgBoxTitle" xml:space="preserve">
+    <value>Register successful!</value>
+  </data>
+  <data name="RegisterFailMsgBoxTitle" xml:space="preserve">
+    <value>Register failed.</value>
+  </data>
 </root>

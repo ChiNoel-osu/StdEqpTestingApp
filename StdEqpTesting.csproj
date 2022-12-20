@@ -8,13 +8,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Database\**" />
+    <EmbeddedResource Remove="Database\**" />
+    <None Remove="Database\**" />
+    <Page Remove="Database\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite.Core" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Converter\" />
-    <Folder Include="Database\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,12 +44,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Database\Main.db">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="Database\Main.db-journal">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

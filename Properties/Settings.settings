@@ -2,8 +2,11 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="StdEqpTesting.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Locale" Type="System.String" Scope="User">
+    <Setting Name="Locale" Type="System.String" Scope="Application">
       <Value Profile="(Default)">zh-CN</Value>
+    </Setting>
+    <Setting Name="DBConnString" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Database/Main.db</Value>
     </Setting>
   </Settings>
 </SettingsFile>
