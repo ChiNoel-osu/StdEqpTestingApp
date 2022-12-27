@@ -8,7 +8,7 @@ namespace StdEqpTesting
 	/// </summary>
 	public partial class MainWindow : Window
 	{
-		public static MainViewModel MainVM { get; } = new MainViewModel();
+		public static StartupMainViewModel MainVM { get; } = new StartupMainViewModel();
 		public MainWindow()
 		{
 			InitializeComponent();

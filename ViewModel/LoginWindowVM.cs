@@ -7,6 +7,7 @@ using StdEqpTesting.View;
 using System;
 using System.ComponentModel;
 using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -81,7 +82,8 @@ namespace StdEqpTesting.ViewModel
 				currentTheme = "Dark";
 			RegisterWindow rWnd = new RegisterWindow(Username, Password, currentTheme);
 			if ((bool)rWnd.ShowDialog())
-			{
+			{   //Register confirmed
+				//Hash the password to store in DB.
 				StringBuilder stringBuilder = new StringBuilder();
 				foreach (byte hash in SHA1.Create().ComputeHash(Encoding.ASCII.GetBytes(Password)))
 					stringBuilder.Append(hash.ToString("X2"));
@@ -89,10 +91,16 @@ namespace StdEqpTesting.ViewModel
 				using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
 				{
 					SqliteCommand cmd = connection.CreateCommand();
-					cmd.CommandText = @"INSERT INTO Users (Username, Password, Type) VALUES ($Username, $Password, $Type)";
+					cmd.CommandText = @"INSERT INTO Users (Username, Password, Type, Theme) VALUES ($Username, $Password, $Type, $Theme)";
 					cmd.Parameters.AddWithValue("$Username", Username).SqliteType = SqliteType.Text;
 					cmd.Parameters.AddWithValue("$Password", pwHash).SqliteType = SqliteType.Text;
-					cmd.Parameters.AddWithValue("Type", UserTypeEnum.Owner).SqliteType = SqliteType.Integer;
+					cmd.Parameters.AddWithValue("$Type", UserTypeEnum.Owner).SqliteType = SqliteType.Integer;
+					if (currentTheme == "Dark")
+						cmd.Parameters.AddWithValue("$Theme", 0).SqliteType = SqliteType.Integer;
+					else if (currentTheme == "Light")
+						cmd.Parameters.AddWithValue("$Theme", 1).SqliteType = SqliteType.Integer;
+					else
+						throw new NotImplementedException();
 					connection.Open();
 					try
 					{
@@ -103,10 +111,65 @@ namespace StdEqpTesting.ViewModel
 					{
 						MessageBox.Show(e.ToString(), Loc.RegisterFailMsgBoxTitle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
 					}
+					connection.CloseAsync();
 				}
 			}
 			else
+			{   //Register window closed
+			}
+		}
+		[RelayCommand]
+		public void Login(Window loginWindow)
+		{
+			StringBuilder stringBuilder = new StringBuilder();
+			foreach (byte hash in SHA1.Create().ComputeHash(Encoding.ASCII.GetBytes(Password)))
+				stringBuilder.Append(hash.ToString("X2"));
+			string pwHash = stringBuilder.ToString();
+			using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
 			{
+				SqliteDataReader dataReader;
+				SqliteCommand cmd = connection.CreateCommand();
+				cmd.CommandText = @"SELECT * FROM Users WHERE Username=$Username LIMIT 1";
+				cmd.Parameters.AddWithValue("$Username", Username).SqliteType = SqliteType.Text;
+				connection.Open();
+				try
+				{
+					dataReader = cmd.ExecuteReader();
+					if (!dataReader.HasRows)
+					{
+						MessageBox.Show("Nope");
+						connection.CloseAsync();
+						return;
+					}
+					dataReader.Read();
+					if (pwHash == dataReader.GetString(2))
+					{	//PW correct.
+						UserInfo userInfo = new UserInfo()
+						{
+							ID = dataReader.GetInt32(0),
+							username = dataReader.GetString(1),
+							//password = dataReader.GetString(2),	//Gets the hashed pw, not needed.
+							type = (UserTypeEnum)dataReader.GetInt32(3),
+							theme = dataReader.GetInt32(4),
+							tag = dataReader.IsDBNull(5) ? null : dataReader.GetString(5)
+						};
+						connection.CloseAsync();
+						//Starts main view.
+						MainView mainView = new MainView(userInfo);
+						mainView.Show();
+						loginWindow.Close();
+						return;
+					}
+					else
+					{	//PW incorrect.
+						MessageBox.Show("Wrong number");
+					}
+				}
+				catch (SqliteException e)
+				{
+					MessageBox.Show(e.ToString(), "FUCK", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+				}
+				connection.CloseAsync();
 			}
 		}
 	}

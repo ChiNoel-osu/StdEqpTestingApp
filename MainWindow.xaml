@@ -5,7 +5,7 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:loc="clr-namespace:StdEqpTesting.Localization"
 		xmlns:viewmodel="clr-namespace:StdEqpTesting.ViewModel"
-		d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+		d:DataContext="{d:DesignInstance Type=viewmodel:StartupMainViewModel}"
 		mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
 		Background="#1E1E1E"

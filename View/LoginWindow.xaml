@@ -6,7 +6,7 @@
 		xmlns:loc="clr-namespace:StdEqpTesting.Localization"
 		xmlns:viewmodel="clr-namespace:StdEqpTesting.ViewModel"
 		xmlns:model="clr-namespace:StdEqpTesting.Model"
-		d:DataContext="{d:DesignInstance Type=viewmodel:MainViewModel}"
+		d:DataContext="{d:DesignInstance Type=viewmodel:StartupMainViewModel}"
 		mc:Ignorable="d"
 		ResizeMode="NoResize"
 		WindowStartupLocation="CenterScreen"
@@ -108,6 +108,8 @@
 							Width="50"
 							Height="25"
 							HorizontalAlignment="Right"
+							Command="{Binding LoginWindowVM.LoginCommand}"
+							CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
 							Content="{x:Static loc:Loc.LoginButton}" />
 				</StackPanel>
 			</Grid>

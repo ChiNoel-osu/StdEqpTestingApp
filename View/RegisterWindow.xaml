@@ -8,6 +8,7 @@
 		ResizeMode="NoResize"
 		Background="{DynamicResource GlobalBG}"
 		WindowStyle="ToolWindow"
+		WindowStartupLocation="CenterScreen"
 		Title="{x:Static loc:Loc.RegisterWndTitle}"
 		Height="215"
 		Width="250">
