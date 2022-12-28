@@ -147,4 +147,7 @@ And should have at least 4 characters.</value>
   <data name="RegisterFailMsgBoxTitle" xml:space="preserve">
     <value>Register failed.</value>
   </data>
+  <data name="LoginFailedStatus" xml:space="preserve">
+    <value>Wrong username or password.</value>
+  </data>
 </root>

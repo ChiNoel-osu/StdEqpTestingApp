@@ -34,12 +34,44 @@
 				   Padding="0"
 				   Margin="0,5,0,0"
 				   HorizontalAlignment="Center" />
-			<Label Content="{x:Static loc:Loc.LoginEnterCred}"
+			<Label Content="{Binding LoginWindowVM.Status, Mode=OneWay}"
+				   d:Content="{x:Static loc:Loc.LoginEnterCred}"
 				   Padding="0"
 				   HorizontalAlignment="Center" />
 		</StackPanel>
 		<Separator VerticalAlignment="Bottom"
-				   Margin="0" />
+				   Background="Gray"
+				   Margin="0">
+			<Separator.Style>
+				<Style TargetType="{x:Type Separator}">
+					<Style.Triggers>
+						<DataTrigger Binding="{Binding LoginWindowVM.LoginFailed}"
+									 Value="True">
+							<DataTrigger.EnterActions>
+								<BeginStoryboard>
+									<Storyboard>
+										<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="Background.(SolidColorBrush.Color)">
+											<LinearColorKeyFrame KeyTime="0:0:0"
+																 Value="Gray" />
+											<LinearColorKeyFrame KeyTime="0:0:0.2"
+																 Value="Red" />
+											<LinearColorKeyFrame KeyTime="0:0:0.3"
+																 Value="Gray" />
+											<LinearColorKeyFrame KeyTime="0:0:0.5"
+																 Value="Red" />
+											<LinearColorKeyFrame KeyTime="0:0:0.6"
+																 Value="Gray" />
+											<LinearColorKeyFrame KeyTime="0:0:0.8"
+																 Value="Red" />
+										</ColorAnimationUsingKeyFrames>
+									</Storyboard>
+								</BeginStoryboard>
+							</DataTrigger.EnterActions>
+						</DataTrigger>
+					</Style.Triggers>
+				</Style>
+			</Separator.Style>
+		</Separator>
 		<StackPanel Grid.Row="1"
 					Margin="20,2">
 			<Label Content="{x:Static loc:Loc.LoginUsername}"

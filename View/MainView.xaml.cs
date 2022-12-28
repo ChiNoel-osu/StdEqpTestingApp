@@ -16,6 +16,10 @@ namespace StdEqpTesting.View
 			DataContext = MainVM;
 			Username.Content = userInfo.username;
 			Type.Content = userInfo.type.ToString();
+			if (userInfo.theme == 0)
+				Resources.MergedDictionaries[0].Source = new System.Uri($"pack://application:,,,/Theme/Dark.xaml");
+			else if (userInfo.theme == 1)
+				Resources.MergedDictionaries[0].Source = new System.Uri($"pack://application:,,,/Theme/Light.xaml");
 		}
 	}
 }

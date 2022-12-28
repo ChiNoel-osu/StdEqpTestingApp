@@ -7,7 +7,6 @@ using StdEqpTesting.View;
 using System;
 using System.ComponentModel;
 using System.Security.Cryptography;
-using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
@@ -20,6 +19,10 @@ namespace StdEqpTesting.ViewModel
 		public string Password { get; set; }
 		[ObservableProperty]
 		bool _NoInputError = false; //Button IsEnabled
+		[ObservableProperty]
+		bool _LoginFailed = false;  //The storyboard thing.
+		[ObservableProperty]
+		string _Status = Loc.LoginEnterCred;
 
 		#region IDataErrorInfo Members
 		bool userNameError = false;
@@ -94,7 +97,7 @@ namespace StdEqpTesting.ViewModel
 					cmd.CommandText = @"INSERT INTO Users (Username, Password, Type, Theme) VALUES ($Username, $Password, $Type, $Theme)";
 					cmd.Parameters.AddWithValue("$Username", Username).SqliteType = SqliteType.Text;
 					cmd.Parameters.AddWithValue("$Password", pwHash).SqliteType = SqliteType.Text;
-					cmd.Parameters.AddWithValue("$Type", UserTypeEnum.Owner).SqliteType = SqliteType.Integer;
+					cmd.Parameters.AddWithValue("$Type", UserTypeEnum.User).SqliteType = SqliteType.Integer;
 					if (currentTheme == "Dark")
 						cmd.Parameters.AddWithValue("$Theme", 0).SqliteType = SqliteType.Integer;
 					else if (currentTheme == "Light")
@@ -115,12 +118,13 @@ namespace StdEqpTesting.ViewModel
 				}
 			}
 			else
-			{   //Register window closed
+			{   //Register window closed by user.
 			}
 		}
 		[RelayCommand]
 		public void Login(Window loginWindow)
 		{
+			LoginFailed = false;
 			StringBuilder stringBuilder = new StringBuilder();
 			foreach (byte hash in SHA1.Create().ComputeHash(Encoding.ASCII.GetBytes(Password)))
 				stringBuilder.Append(hash.ToString("X2"));
@@ -137,13 +141,14 @@ namespace StdEqpTesting.ViewModel
 					dataReader = cmd.ExecuteReader();
 					if (!dataReader.HasRows)
 					{
-						MessageBox.Show("Nope");
+						LoginFailed = true;
+						Status = Loc.LoginFailedStatus;
 						connection.CloseAsync();
 						return;
 					}
 					dataReader.Read();
 					if (pwHash == dataReader.GetString(2))
-					{	//PW correct.
+					{   //PW correct.
 						UserInfo userInfo = new UserInfo()
 						{
 							ID = dataReader.GetInt32(0),
@@ -161,13 +166,14 @@ namespace StdEqpTesting.ViewModel
 						return;
 					}
 					else
-					{	//PW incorrect.
-						MessageBox.Show("Wrong number");
+					{   //PW incorrect.
+						LoginFailed = true;
+						Status = Loc.LoginFailedStatus;
 					}
 				}
 				catch (SqliteException e)
 				{
-					MessageBox.Show(e.ToString(), "FUCK", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+					MessageBox.Show(e.ToString(), "sth is wrong", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 				}
 				connection.CloseAsync();
 			}

@@ -79,6 +79,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Wrong username or password. 的本地化字符串。
+        /// </summary>
+        public static string LoginFailedStatus {
+            get {
+                return ResourceManager.GetString("LoginFailedStatus", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Password: 的本地化字符串。
         /// </summary>
         public static string LoginPassword {
