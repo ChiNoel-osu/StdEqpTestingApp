@@ -23,19 +23,25 @@ namespace StdEqpTesting.ViewModel
 		bool _LoginFailed = false;  //The storyboard thing.
 		[ObservableProperty]
 		string _Status = Loc.LoginEnterCred;
+		[ObservableProperty]
+		bool _UserErrorVisible = false;
+		[ObservableProperty]
+		bool _PassErrorVisible = false;
 
 		#region IDataErrorInfo Members
-		bool userNameError = false;
-		bool passWordError = false;
+		bool userNameError = true;
+		bool passWordError = true;
+		byte itCount = 0;   //To make the error invisible when first loaded(user didn't make any input).
 		public string this[string data]
 		{
 			get
 			{
+				if (itCount <= 2) itCount++;
 				string? errorMsg = string.Empty;
 				switch (data)
 				{
 					case nameof(Username):
-						if (Regex.IsMatch(Username, $"[^A-Z,a-z,0-9,_]") || Username.Length > 20)
+						if (Regex.IsMatch(Username, $"[^A-Z,a-z,0-9,_]") || Username.Length > 20 || string.IsNullOrWhiteSpace(Username))
 						{
 							userNameError = true;
 							errorMsg = "Username error";
@@ -45,6 +51,7 @@ namespace StdEqpTesting.ViewModel
 							userNameError = false;
 							errorMsg = null;
 						}
+						if (itCount > 2) UserErrorVisible = true;
 						break;
 					case nameof(Password):
 						bool inValidFlag = false;
@@ -54,7 +61,7 @@ namespace StdEqpTesting.ViewModel
 								inValidFlag = true;
 								break;
 							}
-						if (inValidFlag || (Password.Length > 0 && Password.Length < 4))
+						if (inValidFlag || (Password.Length >= 0 && Password.Length < 4))
 						{
 							passWordError = true;
 							errorMsg = "Password error";
@@ -64,6 +71,7 @@ namespace StdEqpTesting.ViewModel
 							passWordError = false;
 							errorMsg = null;
 						}
+						if (itCount > 2) PassErrorVisible = true;
 						break;
 					default:
 						throw new NotImplementedException();
@@ -92,7 +100,7 @@ namespace StdEqpTesting.ViewModel
 					stringBuilder.Append(hash.ToString("X2"));
 				string pwHash = stringBuilder.ToString();
 				using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
-				{
+				{   //Insert stuff into database.
 					SqliteCommand cmd = connection.CreateCommand();
 					cmd.CommandText = @"INSERT INTO Users (Username, Password, Type, Theme) VALUES ($Username, $Password, $Type, $Theme)";
 					cmd.Parameters.AddWithValue("$Username", Username).SqliteType = SqliteType.Text;
@@ -124,6 +132,7 @@ namespace StdEqpTesting.ViewModel
 		[RelayCommand]
 		public void Login(Window loginWindow)
 		{
+			if (userNameError || passWordError) return;
 			LoginFailed = false;
 			StringBuilder stringBuilder = new StringBuilder();
 			foreach (byte hash in SHA1.Create().ComputeHash(Encoding.ASCII.GetBytes(Password)))
@@ -160,14 +169,14 @@ namespace StdEqpTesting.ViewModel
 						};
 						connection.CloseAsync();
 						//Starts main view.
-						MainView mainView = new MainView(userInfo);
+						MainViewWindow mainView = new MainViewWindow(userInfo);
 						mainView.Show();
 						loginWindow.Close();
 						return;
 					}
 					else
 					{   //PW incorrect.
-						LoginFailed = true;
+						LoginFailed = true; //UI picks this up and do some animations.
 						Status = Loc.LoginFailedStatus;
 					}
 				}

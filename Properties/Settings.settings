@@ -6,7 +6,7 @@
       <Value Profile="(Default)">zh-CN</Value>
     </Setting>
     <Setting Name="DBConnString" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">Database/Main.db</Value>
+      <Value Profile="(Default)">Database\Main.db</Value>
     </Setting>
   </Settings>
 </SettingsFile>

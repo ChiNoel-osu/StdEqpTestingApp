@@ -2,6 +2,8 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<SolidColorBrush x:Key="GlobalBG"
 					 Color="#1E1E1E" />
+	<SolidColorBrush x:Key="StatusBarBG"
+					 Color="#424242" />
 	<SolidColorBrush x:Key="GlobalFG"
 					 Color="White" />
 	<SolidColorBrush x:Key="GlobalCaret"

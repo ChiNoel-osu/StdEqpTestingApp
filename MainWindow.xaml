@@ -11,10 +11,15 @@
 		WindowStartupLocation="CenterScreen"
 		Background="#1E1E1E"
 		Title="{x:Static loc:Loc.MainWndTitle}"
-		Height="600"
+		Height="800"
 		Width="800">
 	<Grid>
-		<oxy:PlotView Model="{Binding MainWindowVM.Plot1}"
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
+		<oxy:PlotView Grid.Row="0"
+					  Model="{Binding MainWindowVM.Plot1}"
 					  Background="#1E1E1E" />
 		<Button Content="CLICK ME"
 				HorizontalAlignment="Right"
@@ -22,5 +27,6 @@
 				FontSize="20"
 				Command="{Binding MainWindowVM.LoadNextWndCommand}"
 				CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" />
+		
 	</Grid>
 </Window>

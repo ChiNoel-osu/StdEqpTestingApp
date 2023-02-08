@@ -34,7 +34,7 @@ namespace StdEqpTesting.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Database/Main.db")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Database\\Main.db")]
         public string DBConnString {
             get {
                 return ((string)(this["DBConnString"]));
