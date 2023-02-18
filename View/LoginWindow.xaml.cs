@@ -10,6 +10,7 @@ namespace StdEqpTesting.View
 	{
 		public LoginWindow()
 		{
+			App.Logger.Info("Initializing Login Window.");
 			InitializeComponent();
 			DataContext = MainWindow.MainVM;
 		}

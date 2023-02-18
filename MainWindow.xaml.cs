@@ -15,9 +15,9 @@ namespace StdEqpTesting
 			InitializeComponent();
 			DataContext = MainVM;
 
-			MainViewWindow mainViewWindow = new MainViewWindow(new Model.UserInfo { ID = 0, theme = 0, type = 0, username = "VicTest" });
-			mainViewWindow.Show();
-			Close();    //For testing. Closes the window right after running code MainWindowVM
+			//MainViewWindow mainViewWindow = new MainViewWindow(new Model.UserInfo { ID = 0, theme = 0, type = 0, username = "VicTest" });
+			//mainViewWindow.Show();
+			//Close();    //For testing. Closes the window right after running code MainWindowVM
 		}
 	}
 }

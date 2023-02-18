@@ -87,6 +87,7 @@ namespace StdEqpTesting.ViewModel
 		[RelayCommand]
 		public void Register(string currentTheme)
 		{
+			App.Logger.Info("Showing register window.");
 			if (currentTheme == "🌙")
 				currentTheme = "Light";
 			else if (currentTheme == "☀")
@@ -94,6 +95,7 @@ namespace StdEqpTesting.ViewModel
 			RegisterWindow rWnd = new RegisterWindow(Username, Password, currentTheme);
 			if ((bool)rWnd.ShowDialog())
 			{   //Register confirmed
+				App.Logger.Info("Register confirmed, connecting to database.");
 				//Hash the password to store in DB.
 				StringBuilder stringBuilder = new StringBuilder();
 				foreach (byte hash in SHA1.Create().ComputeHash(Encoding.ASCII.GetBytes(Password)))
@@ -116,10 +118,12 @@ namespace StdEqpTesting.ViewModel
 					try
 					{
 						cmd.ExecuteNonQuery();
+						App.Logger.Info("Register successful.");
 						MessageBox.Show(Loc.RegisterDoneMsgBoxContent, Loc.RegisterDoneMsgBoxTitle, MessageBoxButton.OK, MessageBoxImage.Information);
 					}
 					catch (SqliteException e)
 					{
+						App.Logger.Info("Register failed.\n" + e.Message);
 						MessageBox.Show(e.ToString(), Loc.RegisterFailMsgBoxTitle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
 					}
 					connection.CloseAsync();
@@ -127,12 +131,14 @@ namespace StdEqpTesting.ViewModel
 			}
 			else
 			{   //Register window closed by user.
+				App.Logger.Info("Register cancelled.");
 			}
 		}
 		[RelayCommand]
 		public void Login(Window loginWindow)
 		{
 			if (userNameError || passWordError) return;
+			App.Logger.Info("Logging in.");
 			LoginFailed = false;
 			StringBuilder stringBuilder = new StringBuilder();
 			foreach (byte hash in SHA1.Create().ComputeHash(Encoding.ASCII.GetBytes(Password)))
@@ -150,6 +156,7 @@ namespace StdEqpTesting.ViewModel
 					dataReader = cmd.ExecuteReader();
 					if (!dataReader.HasRows)
 					{
+						App.Logger.Info("Login failed.");
 						LoginFailed = true;
 						Status = Loc.LoginFailedStatus;
 						connection.CloseAsync();
@@ -168,6 +175,7 @@ namespace StdEqpTesting.ViewModel
 							tag = dataReader.IsDBNull(5) ? null : dataReader.GetString(5)
 						};
 						connection.CloseAsync();
+						App.Logger.Info($"Login successful.\nUsername: {userInfo.username}	Type: {userInfo.type}\nStarting main view.");
 						//Starts main view.
 						MainViewWindow mainView = new MainViewWindow(userInfo);
 						mainView.Show();
@@ -176,6 +184,7 @@ namespace StdEqpTesting.ViewModel
 					}
 					else
 					{   //PW incorrect.
+						App.Logger.Info("Login failed.");
 						LoginFailed = true; //UI picks this up and do some animations.
 						Status = Loc.LoginFailedStatus;
 					}

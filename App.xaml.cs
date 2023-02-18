@@ -11,8 +11,10 @@ namespace StdEqpTesting
 	/// </summary>
 	public partial class App : Application
 	{
+		public static readonly NLog.Logger Logger = NLog.LogManager.GetCurrentClassLogger();    //Global Logger initialize
 		public App()
 		{
+			Logger.Info("The application is starting.");
 			#region Load settings.
 			try
 			{
@@ -20,13 +22,17 @@ namespace StdEqpTesting
 			}
 			catch (System.Exception ex)
 			{
+				Logger.Warn(ex.Message);
 				Task.Run(() => MessageBox.Show($"{ex.Message}\nThe app will now use zh-CN as default language.", "Nope", MessageBoxButton.OK, MessageBoxImage.Asterisk));
 				CultureInfo.CurrentUICulture = new CultureInfo("zh-CN");
 			}
 			#endregion
 			#region Check db existance.
+			Logger.Trace("Checking database");
 			if (!File.Exists(StdEqpTesting.Properties.Settings.Default.DBConnString))
 			{
+				Logger.Info("Database not found, initializing a new one.");
+				//Must use '\' here since the settings is formatted like this.
 				Directory.CreateDirectory(StdEqpTesting.Properties.Settings.Default.DBConnString.Remove(StdEqpTesting.Properties.Settings.Default.DBConnString.LastIndexOf('\\')));
 				using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = StdEqpTesting.Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWriteCreate }.ToString()))
 				{
@@ -44,6 +50,12 @@ namespace StdEqpTesting
 				}
 			}
 			#endregion
+			Current.Exit += Current_Exit;
+		}
+
+		private void Current_Exit(object sender, ExitEventArgs e)
+		{
+			Logger.Info($"The application has exited. [{e.ApplicationExitCode}]");
 		}
 	}
 }

@@ -15,8 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.1" />
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
+    <PackageReference Include="NLog" Version="5.1.2" />
     <PackageReference Include="NPOI" Version="2.6.0" />
     <PackageReference Include="OxyPlot.Core" Version="2.1.2" />
     <PackageReference Include="OxyPlot.Wpf" Version="2.1.2" />
@@ -43,6 +44,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="NLog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
