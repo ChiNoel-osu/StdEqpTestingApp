@@ -123,8 +123,8 @@ namespace StdEqpTesting.ViewModel
 					}
 					catch (SqliteException e)
 					{
-						App.Logger.Info("Register failed.\n" + e.Message);
-						MessageBox.Show(e.ToString(), Loc.RegisterFailMsgBoxTitle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+						App.Logger.Info("Register failed.\n" + e.ToString());
+						MessageBox.Show(e.Message, Loc.RegisterFailMsgBoxTitle, MessageBoxButton.OK, MessageBoxImage.Exclamation);
 					}
 					connection.CloseAsync();
 				}
@@ -177,7 +177,7 @@ namespace StdEqpTesting.ViewModel
 						connection.CloseAsync();
 						App.Logger.Info($"Login successful.\nUsername: {userInfo.username}	Type: {userInfo.type}\nStarting main view.");
 						//Starts main view.
-						MainViewWindow mainView = new MainViewWindow(userInfo);
+						HomeViewWindow mainView = new HomeViewWindow(userInfo);
 						mainView.Show();
 						loginWindow.Close();
 						return;
@@ -191,7 +191,8 @@ namespace StdEqpTesting.ViewModel
 				}
 				catch (SqliteException e)
 				{
-					MessageBox.Show(e.ToString(), "sth is wrong", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+					App.Logger.Error("Something is wrong when logging in.\n" + e.ToString());
+					MessageBox.Show(e.Message, "sth is wrong", MessageBoxButton.OK, MessageBoxImage.Exclamation);
 				}
 				connection.CloseAsync();
 			}

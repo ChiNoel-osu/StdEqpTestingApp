@@ -17,6 +17,16 @@
 		<Setter	Property="CaretBrush"
 				Value="{DynamicResource GlobalCaret}" />
 	</Style>
+	<Style TargetType="{x:Type Separator}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Separator}">
+					<Rectangle Height="{TemplateBinding Height}"
+							   Fill="{TemplateBinding Background}" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
 	<!--#region GlobalButtonStyle-->
 	<SolidColorBrush x:Key="Button.Static.Border"
 					 Color="Gray" />
@@ -26,6 +36,14 @@
 					 Color="Red" />
 	<SolidColorBrush x:Key="Button.Disabled.Foreground"
 					 Color="DarkGray" />
+	<SolidColorBrush x:Key="Button.MouseOver.Background"
+					 Color="Transparent" />
+	<SolidColorBrush x:Key="Button.MouseOver.Border"
+					 Color="CornflowerBlue" />
+	<SolidColorBrush x:Key="Button.Pressed.Background"
+					 Color="Transparent" />
+	<SolidColorBrush x:Key="Button.Pressed.Border"
+					 Color="#FF2C628B" />
 	<Style x:Key="GlobalButtonStyle"
 		   TargetType="{x:Type Button}">
 		<Setter Property="Background"
@@ -99,6 +117,85 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+	</Style>
+	<!--#endregion-->
+	<!--#region RadioButtonTabStyle-->
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Background"
+					 Color="Transparent" />
+	<SolidColorBrush x:Key="RadioButton.MouseOver.Border"
+					 Color="CornflowerBlue" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Background"
+					 Color="Transparent" />
+	<SolidColorBrush x:Key="RadioButton.Pressed.Border"
+					 Color="#FF2C628B" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Background"
+					 Color="#FFE6E6E6" />
+	<SolidColorBrush x:Key="RadioButton.Disabled.Border"
+					 Color="#FFBCBCBC" />
+	<Style x:Key="RadioButtonTabStyle"
+		   TargetType="{x:Type RadioButton}">
+		<Setter Property="Background"
+				Value="Transparent" />
+		<Setter Property="Foreground"
+				Value="{DynamicResource GlobalFG}" />
+		<Setter Property="BorderBrush"
+				Value="Transparent" />
+		<Setter Property="BorderThickness"
+				Value="0" />
+		<Setter Property="Focusable"
+				Value="False" />
+		<Setter Property="Padding"
+				Value="8,4,8,5" />
+		<Setter Property="Margin"
+				Value="0,6,0,0" />
+		<Setter Property="FontSize"
+				Value="14" />
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type RadioButton}">
+					<Border x:Name="radioButtonBorder"
+							Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							SnapsToDevicePixels="true">
+						<ContentPresenter x:Name="contentPresenter"
+										  Focusable="False"
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+										  Margin="{TemplateBinding Padding}"
+										  RecognizesAccessKey="True"
+										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+					</Border>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsChecked"
+					 Value="True">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+											From="Transparent"
+											To="Aquamarine"
+											Duration="0:0:0.2" />
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
+											From="Aquamarine"
+											To="Transparent"
+											Duration="0:0:0.2" />
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+				<Setter Property="Foreground"
+						Value="Black" />
+			</Trigger>
+		</Style.Triggers>
 	</Style>
 	<!--#endregion-->
 	<!--#region ThemeButtonStyle-->

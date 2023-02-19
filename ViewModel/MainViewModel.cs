@@ -2,6 +2,6 @@
 {
 	public class MainViewModel
 	{
-		public MainViewVM MainViewVM { get; set; } = new MainViewVM();
+		public HomeViewVM HomeViewVM { get; set; } = new HomeViewVM();
 	}
 }

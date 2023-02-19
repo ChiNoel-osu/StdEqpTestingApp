@@ -6,12 +6,12 @@ using System.Windows.Controls;
 namespace StdEqpTesting.View
 {
 	/// <summary>
-	/// MainView.xaml 的交互逻辑
+	/// HomeViewWindow.xaml 的交互逻辑
 	/// </summary>
-	public partial class MainViewWindow : Window
+	public partial class HomeViewWindow : Window
 	{
 		public static MainViewModel MainVM { get; } = new MainViewModel();
-		public MainViewWindow(UserInfo userInfo)
+		public HomeViewWindow(UserInfo userInfo)
 		{
 			InitializeComponent();
 			DataContext = MainVM;
