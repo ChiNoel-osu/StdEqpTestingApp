@@ -16,4 +16,9 @@
 					 Color="White" />
 	<SolidColorBrush x:Key="GlobalPressedBD"
 					 Color="Indigo" />
+	<Color x:Key="CRed"
+		   R="255"
+		   G="0"
+		   B="0"
+		   A="255" />
 </ResourceDictionary>

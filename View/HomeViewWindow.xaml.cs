@@ -11,6 +11,8 @@ namespace StdEqpTesting.View
 	public partial class HomeViewWindow : Window
 	{
 		public static MainViewModel MainVM { get; } = new MainViewModel();
+		readonly System.Uri darkUri = new System.Uri($"pack://application:,,,/Theme/Dark.xaml");
+		readonly System.Uri lightUri = new System.Uri($"pack://application:,,,/Theme/Light.xaml");
 		public HomeViewWindow(UserInfo userInfo)
 		{
 			InitializeComponent();
@@ -20,12 +22,12 @@ namespace StdEqpTesting.View
 			if (userInfo.theme == 0)
 			{
 				ThemeBtn.Content = "☀";
-				Resources.MergedDictionaries[0].Source = new System.Uri($"pack://application:,,,/Theme/Dark.xaml");
+				Resources.MergedDictionaries[0].Source = darkUri;
 			}
 			else if (userInfo.theme == 1)
 			{
 				ThemeBtn.Content = "🌙";
-				Resources.MergedDictionaries[0].Source = new System.Uri($"pack://application:,,,/Theme/Light.xaml");
+				Resources.MergedDictionaries[0].Source = lightUri;
 			}
 		}
 
@@ -34,12 +36,12 @@ namespace StdEqpTesting.View
 			if (((Button)sender).Content.ToString() == "🌙")
 			{
 				((Button)sender).Content = "☀";
-				Resources.MergedDictionaries[0].Source = new System.Uri($"pack://application:,,,/Theme/Dark.xaml");
+				Resources.MergedDictionaries[0].Source = darkUri;
 			}
 			else if (((Button)sender).Content.ToString() == "☀")
 			{
 				((Button)sender).Content = "🌙";
-				Resources.MergedDictionaries[0].Source = new System.Uri($"pack://application:,,,/Theme/Light.xaml");
+				Resources.MergedDictionaries[0].Source = lightUri;
 			}
 		}
 	}

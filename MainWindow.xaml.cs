@@ -15,9 +15,10 @@ namespace StdEqpTesting
 			InitializeComponent();
 			DataContext = MainVM;
 
+			//Comment below 3 lines to init normal startup
 			HomeViewWindow mainViewWindow = new HomeViewWindow(new Model.UserInfo { ID = 0, theme = 0, type = 0, username = "VicTest" });
 			mainViewWindow.Show();
-			Close();    //For testing. Closes the window right after running code MainWindowVM
+			Close();
 		}
 	}
 }

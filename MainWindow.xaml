@@ -18,9 +18,6 @@
 			<RowDefinition />
 			<RowDefinition />
 		</Grid.RowDefinitions>
-		<oxy:PlotView Grid.Row="0"
-					  Model="{Binding MainWindowVM.Plot1}"
-					  Background="#1E1E1E" />
 		<Button Content="CLICK ME"
 				HorizontalAlignment="Right"
 				VerticalAlignment="Top"

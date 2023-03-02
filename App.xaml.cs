@@ -55,7 +55,7 @@ namespace StdEqpTesting
 
 		private void Current_Exit(object sender, ExitEventArgs e)
 		{
-			Logger.Info($"The application has exited. [{e.ApplicationExitCode}]");
+			Logger.Info($"The application has stopped. [{e.ApplicationExitCode}]");
 		}
 	}
 }
