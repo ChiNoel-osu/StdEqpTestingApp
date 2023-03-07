@@ -150,4 +150,34 @@ And should have at least 4 characters.</value>
   <data name="LoginFailedStatus" xml:space="preserve">
     <value>Wrong username or password.</value>
   </data>
+  <data name="NavTest" xml:space="preserve">
+    <value>Test</value>
+  </data>
+  <data name="NavReview" xml:space="preserve">
+    <value>Review</value>
+  </data>
+  <data name="NavExport" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="NavSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="StatusReady" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="StatusLoggedIn" xml:space="preserve">
+    <value>User %User (%Type) has logged in.</value>
+  </data>
+  <data name="RawDataTitle" xml:space="preserve">
+    <value>Raw Data</value>
+  </data>
+  <data name="NoCOMTabHeader" xml:space="preserve">
+    <value>No COM port detected</value>
+  </data>
+  <data name="NoCOMTabInstruction" xml:space="preserve">
+    <value>Please check your settings and press F5 to refresh.</value>
+  </data>
+  <data name="RefreshBtn" xml:space="preserve">
+    <value>🔄 Refresh</value>
+  </data>
 </root>

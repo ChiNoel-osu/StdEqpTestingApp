@@ -16,6 +16,7 @@ namespace StdEqpTesting.ViewModel
 	public partial class LoginWindowVM : ObservableObject, IDataErrorInfo
 	{
 		public string Username { get; set; }
+		[PasswordPropertyText]
 		public string Password { get; set; }
 		[ObservableProperty]
 		bool _NoInputError = false; //Button IsEnabled

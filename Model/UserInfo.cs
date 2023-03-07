@@ -1,6 +1,6 @@
 ﻿namespace StdEqpTesting.Model
 {
-	public class UserInfo
+	public struct UserInfo
 	{
 		public int ID;
 		public string username;

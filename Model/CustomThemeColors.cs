@@ -2,15 +2,15 @@
 
 namespace StdEqpTesting.Model
 {
-	public static class CustomThemeColors
+	public struct CustomThemeColors
 	{
-		public static class DarkTheme
+		public readonly struct DarkTheme
 		{
 			public static readonly SolidColorBrush BackgroundBrush = new SolidColorBrush(Color.FromRgb(30, 30, 30));
 			public static readonly SolidColorBrush ForegroundBrush = new SolidColorBrush(Colors.White);
 			public static readonly SolidColorBrush CaretBrush = new SolidColorBrush(Colors.WhiteSmoke);
 		}
-		public static class LightTheme
+		public readonly struct LightTheme
 		{
 			public static readonly SolidColorBrush BackgroundBrush = new SolidColorBrush(Colors.White);
 			public static readonly SolidColorBrush ForegroundBrush = new SolidColorBrush(Colors.Black);

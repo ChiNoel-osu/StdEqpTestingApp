@@ -1,0 +1,291 @@
+﻿<UserControl xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:local="clr-namespace:StdEqpTesting.View"
+			 xmlns:loc="clr-namespace:StdEqpTesting.Localization"
+			 xmlns:viewmodel="clr-namespace:StdEqpTesting.ViewModel"
+			 xmlns:Converter="clr-namespace:StdEqpTesting.Converter"
+			 x:Class="StdEqpTesting.View.NavTest"
+			 d:DataContext="{d:DesignInstance Type={x:Type viewmodel:MainViewModel}}"
+			 mc:Ignorable="d"
+			 d:DesignHeight="450"
+			 d:DesignWidth="600">
+	<!--This keeps the designer happy. The real resource is inherited from HomeViewWindow.-->
+	<d:UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/Theme/Dark.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/View/GlobalRescDict.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</d:UserControl.Resources>
+	<UserControl.Resources>
+		<Converter:InvertedBool2VisibilityConverter x:Key="InvertedBool2VisibilityConverter" />
+		<Converter:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter" />
+	</UserControl.Resources>
+	<UserControl.InputBindings>
+		<KeyBinding Key="F5"
+					Command="{Binding NavTestVM.ReGetCOMListCommand, Mode=OneWay}" />
+	</UserControl.InputBindings>
+	<TabControl Margin="10,5"
+				BorderThickness="0"
+				Background="Transparent"
+				SelectedIndex="{Binding NavTestVM.TabIndex}"
+				ItemsSource="{Binding NavTestVM.TabItemSource, Mode=OneWay}"
+				d:ItemsSource="{d:SampleData ItemCount=5}">
+		<TabControl.Resources>
+			<!--#region TestTabItemStyle-->
+			<SolidColorBrush x:Key="TabItem.MouseOver.Background"
+							 Color="Transparent" />
+			<SolidColorBrush x:Key="TabItem.Selected.Background"
+							 Color="Transparent" />
+			<SolidColorBrush x:Key="TabItem.Selected.Border"
+							 Color="CornflowerBlue" />
+			<SolidColorBrush x:Key="TabItem.Disabled.Background"
+							 Color="Transparent" />
+			<SolidColorBrush x:Key="TabItem.Disabled.Border"
+							 Color="Red" />
+			<Style TargetType="{x:Type TabItem}">
+				<Setter Property="Foreground"
+						Value="{DynamicResource GlobalFG}" />
+				<Setter Property="Background"
+						Value="Transparent" />
+				<Setter Property="BorderBrush"
+						Value="{DynamicResource CheckedTabBG}" />
+				<Setter Property="BorderThickness"
+						Value="2" />
+				<Setter Property="FontWeight"
+						Value="Bold" />
+				<Setter Property="FontSize"
+						Value="14" />
+				<Setter Property="FontFamily"
+						Value="Cascadia Code" />
+				<Setter Property="Margin"
+						Value="0,0,0,-3" />
+				<Setter Property="Padding"
+						Value="5,0" />
+				<Setter Property="HorizontalContentAlignment"
+						Value="Stretch" />
+				<Setter Property="VerticalContentAlignment"
+						Value="Stretch" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type TabItem}">
+							<Grid x:Name="templateRoot"
+								  SnapsToDevicePixels="true">
+								<Border x:Name="mainBorder"
+										Background="{TemplateBinding Background}"
+										BorderBrush="{TemplateBinding BorderBrush}"
+										BorderThickness="1,1,1,0"
+										Margin="0">
+									<Border x:Name="innerBorder"
+											Background="{StaticResource TabItem.Selected.Background}"
+											BorderBrush="{StaticResource TabItem.Selected.Border}"
+											BorderThickness="1,1,1,0"
+											Margin="-1"
+											Opacity="0" />
+								</Border>
+								<ContentPresenter x:Name="contentPresenter"
+												  ContentSource="Header"
+												  Focusable="False"
+												  HorizontalAlignment="{Binding HorizontalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}"
+												  Margin="{TemplateBinding Padding}"
+												  RecognizesAccessKey="True"
+												  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+												  VerticalAlignment="{Binding VerticalContentAlignment, RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}}" />
+							</Grid>
+							<ControlTemplate.Triggers>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
+												   Value="true" />
+										<Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+												   Value="Top" />
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Background"
+											TargetName="mainBorder"
+											Value="{StaticResource TabItem.MouseOver.Background}" />
+									<Setter Property="BorderBrush"
+											TargetName="mainBorder"
+											Value="{DynamicResource TabMouseOverBD}" />
+									<Setter Property="BorderThickness"
+											TargetName="innerBorder"
+											Value="1,1,1,0" />
+									<Setter Property="BorderThickness"
+											TargetName="mainBorder"
+											Value="1,1,1,0" />
+								</MultiDataTrigger>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}"
+												   Value="false" />
+										<Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+												   Value="Top" />
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Opacity"
+											TargetName="contentPresenter"
+											Value="0.56" />
+									<Setter Property="Background"
+											TargetName="mainBorder"
+											Value="{StaticResource TabItem.Disabled.Background}" />
+									<Setter Property="BorderBrush"
+											TargetName="mainBorder"
+											Value="{StaticResource TabItem.Disabled.Border}" />
+									<Setter Property="BorderThickness"
+											TargetName="innerBorder"
+											Value="1,1,1,0" />
+									<Setter Property="BorderThickness"
+											TargetName="mainBorder"
+											Value="1,1,1,0" />
+								</MultiDataTrigger>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+												   Value="false" />
+										<Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+												   Value="Top" />
+									</MultiDataTrigger.Conditions>
+									<Setter Property="BorderThickness"
+											TargetName="innerBorder"
+											Value="1,1,1,0" />
+									<Setter Property="BorderThickness"
+											TargetName="mainBorder"
+											Value="1,1,1,0" />
+								</MultiDataTrigger>
+								<MultiDataTrigger>
+									<MultiDataTrigger.Conditions>
+										<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+												   Value="true" />
+										<Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+												   Value="Top" />
+									</MultiDataTrigger.Conditions>
+									<Setter Property="Panel.ZIndex"
+											Value="1" />
+									<Setter Property="Margin"
+											Value="0,0,0,-2" />
+									<Setter Property="Padding"
+											Value="5,0" />
+									<Setter Property="Opacity"
+											TargetName="innerBorder"
+											Value="1" />
+									<Setter Property="BorderThickness"
+											TargetName="innerBorder"
+											Value="1,1,1,4" />
+									<Setter Property="BorderThickness"
+											TargetName="mainBorder"
+											Value="1,1,1,0" />
+								</MultiDataTrigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<!--#endregion-->
+		</TabControl.Resources>
+		<TabControl.ContentTemplate>
+			<DataTemplate>
+				<Grid>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="200" />
+					</Grid.ColumnDefinitions>
+					<Border BorderThickness="2"
+							BorderBrush="CornflowerBlue"
+							Grid.ColumnSpan="2">
+						<Border.OpacityMask>
+							<ImageBrush ImageSource="/View/TabOpacityMask.png" />
+						</Border.OpacityMask>
+					</Border>
+					<StackPanel Grid.Column="0"
+								Visibility="{Binding NoCOM, Converter={StaticResource Bool2VisibilityConverter}, Mode=OneWay}"
+								d:Visibility="Collapsed">
+						<Label Content="{x:Static loc:Loc.NoCOMTabHeader}"
+							   HorizontalAlignment="Center"
+							   FontSize="25"
+							   Margin="0,20,0,0"
+							   FontWeight="Bold"
+							   Foreground="Red" />
+						<Label Content="{x:Static loc:Loc.NoCOMTabInstruction}"
+							   HorizontalAlignment="Center"
+							   FontSize="15" />
+						<Button Content="{x:Static loc:Loc.RefreshBtn}"
+								Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl}, Mode=FindAncestor}, Path=DataContext.NavTestVM.ReGetCOMListCommand, Mode=OneWay}"
+								Margin="0,10,0,0"
+								FontSize="15"
+								Height="50"
+								Width="100"
+								Style="{DynamicResource GlobalButtonStyle}" />
+					</StackPanel>
+					<Grid Grid.Column="0"
+						  Visibility="{Binding NoCOM, Converter={StaticResource InvertedBool2VisibilityConverter}, Mode=OneWay}">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="*" />
+							<RowDefinition Height="*" />
+							<RowDefinition Height="*" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*" />
+						</Grid.ColumnDefinitions>
+
+						<Button Grid.Row="1"
+								Grid.Column="0"
+								Margin="50,30"
+								Content="FUCK YOU"
+								Style="{DynamicResource GlobalButtonStyle}" />
+					</Grid>
+					<DockPanel Grid.Column="1">
+						<Label Content="{x:Static loc:Loc.RawDataTitle}"
+							   FontFamily="Bahnschrift"
+							   FontSize="20"
+							   Margin="0,-22,0,0"
+							   DockPanel.Dock="Top" />
+						<ListBox DockPanel.Dock="Bottom"
+								 Foreground="{DynamicResource GlobalFG}"
+								 Background="Transparent"
+								 ItemsSource="{Binding DataListBox}"
+								 FontFamily="Consolas"
+								 HorizontalContentAlignment="Stretch"
+								 d:ItemsSource="{d:SampleData ItemCount=5}">
+							<ListBox.ItemTemplate>
+								<DataTemplate>
+									<DockPanel HorizontalAlignment="Stretch">
+										<TextBlock DockPanel.Dock="Left"
+												   Text="{Binding Index, StringFormat=\{0:D2\}}"
+												   VerticalAlignment="Center"
+												   Padding="0,0,4,0" />
+										<Separator DockPanel.Dock="Left"
+												   Width="1"
+												   Background="Gray"
+												   Margin="0,6,5,6" />
+										<TextBlock DockPanel.Dock="Left"
+												   VerticalAlignment="Center"
+												   FontSize="20"
+												   Text="{Binding Value}"
+												   Margin="0,-2,0,0" />
+										<Button DockPanel.Dock="Right"
+												FontFamily="Webdings"
+												Content="r"
+												Style="{DynamicResource GlobalButtonStyle}"
+												BorderBrush="Red"
+												Width="20"
+												Height="20"
+												HorizontalAlignment="Right"
+												Padding="0,0,0.5,0.6" />
+									</DockPanel>
+								</DataTemplate>
+							</ListBox.ItemTemplate>
+						</ListBox>
+					</DockPanel>
+				</Grid>
+			</DataTemplate>
+		</TabControl.ContentTemplate>
+		<TabControl.ItemTemplate>
+			<DataTemplate>
+				<Label Content="{Binding Header}" />
+			</DataTemplate>
+		</TabControl.ItemTemplate>
+	</TabControl>
+</UserControl>

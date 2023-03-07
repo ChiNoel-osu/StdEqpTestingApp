@@ -3,11 +3,11 @@
 namespace StdEqpTesting.View
 {
 	/// <summary>
-	/// Nav1.xaml 的交互逻辑
+	/// NavSettings.xaml 的交互逻辑
 	/// </summary>
-	public partial class Nav1 : UserControl
+	public partial class NavSettings : UserControl
 	{
-		public Nav1()
+		public NavSettings()
 		{
 			InitializeComponent();
 		}

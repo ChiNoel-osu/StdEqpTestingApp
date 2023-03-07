@@ -1,12 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using QuestPDF.Fluent;
-using QuestPDF.Helpers;
-using QuestPDF.Infrastructure;
-using QuestPDF.Previewer;
 using StdEqpTesting.Model;
 using StdEqpTesting.View;
 using System;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace StdEqpTesting.ViewModel
 {
@@ -16,31 +14,55 @@ namespace StdEqpTesting.ViewModel
 		public UserTypeEnum UserType { get; set; }
 
 		[ObservableProperty]
-		System.Windows.Controls.UserControl _Content = Nav1;
+		System.Windows.Controls.UserControl _Content = navTest;
 		[ObservableProperty]
-		string _MainStatus = "Ready";
+		string _MainStatus = Localization.Loc.StatusReady;
+		[ObservableProperty]
+		string _SecondaryStatus = Localization.Loc.MainWndTitle;
 
 		#region Navigation Stuff
-		static readonly Nav1 Nav1 = new Nav1();
-		static readonly Nav2 Nav2 = new Nav2();
-		bool _Nav1Checked = true;
-		public bool Nav1Checked
+		static readonly NavTest navTest = new NavTest();
+		static readonly NavReview navReview = new NavReview();
+		static readonly NavExport navExport = new NavExport();
+		static readonly NavSettings navSettings = new NavSettings();
+		bool _NavTestChecked = true;
+		public bool NavTestChecked
 		{
-			get => _Nav1Checked;
+			get => _NavTestChecked;
 			set
 			{
-				if (_Nav1Checked = value) Content = Nav1;
-				OnPropertyChanged(nameof(Nav1Checked));
+				if (_NavTestChecked = value) Content = navTest;
+				OnPropertyChanged(nameof(NavTestChecked));
 			}
 		}
-		bool _Nav2Checked = false;
-		public bool Nav2Checked
+		bool _NavReviewChecked = false;
+		public bool NavReviewChecked
 		{
-			get => _Nav2Checked;
+			get => _NavReviewChecked;
 			set
 			{
-				if (_Nav2Checked = value) Content = Nav2;
-				OnPropertyChanged(nameof(Nav2Checked));
+				if (_NavReviewChecked = value) Content = navReview;
+				OnPropertyChanged(nameof(NavReviewChecked));
+			}
+		}
+		bool _NavExportChecked = false;
+		public bool NavExportChecked
+		{
+			get => _NavExportChecked;
+			set
+			{
+				if (_NavExportChecked = value) Content = navExport;
+				OnPropertyChanged(nameof(NavExportChecked));
+			}
+		}
+		bool _NavSettingsChecked = false;
+		public bool NavSettingsChecked
+		{
+			get => _NavSettingsChecked;
+			set
+			{
+				if (_NavSettingsChecked = value) Content = navSettings;
+				OnPropertyChanged(nameof(NavSettingsChecked));
 			}
 		}
 		[RelayCommand]
@@ -48,8 +70,10 @@ namespace StdEqpTesting.ViewModel
 		{
 			switch (TabNumber)
 			{
-				case "1": Content = Nav1; Nav1Checked = true; break;
-				case "2": Content = Nav2; Nav2Checked = true; break;
+				case "1": Content = navTest; NavTestChecked = true; break;
+				case "2": Content = navReview; NavReviewChecked = true; break;
+				case "3": Content = navExport; NavExportChecked = true; break;
+				case "O": Content = navSettings; NavSettingsChecked = true; break;
 				default: throw new NotImplementedException();
 			}
 		}
@@ -57,31 +81,37 @@ namespace StdEqpTesting.ViewModel
 
 		public HomeViewVM()
 		{
-			Document.Create(container =>
+			//Display login info in second status.
+			Task.Run(() =>
 			{
-				container.Page(page =>
-				{
-					page.Size(PageSizes.A4);
-					page.Margin(2, Unit.Centimetre);
-					page.PageColor(Colors.White);
-					page.DefaultTextStyle(x => x.FontSize(20));
+				Thread.Sleep(1000);
+				SecondaryStatus = Localization.Loc.StatusLoggedIn.Replace("%User", UserName).Replace("%Type", UserType.ToString());
+			});
+			//Document.Create(container =>
+			//{
+			//	container.Page(page =>
+			//	{
+			//		page.Size(PageSizes.A4);
+			//		page.Margin(2, Unit.Centimetre);
+			//		page.PageColor(Colors.White);
+			//		page.DefaultTextStyle(x => x.FontSize(20));
 
-					page.Header().Text("标题").SemiBold().FontSize(40).FontColor(Colors.Red.Lighten1).FontFamily("FZLanTingHei-DB-GBK");
+			//		page.Header().Text("标题").SemiBold().FontSize(40).FontColor(Colors.Red.Lighten1).FontFamily("FZLanTingHei-DB-GBK");
 
-					page.Content().PaddingVertical(1, Unit.Centimetre).Column(x =>
-					{
-						x.Spacing(20);
+			//		page.Content().PaddingVertical(1, Unit.Centimetre).Column(x =>
+			//		{
+			//			x.Spacing(20);
 
-						x.Item().Text(Placeholders.LoremIpsum());
-						x.Item().Image(Placeholders.Image(200, 100));
-					});
+			//			x.Item().Text(Placeholders.LoremIpsum());
+			//			x.Item().Image(Placeholders.Image(200, 100));
+			//		});
 
-					page.Footer().AlignCenter().Text(x =>
-					{
-						x.CurrentPageNumber().FontSize(10); x.Span("/").FontSize(10); x.TotalPages().FontSize(10);
-					});
-				});
-			}).ShowInPreviewerAsync();
+			//		page.Footer().AlignCenter().Text(x =>
+			//		{
+			//			x.CurrentPageNumber().FontSize(10); x.Span("/").FontSize(10); x.TotalPages().FontSize(10);
+			//		});
+			//	});
+			//}).ShowInPreviewerAsync();
 		}
 	}
 }

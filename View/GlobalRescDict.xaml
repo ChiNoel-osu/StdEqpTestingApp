@@ -1,6 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-					xmlns:converter="clr-namespace:StdEqpTesting.Converter">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<Style TargetType="{x:Type Label}">
 		<Setter Property="Foreground"
 				Value="{DynamicResource GlobalFG}" />
@@ -145,9 +144,7 @@
 		<Setter Property="Focusable"
 				Value="False" />
 		<Setter Property="Padding"
-				Value="8,4,8,5" />
-		<Setter Property="Margin"
-				Value="0,6,0,0" />
+				Value="8,4,8,6" />
 		<Setter Property="FontSize"
 				Value="14" />
 		<Setter Property="Template">
@@ -169,33 +166,6 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
-		<Style.Triggers>
-			<Trigger Property="IsChecked"
-					 Value="True">
-				<Trigger.EnterActions>
-					<BeginStoryboard>
-						<Storyboard>
-							<ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-											From="Transparent"
-											To="Aquamarine"
-											Duration="0:0:0.2" />
-						</Storyboard>
-					</BeginStoryboard>
-				</Trigger.EnterActions>
-				<Trigger.ExitActions>
-					<BeginStoryboard>
-						<Storyboard>
-							<ColorAnimation Storyboard.TargetProperty="Background.(SolidColorBrush.Color)"
-											From="Aquamarine"
-											To="Transparent"
-											Duration="0:0:0.2" />
-						</Storyboard>
-					</BeginStoryboard>
-				</Trigger.ExitActions>
-				<Setter Property="Foreground"
-						Value="Black" />
-			</Trigger>
-		</Style.Triggers>
 	</Style>
 	<!--#endregion-->
 	<!--#region ThemeButtonStyle-->
@@ -274,5 +244,4 @@
 		</Setter>
 	</Style>
 	<!--#endregion-->
-	<converter:Bool2VisivilityConverter x:Key="B2VC" />
 </ResourceDictionary>
