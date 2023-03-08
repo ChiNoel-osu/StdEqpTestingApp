@@ -9,8 +9,8 @@
 			 x:Class="StdEqpTesting.View.NavTest"
 			 d:DataContext="{d:DesignInstance Type={x:Type viewmodel:MainViewModel}}"
 			 mc:Ignorable="d"
-			 d:DesignHeight="450"
-			 d:DesignWidth="600">
+			 d:DesignHeight="500"
+			 d:DesignWidth="800">
 	<!--This keeps the designer happy. The real resource is inherited from HomeViewWindow.-->
 	<d:UserControl.Resources>
 		<ResourceDictionary>
@@ -20,6 +20,7 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</d:UserControl.Resources>
+	<!--Converters needs to be specified again, for some reason it can't get thing from RescDic.-->
 	<UserControl.Resources>
 		<Converter:InvertedBool2VisibilityConverter x:Key="InvertedBool2VisibilityConverter" />
 		<Converter:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter" />
@@ -182,6 +183,113 @@
 				</Setter>
 			</Style>
 			<!--#endregion-->
+			<Style x:Key="ExpanderUpHeaderStyle"
+				   TargetType="{x:Type ToggleButton}">
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type ToggleButton}">
+							<Border x:Name="border"
+									BorderThickness="1"
+									HorizontalAlignment="Center"
+									BorderBrush="Gray">
+								<Label Content="{x:Static loc:Loc.PortPropExpander}"
+									   Padding="0,5,0,-5"
+									   Foreground="{DynamicResource GlobalFG}"
+									   d:Foreground="White"
+									   HorizontalAlignment="Center" />
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsMouseOver"
+										 Value="True">
+									<Setter TargetName="border"
+											Property="BorderBrush"
+											Value="CornflowerBlue" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
+			<Style x:Key="PortPropExpanderStyle"
+				   TargetType="{x:Type Expander}">
+				<Setter Property="Foreground"
+						Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+				<Setter Property="Background"
+						Value="Transparent" />
+				<Setter Property="HorizontalContentAlignment"
+						Value="Stretch" />
+				<Setter Property="VerticalContentAlignment"
+						Value="Stretch" />
+				<Setter Property="BorderBrush"
+						Value="Transparent" />
+				<Setter Property="BorderThickness"
+						Value="0" />
+				<Setter Property="Template">
+					<Setter.Value>
+						<ControlTemplate TargetType="{x:Type Expander}">
+							<Border Background="{TemplateBinding Background}"
+									BorderBrush="{TemplateBinding BorderBrush}"
+									BorderThickness="{TemplateBinding BorderThickness}"
+									CornerRadius="3"
+									SnapsToDevicePixels="true">
+								<DockPanel>
+									<ToggleButton x:Name="HeaderSite"
+												  ContentTemplate="{TemplateBinding HeaderTemplate}"
+												  Content="{TemplateBinding Header}"
+												  ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+												  DockPanel.Dock="Top"
+												  FontStretch="{TemplateBinding FontStretch}"
+												  Foreground="{TemplateBinding Foreground}"
+												  FontStyle="{TemplateBinding FontStyle}"
+												  FontFamily="{TemplateBinding FontFamily}"
+												  FontWeight="{TemplateBinding FontWeight}"
+												  FontSize="{TemplateBinding FontSize}"
+												  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+												  IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+												  Margin="1"
+												  MinWidth="0"
+												  MinHeight="0"
+												  Padding="{TemplateBinding Padding}"
+												  Style="{StaticResource ExpanderUpHeaderStyle}"
+												  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" />
+									<ContentPresenter x:Name="ExpandSite"
+													  DockPanel.Dock="Bottom"
+													  Focusable="false"
+													  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+													  Margin="{TemplateBinding Padding}"
+													  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+													  Visibility="Collapsed" />
+								</DockPanel>
+							</Border>
+							<ControlTemplate.Triggers>
+								<Trigger Property="IsExpanded"
+										 Value="true">
+									<Setter Property="Visibility"
+											TargetName="ExpandSite"
+											Value="Visible" />
+								</Trigger>
+								<Trigger Property="ExpandDirection"
+										 Value="Up">
+									<Setter Property="DockPanel.Dock"
+											TargetName="ExpandSite"
+											Value="Top" />
+									<Setter Property="DockPanel.Dock"
+											TargetName="HeaderSite"
+											Value="Bottom" />
+									<Setter Property="Style"
+											TargetName="HeaderSite"
+											Value="{StaticResource ExpanderUpHeaderStyle}" />
+								</Trigger>
+								<Trigger Property="IsEnabled"
+										 Value="false">
+									<Setter Property="Foreground"
+											Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+								</Trigger>
+							</ControlTemplate.Triggers>
+						</ControlTemplate>
+					</Setter.Value>
+				</Setter>
+			</Style>
 		</TabControl.Resources>
 		<TabControl.ContentTemplate>
 			<DataTemplate>
@@ -190,6 +298,7 @@
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="200" />
 					</Grid.ColumnDefinitions>
+					<!--Decorative border-->
 					<Border BorderThickness="2"
 							BorderBrush="CornflowerBlue"
 							Grid.ColumnSpan="2">
@@ -197,6 +306,7 @@
 							<ImageBrush ImageSource="/View/TabOpacityMask.png" />
 						</Border.OpacityMask>
 					</Border>
+					<!--No COM Port-->
 					<StackPanel Grid.Column="0"
 								Visibility="{Binding NoCOM, Converter={StaticResource Bool2VisibilityConverter}, Mode=OneWay}"
 								d:Visibility="Collapsed">
@@ -214,14 +324,12 @@
 								Margin="0,10,0,0"
 								FontSize="15"
 								Height="50"
-								Width="100"
-								Style="{DynamicResource GlobalButtonStyle}" />
+								Width="100" />
 					</StackPanel>
+					<!--Has COM Port-->
 					<Grid Grid.Column="0"
 						  Visibility="{Binding NoCOM, Converter={StaticResource InvertedBool2VisibilityConverter}, Mode=OneWay}">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="*" />
-							<RowDefinition Height="*" />
 							<RowDefinition Height="*" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
@@ -229,13 +337,234 @@
 							<ColumnDefinition Width="*" />
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
-
-						<Button Grid.Row="1"
-								Grid.Column="0"
-								Margin="50,30"
-								Content="FUCK YOU"
-								Style="{DynamicResource GlobalButtonStyle}" />
+						<DockPanel Grid.Row="0"
+								   Grid.Column="0">
+							<Expander Style="{DynamicResource PortPropExpanderStyle}"
+									  DockPanel.Dock="Top"
+									  HorizontalContentAlignment="Center"
+									  VerticalContentAlignment="Top"
+									  ExpandDirection="Up"
+									  Margin="0,5,0,2"
+									  Focusable="False"
+									  IsExpanded="{Binding PropExpanded}">
+								<Grid DockPanel.Dock="Top"
+									  Height="Auto"
+									  Margin="10,0">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="*" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*" />
+										<RowDefinition Height="*" />
+										<RowDefinition Height="*" />
+										<RowDefinition Height="*" />
+									</Grid.RowDefinitions>
+									<Grid.Resources>
+										<d:Style TargetType="{x:Type Label}">
+											<Setter Property="Foreground"
+													Value="White" />
+										</d:Style>
+									</Grid.Resources>
+									<StackPanel Grid.Row="0"
+												Grid.Column="0"
+												Orientation="Horizontal"
+												HorizontalAlignment="Right">
+										<Label Content="{Binding BaudRate, Mode=OneWay}" />
+										<Label Content="{x:Static loc:Loc.BaudRate}"
+											   FontWeight="Bold" />
+									</StackPanel>
+									<StackPanel Grid.Row="1"
+												Grid.Column="0"
+												Orientation="Horizontal"
+												HorizontalAlignment="Right">
+										<Label Content="{Binding Parity, Mode=OneWay}" />
+										<Label Content="{x:Static loc:Loc.Parity}"
+											   FontWeight="Bold" />
+									</StackPanel>
+									<StackPanel Grid.Row="2"
+												Grid.Column="0"
+												Orientation="Horizontal"
+												HorizontalAlignment="Right">
+										<Label Content="{Binding DataBits, Mode=OneWay}" />
+										<Label Content="{x:Static loc:Loc.DataBits}"
+											   FontWeight="Bold" />
+									</StackPanel>
+									<StackPanel Grid.Row="3"
+												Grid.Column="0"
+												Orientation="Horizontal"
+												HorizontalAlignment="Right">
+										<Label Content="{Binding StopBits, Mode=OneWay}" />
+										<Label Content="{x:Static loc:Loc.StopBits}"
+											   FontWeight="Bold" />
+									</StackPanel>
+									<StackPanel Grid.Row="0"
+												Grid.Column="1"
+												Orientation="Horizontal">
+										<Label Content="{x:Static loc:Loc.Handshake}"
+											   FontWeight="Bold" />
+										<Label Content="{Binding Handshake, Mode=OneWay}" />
+									</StackPanel>
+									<StackPanel Grid.Row="1"
+												Grid.Column="1"
+												Orientation="Horizontal">
+										<Label Content="{x:Static loc:Loc.Encoding}"
+											   FontWeight="Bold" />
+										<Label Content="{Binding Encoding, Mode=OneWay}" />
+									</StackPanel>
+									<StackPanel Grid.Row="2"
+												Grid.Column="1"
+												Orientation="Horizontal">
+										<Label Content="{x:Static loc:Loc.ReadT}"
+											   FontWeight="Bold" />
+										<Label Content="{Binding ReadTimeout, Mode=OneWay}" />
+									</StackPanel>
+									<StackPanel Grid.Row="3"
+												Grid.Column="1"
+												Orientation="Horizontal">
+										<Label Content="{x:Static loc:Loc.WriteT}"
+											   FontWeight="Bold" />
+										<Label Content="{Binding WriteTimeout, Mode=OneWay}" />
+									</StackPanel>
+								</Grid>
+							</Expander>
+							<Button DockPanel.Dock="Bottom"
+									FontSize="20"
+									Command="{Binding ConnectCommand, Mode=OneWay}"
+									Margin="20,0">
+								<Button.Style>
+									<Style TargetType="{x:Type Button}">
+										<Setter Property="Background"
+												Value="{DynamicResource GlobalBG}" />
+										<d:Setter Property="Background"
+												  Value="Transparent" />
+										<Setter Property="BorderBrush"
+												Value="Gray" />
+										<Setter Property="Foreground"
+												Value="{DynamicResource GlobalFG}" />
+										<d:Setter Property="Foreground"
+												  Value="White" />
+										<Setter Property="BorderThickness"
+												Value="2" />
+										<Setter Property="Template">
+											<Setter.Value>
+												<ControlTemplate TargetType="{x:Type ButtonBase}">
+													<Border x:Name="border"
+															Background="{TemplateBinding Background}"
+															BorderBrush="{TemplateBinding BorderBrush}"
+															BorderThickness="{TemplateBinding BorderThickness}"
+															SnapsToDevicePixels="true">
+														<StackPanel HorizontalAlignment="Center"
+																	VerticalAlignment="Center">
+															<ContentPresenter x:Name="contentPresenter"
+																			  Focusable="False"
+																			  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+																			  Margin="{TemplateBinding Padding}"
+																			  RecognizesAccessKey="True"
+																			  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+																			  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+															<Border BorderBrush="Gray"
+																	BorderThickness="2"
+																	CornerRadius="10"
+																	SnapsToDevicePixels="False"
+																	Margin="0,4,0,0">
+																<Rectangle x:Name="rect"
+																		   Fill="DarkGray"
+																		   Height="20"
+																		   RadiusX="10"
+																		   RadiusY="8" />
+															</Border>
+														</StackPanel>
+													</Border>
+													<ControlTemplate.Triggers>
+														<Trigger Property="Button.IsDefaulted"
+																 Value="true">
+															<Setter Property="BorderBrush"
+																	TargetName="border"
+																	Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+														</Trigger>
+														<Trigger Property="IsMouseOver"
+																 Value="true">
+															<Setter Property="BorderBrush"
+																	TargetName="border"
+																	Value="{DynamicResource GlobalMouseoverBD}" />
+															<Trigger.EnterActions>
+																<BeginStoryboard>
+																	<Storyboard>
+																		<ThicknessAnimation Storyboard.TargetProperty="BorderThickness"
+																							From="2"
+																							To="3"
+																							Duration="0:0:0.5">
+																			<ThicknessAnimation.EasingFunction>
+																				<CircleEase EasingMode="EaseOut" />
+																			</ThicknessAnimation.EasingFunction>
+																		</ThicknessAnimation>
+																	</Storyboard>
+																</BeginStoryboard>
+															</Trigger.EnterActions>
+															<Trigger.ExitActions>
+																<BeginStoryboard>
+																	<Storyboard>
+																		<ThicknessAnimation Storyboard.TargetProperty="BorderThickness"
+																							From="3"
+																							To="2"
+																							AccelerationRatio="0.8"
+																							Duration="0:0:0.2" />
+																	</Storyboard>
+																</BeginStoryboard>
+															</Trigger.ExitActions>
+														</Trigger>
+														<Trigger Property="IsPressed"
+																 Value="true">
+															<Setter Property="Background"
+																	TargetName="border"
+																	Value="{DynamicResource GlobalPressedBG}" />
+															<Setter Property="BorderBrush"
+																	TargetName="border"
+																	Value="{DynamicResource GlobalPressedBD}" />
+														</Trigger>
+														<DataTrigger Binding="{Binding PortOpened}"
+																	 Value="True">
+															<Setter TargetName="rect"
+																	Property="Fill"
+																	Value="Lime" />
+														</DataTrigger>
+													</ControlTemplate.Triggers>
+												</ControlTemplate>
+											</Setter.Value>
+										</Setter>
+										<Setter Property="Content"
+												Value="{x:Static loc:Loc.OpenPort}" />
+										<Style.Triggers>
+											<DataTrigger Binding="{Binding PortOpened}"
+														 Value="True">
+												<Setter Property="Content"
+														Value="{x:Static loc:Loc.ClosePort}" />
+											</DataTrigger>
+										</Style.Triggers>
+									</Style>
+								</Button.Style>
+							</Button>
+						</DockPanel>
+						<DockPanel Grid.Row="1"
+								   Grid.Column="1"
+								   HorizontalAlignment="Left"
+								   VerticalAlignment="Top">
+							<Label DockPanel.Dock="Top"
+								   d:Foreground="White"
+								   Content="Recv. String" />
+							<TextBox DockPanel.Dock="Top"
+									 HorizontalContentAlignment="Left"
+									 VerticalContentAlignment="Center"
+									 Text="{Binding Message}"
+									 FontSize="20"
+									 MinWidth="200"
+									 Foreground="{DynamicResource GlobalFG}"
+									 HorizontalAlignment="Center"
+									 VerticalAlignment="Center" />
+						</DockPanel>
 					</Grid>
+					<!--Raw data view-->
 					<DockPanel Grid.Column="1">
 						<Label Content="{x:Static loc:Loc.RawDataTitle}"
 							   FontFamily="Bahnschrift"
@@ -268,7 +597,6 @@
 										<Button DockPanel.Dock="Right"
 												FontFamily="Webdings"
 												Content="r"
-												Style="{DynamicResource GlobalButtonStyle}"
 												BorderBrush="Red"
 												Width="20"
 												Height="20"
@@ -284,7 +612,7 @@
 		</TabControl.ContentTemplate>
 		<TabControl.ItemTemplate>
 			<DataTemplate>
-				<Label Content="{Binding Header}" />
+				<Label Content="{Binding PortName}" />
 			</DataTemplate>
 		</TabControl.ItemTemplate>
 	</TabControl>

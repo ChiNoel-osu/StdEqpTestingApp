@@ -61,6 +61,51 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Baud Rate 的本地化字符串。
+        /// </summary>
+        public static string BaudRate {
+            get {
+                return ResourceManager.GetString("BaudRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Close Port 的本地化字符串。
+        /// </summary>
+        public static string ClosePort {
+            get {
+                return ResourceManager.GetString("ClosePort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Data Bits 的本地化字符串。
+        /// </summary>
+        public static string DataBits {
+            get {
+                return ResourceManager.GetString("DataBits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Encoding 的本地化字符串。
+        /// </summary>
+        public static string Encoding {
+            get {
+                return ResourceManager.GetString("Encoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Handshake 的本地化字符串。
+        /// </summary>
+        public static string Handshake {
+            get {
+                return ResourceManager.GetString("Handshake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Login 的本地化字符串。
         /// </summary>
         public static string LoginButton {
@@ -207,11 +252,47 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Open Port 的本地化字符串。
+        /// </summary>
+        public static string OpenPort {
+            get {
+                return ResourceManager.GetString("OpenPort", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Parity 的本地化字符串。
+        /// </summary>
+        public static string Parity {
+            get {
+                return ResourceManager.GetString("Parity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 ^^^^Properties^^^^ 的本地化字符串。
+        /// </summary>
+        public static string PortPropExpander {
+            get {
+                return ResourceManager.GetString("PortPropExpander", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Raw Data 的本地化字符串。
         /// </summary>
         public static string RawDataTitle {
             get {
                 return ResourceManager.GetString("RawDataTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Read Timeout 的本地化字符串。
+        /// </summary>
+        public static string ReadT {
+            get {
+                return ResourceManager.GetString("ReadT", resourceCulture);
             }
         }
         
@@ -302,6 +383,24 @@ namespace StdEqpTesting.Localization {
         public static string StatusReady {
             get {
                 return ResourceManager.GetString("StatusReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Stop Bits 的本地化字符串。
+        /// </summary>
+        public static string StopBits {
+            get {
+                return ResourceManager.GetString("StopBits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Write Timeout 的本地化字符串。
+        /// </summary>
+        public static string WriteT {
+            get {
+                return ResourceManager.GetString("WriteT", resourceCulture);
             }
         }
     }

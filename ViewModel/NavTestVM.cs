@@ -16,7 +16,7 @@ namespace StdEqpTesting.ViewModel
 		int _TabIndex = 0;
 
 		List<string> COMList = new List<string>();
-		readonly TestTabItemModel noCOM = new TestTabItemModel(false) { Header = Localization.Loc.NoCOMTabHeader };
+		readonly TestTabItemModel noCOM = new TestTabItemModel(false) { PortName = Localization.Loc.NoCOMTabHeader };
 
 		[RelayCommand]
 		public void ReGetCOMList()
@@ -29,7 +29,7 @@ namespace StdEqpTesting.ViewModel
 					if (COMList.Contains(COM))
 						continue;   //Skip existing ports.
 					COMList.Add(COM);   //Add missing ports.
-					TabItemSource.Add(new TestTabItemModel() { Header = COM });
+					TabItemSource.Add(new TestTabItemModel() { PortName = COM });
 				}
 			else    //The number of ports has decreased.
 				foreach (string COM in COMList.ToArray())
@@ -37,7 +37,7 @@ namespace StdEqpTesting.ViewModel
 					if (portNames.Contains(COM))
 						continue;   //The port still exists, don't delete.
 					COMList.Remove(COM);    //Remove missing ports.
-					TabItemSource.Remove(TabItemSource.First(p => p.Header == COM));
+					TabItemSource.Remove(TabItemSource.First(p => p.PortName == COM));
 				}
 			if (COMList.Count == 0 && !TabItemSource.Contains(noCOM))
 			{

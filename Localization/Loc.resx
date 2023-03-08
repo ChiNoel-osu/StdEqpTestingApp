@@ -180,4 +180,37 @@ And should have at least 4 characters.</value>
   <data name="RefreshBtn" xml:space="preserve">
     <value>🔄 Refresh</value>
   </data>
+  <data name="OpenPort" xml:space="preserve">
+    <value>Open Port</value>
+  </data>
+  <data name="ClosePort" xml:space="preserve">
+    <value>Close Port</value>
+  </data>
+  <data name="BaudRate" xml:space="preserve">
+    <value>Baud Rate</value>
+  </data>
+  <data name="Parity" xml:space="preserve">
+    <value>Parity</value>
+  </data>
+  <data name="DataBits" xml:space="preserve">
+    <value>Data Bits</value>
+  </data>
+  <data name="StopBits" xml:space="preserve">
+    <value>Stop Bits</value>
+  </data>
+  <data name="Handshake" xml:space="preserve">
+    <value>Handshake</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>Encoding</value>
+  </data>
+  <data name="ReadT" xml:space="preserve">
+    <value>Read Timeout</value>
+  </data>
+  <data name="WriteT" xml:space="preserve">
+    <value>Write Timeout</value>
+  </data>
+  <data name="PortPropExpander" xml:space="preserve">
+    <value>^^^^Properties^^^^</value>
+  </data>
 </root>

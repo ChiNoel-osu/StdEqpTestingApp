@@ -200,4 +200,37 @@
   <data name="RefreshBtn" xml:space="preserve">
     <value>🔄 刷新</value>
   </data>
+  <data name="OpenPort" xml:space="preserve">
+    <value>打开串口</value>
+  </data>
+  <data name="ClosePort" xml:space="preserve">
+    <value>关闭串口</value>
+  </data>
+  <data name="BaudRate" xml:space="preserve">
+    <value>波特率</value>
+  </data>
+  <data name="Parity" xml:space="preserve">
+    <value>校验</value>
+  </data>
+  <data name="DataBits" xml:space="preserve">
+    <value>数据位</value>
+  </data>
+  <data name="StopBits" xml:space="preserve">
+    <value>停止位</value>
+  </data>
+  <data name="Handshake" xml:space="preserve">
+    <value>握手模式</value>
+  </data>
+  <data name="Encoding" xml:space="preserve">
+    <value>编码</value>
+  </data>
+  <data name="ReadT" xml:space="preserve">
+    <value>读取超时</value>
+  </data>
+  <data name="WriteT" xml:space="preserve">
+    <value>写入超时</value>
+  </data>
+  <data name="PortPropExpander" xml:space="preserve">
+    <value>^^^^串口参数^^^^</value>
+  </data>
 </root>

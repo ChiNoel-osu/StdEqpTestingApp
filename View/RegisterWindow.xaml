@@ -52,7 +52,6 @@
 						 HorizontalContentAlignment="Center"
 						 VerticalContentAlignment="Center" />
 			<Button Content="{x:Static loc:Loc.RegisterButton}"
-					Style="{DynamicResource GlobalButtonStyle}"
 					Name="RegButton"
 					IsEnabled="False"
 					Click="RegButton_Click"
