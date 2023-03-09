@@ -171,7 +171,7 @@
     <value>用户名或密码错误.</value>
   </data>
   <data name="NavTest" xml:space="preserve">
-    <value>测量</value>
+    <value>测量 (COM设备)</value>
   </data>
   <data name="NavReview" xml:space="preserve">
     <value>评估</value>
@@ -188,8 +188,8 @@
   <data name="StatusLoggedIn" xml:space="preserve">
     <value>用户 %User (%Type) 已登录.</value>
   </data>
-  <data name="RawDataTitle" xml:space="preserve">
-    <value>原始数据</value>
+  <data name="SaveDataTitle" xml:space="preserve">
+    <value>数据列表</value>
   </data>
   <data name="NoCOMTabHeader" xml:space="preserve">
     <value>未能检测到COM接口</value>
@@ -232,5 +232,14 @@
   </data>
   <data name="PortPropExpander" xml:space="preserve">
     <value>^^^^串口参数^^^^</value>
+  </data>
+  <data name="RecvStr" xml:space="preserve">
+    <value>接收字符串</value>
+  </data>
+  <data name="NavTestUSB" xml:space="preserve">
+    <value>测量 (USB设备)</value>
+  </data>
+  <data name="NavTestNET" xml:space="preserve">
+    <value>测量 (网络设备)</value>
   </data>
 </root>

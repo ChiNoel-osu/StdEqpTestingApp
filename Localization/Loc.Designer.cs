@@ -225,11 +225,29 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Test 的本地化字符串。
+        ///   查找类似 Measure (COM) 的本地化字符串。
         /// </summary>
         public static string NavTest {
             get {
                 return ResourceManager.GetString("NavTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Measure (Net) 的本地化字符串。
+        /// </summary>
+        public static string NavTestNET {
+            get {
+                return ResourceManager.GetString("NavTestNET", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Measure (USB) 的本地化字符串。
+        /// </summary>
+        public static string NavTestUSB {
+            get {
+                return ResourceManager.GetString("NavTestUSB", resourceCulture);
             }
         }
         
@@ -279,20 +297,20 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Raw Data 的本地化字符串。
-        /// </summary>
-        public static string RawDataTitle {
-            get {
-                return ResourceManager.GetString("RawDataTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 Read Timeout 的本地化字符串。
         /// </summary>
         public static string ReadT {
             get {
                 return ResourceManager.GetString("ReadT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Recv. String 的本地化字符串。
+        /// </summary>
+        public static string RecvStr {
+            get {
+                return ResourceManager.GetString("RecvStr", resourceCulture);
             }
         }
         
@@ -365,6 +383,15 @@ namespace StdEqpTesting.Localization {
         public static string RegisterWndTitle {
             get {
                 return ResourceManager.GetString("RegisterWndTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Data List 的本地化字符串。
+        /// </summary>
+        public static string SaveDataTitle {
+            get {
+                return ResourceManager.GetString("SaveDataTitle", resourceCulture);
             }
         }
         

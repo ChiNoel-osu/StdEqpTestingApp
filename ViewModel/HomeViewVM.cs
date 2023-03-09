@@ -22,6 +22,8 @@ namespace StdEqpTesting.ViewModel
 
 		#region Navigation Stuff
 		static readonly NavTest navTest = new NavTest();
+		static readonly NavTestUSB navTestUSB = new NavTestUSB();
+		static readonly NavTestNet navTestNet = new NavTestNet();
 		static readonly NavReview navReview = new NavReview();
 		static readonly NavExport navExport = new NavExport();
 		static readonly NavSettings navSettings = new NavSettings();
@@ -33,6 +35,26 @@ namespace StdEqpTesting.ViewModel
 			{
 				if (_NavTestChecked = value) Content = navTest;
 				OnPropertyChanged(nameof(NavTestChecked));
+			}
+		}
+		bool _NavTestUSBChecked = false;
+		public bool NavTestUSBChecked
+		{
+			get => _NavTestUSBChecked;
+			set
+			{
+				if (_NavTestUSBChecked = value) Content = navTestUSB;
+				OnPropertyChanged(nameof(NavTestUSBChecked));
+			}
+		}
+		bool _NavTestNetChecked = false;
+		public bool NavTestNetChecked
+		{
+			get => _NavTestNetChecked;
+			set
+			{
+				if (_NavTestNetChecked = value) Content = navTestNet;
+				OnPropertyChanged(nameof(NavTestNetChecked));
 			}
 		}
 		bool _NavReviewChecked = false;
@@ -71,8 +93,10 @@ namespace StdEqpTesting.ViewModel
 			switch (TabNumber)
 			{
 				case "1": Content = navTest; NavTestChecked = true; break;
-				case "2": Content = navReview; NavReviewChecked = true; break;
-				case "3": Content = navExport; NavExportChecked = true; break;
+				case "2": Content = navTestUSB; NavTestUSBChecked = true; break;
+				case "3": Content = navTestNet; NavTestNetChecked = true; break;
+				case "4": Content = navReview; NavReviewChecked = true; break;
+				case "5": Content = navExport; NavExportChecked = true; break;
 				case "O": Content = navSettings; NavSettingsChecked = true; break;
 				default: throw new NotImplementedException();
 			}

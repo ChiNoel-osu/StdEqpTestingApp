@@ -163,7 +163,7 @@
 		<Setter Property="Foreground"
 				Value="{DynamicResource GlobalFG}" />
 		<Setter Property="BorderBrush"
-				Value="Transparent" />
+				Value="CornflowerBlue" />
 		<Setter Property="BorderThickness"
 				Value="0" />
 		<Setter Property="Focusable"
@@ -191,6 +191,55 @@
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
+		<Style.Triggers>
+			<Trigger Property="IsMouseOver"
+					 Value="True">
+				<Trigger.EnterActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<ThicknessAnimation Storyboard.TargetProperty="BorderThickness"
+												From="0"
+												To="0,0,0,4"
+												Duration="0:0:0.3">
+								<ThicknessAnimation.EasingFunction>
+									<CircleEase EasingMode="EaseOut" />
+								</ThicknessAnimation.EasingFunction>
+							</ThicknessAnimation>
+							<ThicknessAnimation Storyboard.TargetProperty="Padding"
+												From="8,4,8,6"
+												To="8,4,8,2"
+												Duration="0:0:0.3">
+								<ThicknessAnimation.EasingFunction>
+									<CircleEase EasingMode="EaseOut" />
+								</ThicknessAnimation.EasingFunction>
+							</ThicknessAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard>
+						<Storyboard>
+							<ThicknessAnimation Storyboard.TargetProperty="BorderThickness"
+												From="0,0,0,4"
+												To="0"
+												Duration="0:0:0.4">
+								<ThicknessAnimation.EasingFunction>
+									<CircleEase EasingMode="EaseIn" />
+								</ThicknessAnimation.EasingFunction>
+							</ThicknessAnimation>
+							<ThicknessAnimation Storyboard.TargetProperty="Padding"
+												From="8,4,8,2"
+												To="8,4,8,6"
+												Duration="0:0:0.4">
+								<ThicknessAnimation.EasingFunction>
+									<CircleEase EasingMode="EaseIn" />
+								</ThicknessAnimation.EasingFunction>
+							</ThicknessAnimation>
+						</Storyboard>
+					</BeginStoryboard>
+				</Trigger.ExitActions>
+			</Trigger>
+		</Style.Triggers>
 	</Style>
 	<!--#endregion-->
 	<!--#region ThemeButtonStyle-->
