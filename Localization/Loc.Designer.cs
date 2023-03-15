@@ -61,11 +61,110 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Additional Info 的本地化字符串。
+        /// </summary>
+        public static string AddInfo {
+            get {
+                return ResourceManager.GetString("AddInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Add -&gt; 的本地化字符串。
+        /// </summary>
+        public static string AddRecvStr {
+            get {
+                return ResourceManager.GetString("AddRecvStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Add a Unit 的本地化字符串。
+        /// </summary>
+        public static string AddUnit {
+            get {
+                return ResourceManager.GetString("AddUnit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Addition Failed: Unit is empty or whitespace. 的本地化字符串。
+        /// </summary>
+        public static string AddUnitFail_Empty {
+            get {
+                return ResourceManager.GetString("AddUnitFail_Empty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Addition Failed: Unit already exists. 的本地化字符串。
+        /// </summary>
+        public static string AddUnitFail_Existed {
+            get {
+                return ResourceManager.GetString("AddUnitFail_Existed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Addition Successful. 的本地化字符串。
+        /// </summary>
+        public static string AddUnitSucc {
+            get {
+                return ResourceManager.GetString("AddUnitSucc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Save current unit to a file for future use. 的本地化字符串。
+        /// </summary>
+        public static string AddUnitTT {
+            get {
+                return ResourceManager.GetString("AddUnitTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Auto add 的本地化字符串。
+        /// </summary>
+        public static string AutoAddRecvStr {
+            get {
+                return ResourceManager.GetString("AutoAddRecvStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Automatically add the received string to data list if no more data is received in 1 second. 的本地化字符串。
+        /// </summary>
+        public static string AutoAddRecvStrTT {
+            get {
+                return ResourceManager.GetString("AutoAddRecvStrTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Baud Rate 的本地化字符串。
         /// </summary>
         public static string BaudRate {
             get {
                 return ResourceManager.GetString("BaudRate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Auto clear 的本地化字符串。
+        /// </summary>
+        public static string ClearAfterAddingRecvStr {
+            get {
+                return ResourceManager.GetString("ClearAfterAddingRecvStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Clear received string after it&apos;s been added to the data list. 的本地化字符串。
+        /// </summary>
+        public static string ClearAfterAddingRecvStrTT {
+            get {
+                return ResourceManager.GetString("ClearAfterAddingRecvStrTT", resourceCulture);
             }
         }
         
@@ -93,6 +192,15 @@ namespace StdEqpTesting.Localization {
         public static string Encoding {
             get {
                 return ResourceManager.GetString("Encoding", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Found %Num COM device(s). 的本地化字符串。
+        /// </summary>
+        public static string FoundCOMDevices {
+            get {
+                return ResourceManager.GetString("FoundCOMDevices", resourceCulture);
             }
         }
         
@@ -419,6 +527,24 @@ namespace StdEqpTesting.Localization {
         public static string StopBits {
             get {
                 return ResourceManager.GetString("StopBits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Test Name 的本地化字符串。
+        /// </summary>
+        public static string TestName {
+            get {
+                return ResourceManager.GetString("TestName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Unit of Measurement 的本地化字符串。
+        /// </summary>
+        public static string UoM {
+            get {
+                return ResourceManager.GetString("UoM", resourceCulture);
             }
         }
         

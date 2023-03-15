@@ -222,4 +222,46 @@ And should have at least 4 characters.</value>
   <data name="NavTestNET" xml:space="preserve">
     <value>Measure (Net)</value>
   </data>
+  <data name="FoundCOMDevices" xml:space="preserve">
+    <value>Found %Num COM device(s).</value>
+  </data>
+  <data name="AddRecvStr" xml:space="preserve">
+    <value>Add -&gt;</value>
+  </data>
+  <data name="AutoAddRecvStr" xml:space="preserve">
+    <value>Auto add</value>
+  </data>
+  <data name="AutoAddRecvStrTT" xml:space="preserve">
+    <value>Automatically add the received string to data list if no more data is received in 1 second.</value>
+  </data>
+  <data name="ClearAfterAddingRecvStr" xml:space="preserve">
+    <value>Auto clear</value>
+  </data>
+  <data name="ClearAfterAddingRecvStrTT" xml:space="preserve">
+    <value>Clear received string after it's been added to the data list.</value>
+  </data>
+  <data name="AddInfo" xml:space="preserve">
+    <value>Additional Info</value>
+  </data>
+  <data name="TestName" xml:space="preserve">
+    <value>Test Name</value>
+  </data>
+  <data name="UoM" xml:space="preserve">
+    <value>Unit of Measurement</value>
+  </data>
+  <data name="AddUnit" xml:space="preserve">
+    <value>Add a Unit</value>
+  </data>
+  <data name="AddUnitTT" xml:space="preserve">
+    <value>Save current unit to a file for future use.</value>
+  </data>
+  <data name="AddUnitFail_Existed" xml:space="preserve">
+    <value>Addition Failed: Unit already exists.</value>
+  </data>
+  <data name="AddUnitFail_Empty" xml:space="preserve">
+    <value>Addition Failed: Unit is empty or whitespace.</value>
+  </data>
+  <data name="AddUnitSucc" xml:space="preserve">
+    <value>Addition Successful.</value>
+  </data>
 </root>

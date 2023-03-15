@@ -15,10 +15,6 @@ namespace StdEqpTesting.ViewModel
 
 		[ObservableProperty]
 		System.Windows.Controls.UserControl _Content = navTest;
-		[ObservableProperty]
-		string _MainStatus = Localization.Loc.StatusReady;
-		[ObservableProperty]
-		string _SecondaryStatus = Localization.Loc.MainWndTitle;
 
 		#region Navigation Stuff
 		static readonly NavTest navTest = new NavTest();
@@ -105,12 +101,6 @@ namespace StdEqpTesting.ViewModel
 
 		public HomeViewVM()
 		{
-			//Display login info in second status.
-			Task.Run(() =>
-			{
-				Thread.Sleep(1000);
-				SecondaryStatus = Localization.Loc.StatusLoggedIn.Replace("%User", UserName).Replace("%Type", UserType.ToString());
-			});
 			//Document.Create(container =>
 			//{
 			//	container.Page(page =>

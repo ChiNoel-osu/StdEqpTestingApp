@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO.Ports;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace StdEqpTesting.ViewModel
 {
@@ -16,11 +18,12 @@ namespace StdEqpTesting.ViewModel
 		int _TabIndex = 0;
 
 		List<string> COMList = new List<string>();
-		readonly TestTabItemModel noCOM = new TestTabItemModel(false) { PortName = Localization.Loc.NoCOMTabHeader };
 
+		readonly TestTabItemModel noCOM = new TestTabItemModel(false) { PortName = Localization.Loc.NoCOMTabHeader };
 		[RelayCommand]
 		public void ReGetCOMList()
 		{
+			App.Logger.Info("COM list refresh requested.");
 			int tempTabIndex = TabIndex;    //Can have minor visual bugs.
 			string[] portNames = SerialPort.GetPortNames();
 			if (portNames.Length >= COMList.Count)  //The number of ports has increased or not changed.
@@ -40,18 +43,25 @@ namespace StdEqpTesting.ViewModel
 					TabItemSource.Remove(TabItemSource.First(p => p.PortName == COM));
 				}
 			if (COMList.Count == 0 && !TabItemSource.Contains(noCOM))
-			{
+			{   //No COM device.
 				TabItemSource.Add(noCOM);
 				tempTabIndex = 0;
 			}
 			else if (COMList.Count != 0)
 				TabItemSource.Remove(noCOM);
 			TabIndex = tempTabIndex;
+			MainViewModel.MainVM?.UpdateMainStatus(Localization.Loc.FoundCOMDevices.Replace("%Num", COMList.Count.ToString()), true);
 		}
 
 		public NavTestVM()
 		{
 			ReGetCOMList();
+			//Update status. Delay 1 sec otherwise MainVM would be null.
+			Task.Run(() =>
+			{
+				Thread.Sleep(1000);
+				MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.FoundCOMDevices.Replace("%Num", COMList.Count.ToString()), true);
+			});
 		}
 	}
 }

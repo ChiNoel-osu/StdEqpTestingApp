@@ -38,7 +38,7 @@ namespace StdEqpTesting.ViewModel
 			get
 			{
 				if (itCount <= 2) itCount++;
-				string? errorMsg = string.Empty;
+				string? errorMsg;
 				switch (data)
 				{
 					case nameof(Username):

@@ -242,4 +242,46 @@
   <data name="NavTestNET" xml:space="preserve">
     <value>测量 (网络设备)</value>
   </data>
+  <data name="FoundCOMDevices" xml:space="preserve">
+    <value>检测到 %Num 个COM设备.</value>
+  </data>
+  <data name="AddRecvStr" xml:space="preserve">
+    <value>添加 -&gt;</value>
+  </data>
+  <data name="AutoAddRecvStr" xml:space="preserve">
+    <value>自动添加</value>
+  </data>
+  <data name="AutoAddRecvStrTT" xml:space="preserve">
+    <value>1秒内没有收到更多数据时将现有数据添加至数据列表.</value>
+  </data>
+  <data name="ClearAfterAddingRecvStr" xml:space="preserve">
+    <value>自动清除</value>
+  </data>
+  <data name="ClearAfterAddingRecvStrTT" xml:space="preserve">
+    <value>添加到数据列表后清除接收字符串框.</value>
+  </data>
+  <data name="AddInfo" xml:space="preserve">
+    <value>补充信息</value>
+  </data>
+  <data name="TestName" xml:space="preserve">
+    <value>测试名称</value>
+  </data>
+  <data name="UoM" xml:space="preserve">
+    <value>测量单位</value>
+  </data>
+  <data name="AddUnit" xml:space="preserve">
+    <value>添加单位</value>
+  </data>
+  <data name="AddUnitTT" xml:space="preserve">
+    <value>保存当前单位以供以后使用.</value>
+  </data>
+  <data name="AddUnitFail_Existed" xml:space="preserve">
+    <value>添加失败: 单位已存在.</value>
+  </data>
+  <data name="AddUnitFail_Empty" xml:space="preserve">
+    <value>添加失败: 单位为空字符串或空格.</value>
+  </data>
+  <data name="AddUnitSucc" xml:space="preserve">
+    <value>添加成功.</value>
+  </data>
 </root>

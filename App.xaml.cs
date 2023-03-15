@@ -31,7 +31,7 @@ namespace StdEqpTesting
 			Logger.Trace("Checking database");
 			if (!File.Exists(StdEqpTesting.Properties.Settings.Default.DBConnString))
 			{
-				Logger.Info("Database not found, initializing a new one.");
+				Logger.Warn("Database not found, initializing a new one.");
 				//Must use '\' here since the settings is formatted like this.
 				Directory.CreateDirectory(StdEqpTesting.Properties.Settings.Default.DBConnString.Remove(StdEqpTesting.Properties.Settings.Default.DBConnString.LastIndexOf('\\')));
 				using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = StdEqpTesting.Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWriteCreate }.ToString()))

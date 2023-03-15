@@ -1,7 +1,10 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using StdEqpTesting.Localization;
+using StdEqpTesting.ViewModel;
 using System;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.IO.Ports;
 using System.Text;
 using System.Threading;
@@ -10,17 +13,31 @@ using System.Windows;
 
 namespace StdEqpTesting.Model
 {
+	//It's more like a ViewModel now but whatever.
 	public partial class TestTabItemModel : ObservableObject
 	{
 		[ObservableProperty]
 		ObservableCollection<TestDataModel> _DataListBox = new ObservableCollection<TestDataModel>();
 		[ObservableProperty]
-		bool _PortOpened = false;
-		[ObservableProperty]
-		bool _PropExpanded = true;
-		[ObservableProperty]
 		string _Message;
+		[ObservableProperty]
+		ObservableCollection<string> _UnitList = new ObservableCollection<string>();
+		[ObservableProperty]
+		bool _PortOpened = false;
 
+		//Props that doesn't need to be observed (not updating constantly on UI).
+		public bool PropExpanded { get; set; } = false;
+		public string AdditionalInfo { get; set; } = string.Empty;
+		public bool AutoAdd { get; set; } = false;
+		public bool AutoClear { get; set; } = true;
+		public string TestName { get; set; } = string.Empty;
+		public string MeaUnit { get; set; } = string.Empty;
+
+		public bool IsUnitAdded = false;    //Animation in code-behind.
+
+		CancellationTokenSource cts;
+		CancellationToken ct;
+		SerialPort serialPort = new SerialPort();
 		[RelayCommand]
 		public void Connect()
 		{
@@ -29,6 +46,7 @@ namespace StdEqpTesting.Model
 				cts.Cancel();
 				serialPort.Close();
 				cts.Dispose();
+				MainViewModel.MainVM.LogSth($"Serial port {PortName} closed.", 2);
 			}
 			else
 			{
@@ -58,19 +76,37 @@ namespace StdEqpTesting.Model
 							Thread.Sleep(100);
 						}
 					}, ct);
+					MainViewModel.MainVM.LogSth($"Serial port {PortName} opened.", 2);
 				}
 				catch (Exception e)
 				{   //TODO: Make it pretty.
+					MainViewModel.MainVM.LogSth(e.ToString(), 4);
 					MessageBox.Show(e.Message);
 				}
 			}
 			PortOpened = serialPort.IsOpen;
 		}
 
-		CancellationTokenSource cts;
-		CancellationToken ct;
-
-		SerialPort serialPort = new SerialPort();
+		public void AddUnit()
+		{
+			if (UnitList.Contains(MeaUnit))
+			{   //Unit already added.
+				IsUnitAdded = false;
+				MainViewModel.MainVM.UpdateSecStatus(Loc.AddUnitFail_Existed, true, 3);
+			}
+			else if (string.IsNullOrWhiteSpace(MeaUnit))
+			{   //Unit invalid.
+				IsUnitAdded = false;
+				MainViewModel.MainVM.UpdateSecStatus(Loc.AddUnitFail_Empty, true, 3);
+			}
+			else
+			{
+				IsUnitAdded = true;
+				UnitList.Add(MeaUnit);
+				File.WriteAllLines($"Database{Path.DirectorySeparatorChar}Units.txt", UnitList);
+				MainViewModel.MainVM.UpdateSecStatus(Loc.AddUnitSucc, true);
+			}
+		}
 
 		public bool NoCOM { get; }
 
@@ -89,6 +125,14 @@ namespace StdEqpTesting.Model
 		public TestTabItemModel(bool hasCOM = true)
 		{
 			NoCOM = !hasCOM;
+			//Read units from file.
+			if (File.Exists($"Database{Path.DirectorySeparatorChar}Units.txt"))
+			{
+				string[] unitsInFile = File.ReadAllLines($"Database{Path.DirectorySeparatorChar}Units.txt");
+				_UnitList.Clear();
+				foreach (string unit in unitsInFile)
+					UnitList.Add(unit);
+			}
 		}
 	}
 }

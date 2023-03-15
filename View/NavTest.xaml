@@ -22,7 +22,6 @@
 	</d:UserControl.Resources>
 	<!--Converters needs to be specified again, for some reason it can't get thing from RescDic.-->
 	<UserControl.Resources>
-		<Converter:DoubleSubtractByConverter x:Key="DoubleSubtractByConverter" />
 		<Converter:InvertedBool2VisibilityConverter x:Key="InvertedBool2VisibilityConverter" />
 		<Converter:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter" />
 	</UserControl.Resources>
@@ -327,7 +326,7 @@
 								Height="50"
 								Width="100" />
 					</StackPanel>
-					<!--Has COM Port-->
+					<!--Has COM Port, all the main controls are here-->
 					<Grid Grid.Column="0"
 						  Visibility="{Binding NoCOM, Converter={StaticResource InvertedBool2VisibilityConverter}, Mode=OneWay}">
 						<Grid.RowDefinitions>
@@ -335,9 +334,36 @@
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
-							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*"
+											  MinWidth="140" />
 							<ColumnDefinition Width="*" />
 						</Grid.ColumnDefinitions>
+						<!--#region Resize thing-->
+						<Ellipse Width="4"
+								 Height="4"
+								 Margin="-2"
+								 d:Fill="White"
+								 Fill="{DynamicResource GlobalFG}"
+								 HorizontalAlignment="Right"
+								 VerticalAlignment="Bottom"
+								 Focusable="False" />
+						<GridSplitter HorizontalAlignment="Right"
+									  VerticalAlignment="Bottom"
+									  ResizeDirection="Rows"
+									  Width="40"
+									  Height="8"
+									  Margin="-20,-4"
+									  Background="Transparent"
+									  Focusable="False" />
+						<GridSplitter HorizontalAlignment="Right"
+									  VerticalAlignment="Bottom"
+									  ResizeDirection="Columns"
+									  Width="8"
+									  Height="40"
+									  Margin="-4,-20"
+									  Background="Transparent"
+									  Focusable="False" />
+						<!--#endregion-->
 						<DockPanel Grid.Row="0"
 								   Grid.Column="0">
 							<Expander Style="{DynamicResource PortPropExpanderStyle}"
@@ -431,8 +457,10 @@
 							</Expander>
 							<Button DockPanel.Dock="Bottom"
 									FontSize="20"
+									MinHeight="60"
+									MinWidth="100"
 									Command="{Binding ConnectCommand, Mode=OneWay}"
-									Margin="20,0">
+									Margin="10,0,10,10">
 								<Button.Style>
 									<Style TargetType="{x:Type Button}">
 										<Setter Property="Background"
@@ -547,12 +575,54 @@
 								</Button.Style>
 							</Button>
 						</DockPanel>
+						<DockPanel Grid.Row="0"
+								   Grid.Column="1">
+							<Label Content="{x:Static loc:Loc.AddInfo}"
+								   Margin="10,0,0,0"
+								   d:Foreground="White"
+								   FontSize="15"
+								   DockPanel.Dock="Top" />
+							<TextBox DockPanel.Dock="Bottom"
+									 Text="{Binding AdditionalInfo}"
+									 FontSize="20"
+									 Margin="10,0,10,10" />
+						</DockPanel>
+						<StackPanel Grid.Row="1"
+									Grid.Column="0"
+									Margin="10,0">
+							<Label Content="{x:Static loc:Loc.TestName}"
+								   d:Foreground="White"
+								   FontSize="15" />
+							<TextBox FontSize="20"
+									 Text="{Binding TestName}" />
+							<DockPanel>
+								<Button Content="{x:Static loc:Loc.AddUnit}"
+										ToolTip="{x:Static loc:Loc.AddUnitTT}"
+										Click="Button_Click"
+										Margin="10,10,0,0"
+										Width="100"
+										FontSize="15"
+										DockPanel.Dock="Right" />
+								<Label DockPanel.Dock="Top"
+									   d:Foreground="White"
+									   Content="{x:Static loc:Loc.UoM}"
+									   FontSize="15" />
+								<ComboBox Style="{DynamicResource ComboBoxStyle}"
+										  ItemsSource="{Binding UnitList, Mode=OneWay}"
+										  DockPanel.Dock="Bottom"
+										  Foreground="{DynamicResource GlobalFG}"
+										  Text="{Binding MeaUnit}"
+										  IsEditable="True"
+										  FontSize="18" />
+							</DockPanel>
+						</StackPanel>
 						<Grid Grid.Row="1"
 							  Grid.Column="1"
-							  Margin="0,0,10,0">
+							  Margin="10,0">
 							<Grid.RowDefinitions>
 								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*"
+											   MinHeight="25" />
 								<RowDefinition Height="Auto"
 											   MinHeight="30" />
 							</Grid.RowDefinitions>
@@ -562,18 +632,32 @@
 								   Content="{x:Static loc:Loc.RecvStr}" />
 							<TextBox Grid.Row="1"
 									 TextWrapping="Wrap"
-									 MaxHeight="{Binding ConverterParameter=80, Converter={StaticResource DoubleSubtractByConverter}, RelativeSource={RelativeSource AncestorType={x:Type Grid}, Mode=FindAncestor}, Path=ActualHeight, Mode=OneTime}"
-									 VerticalContentAlignment="Center"
 									 Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
 									 FontSize="20"
-									 Foreground="{DynamicResource GlobalFG}"
 									 HorizontalAlignment="Stretch"
 									 VerticalAlignment="Stretch" />
-							<Button Grid.Row="2"
-									Margin="10,10,0,10"
-									MinHeight="40"
-									FontSize="20"
-									Content="Save ->" />
+							<DockPanel Grid.Row="2"
+									   Margin="0,0,0,-10">
+								<StackPanel DockPanel.Dock="Left"
+											VerticalAlignment="Center">
+									<CheckBox VerticalAlignment="Center"
+											  Foreground="{DynamicResource GlobalFG}"
+											  Content="{x:Static loc:Loc.AutoAddRecvStr}"
+											  ToolTip="{x:Static loc:Loc.AutoAddRecvStrTT}"
+											  IsChecked="{Binding AutoAdd}" />
+									<CheckBox VerticalAlignment="Center"
+											  Margin="0,5,0,0"
+											  Foreground="{DynamicResource GlobalFG}"
+											  Content="{x:Static loc:Loc.ClearAfterAddingRecvStr}"
+											  ToolTip="{x:Static loc:Loc.ClearAfterAddingRecvStrTT}"
+											  IsChecked="{Binding AutoClear}" />
+								</StackPanel>
+								<Button DockPanel.Dock="Right"
+										Margin="10,10,0,10"
+										MinHeight="40"
+										FontSize="20"
+										Content="{x:Static loc:Loc.AddRecvStr}" />
+							</DockPanel>
 						</Grid>
 					</Grid>
 					<!--data view-->

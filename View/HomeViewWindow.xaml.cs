@@ -13,16 +13,16 @@ namespace StdEqpTesting.View
 	/// </summary>
 	public partial class HomeViewWindow : Window
 	{
-		public static MainViewModel MainVM { get; } = new MainViewModel();
 		readonly Uri darkUri = new Uri($"pack://application:,,,/Theme/Dark.xaml");
 		readonly Uri lightUri = new Uri($"pack://application:,,,/Theme/Light.xaml");
 		public HomeViewWindow(UserInfo userInfo)
 		{
 			InitializeComponent();
-			DataContext = MainVM;
+			DataContext = MainViewModel.MainVM;
 			//Gets the user info passed from loginWindow.
-			Username.Content = userInfo.username;
-			Type.Content = userInfo.type.ToString();
+			((MainViewModel)DataContext).HomeViewVM.UserName = userInfo.username;
+			((MainViewModel)DataContext).HomeViewVM.UserType = userInfo.type;
+			((MainViewModel)DataContext).SecondaryStatus = Localization.Loc.StatusLoggedIn.Replace("%User", userInfo.username).Replace("%Type", userInfo.type.ToString());
 			#region Theme Init
 			if (userInfo.theme == 0)
 			{
@@ -49,8 +49,7 @@ namespace StdEqpTesting.View
 				Resources.MergedDictionaries[0].Source = lightUri;
 			}
 		}
-		#region TavAnimations	//Code behind solution enables dynamic resource.
-		object TavAnimations = new object();
+		#region TabAnimations	//Code behind solution enables dynamic resource.
 		readonly ColorAnimation tabBGAni = new ColorAnimation() { Duration = TimeSpan.FromMilliseconds(200) };
 		readonly ColorAnimation tabFGAni = new ColorAnimation() { Duration = TimeSpan.FromMilliseconds(200) };
 		Storyboard storyboard = new Storyboard();
