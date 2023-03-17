@@ -1,8 +1,12 @@
-﻿namespace StdEqpTesting.Model
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+namespace StdEqpTesting.Model
 {
-	public struct TestDataModel
+	public partial class TestDataModel : ObservableObject
 	{
-		public int Index { get; set; }
+		[ObservableProperty]
+		int _Index;	//Observe this bc user could be removing stuff and index should update.
+
 		public string Value { get; set; }
 	}
 }

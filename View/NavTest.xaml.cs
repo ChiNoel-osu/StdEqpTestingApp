@@ -1,4 +1,5 @@
 ﻿using StdEqpTesting.Model;
+using StdEqpTesting.ViewModel;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,7 +32,7 @@ namespace StdEqpTesting.View
 			EasingFunction = new CircleEase() { EasingMode = EasingMode.EaseIn },
 		};
 		Storyboard storyboard = new Storyboard();
-		private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+		private void AddUnit_Button_Click(object sender, RoutedEventArgs e)
 		{
 			TestTabItemModel dContext = (TestTabItemModel)((Button)sender).DataContext;
 			dContext.AddUnit();
@@ -53,5 +54,13 @@ namespace StdEqpTesting.View
 			}
 		}
 		#endregion
+
+		private void RmData_Button_Click(object sender, RoutedEventArgs e) => ((MainViewModel)DataContext).NavTestVM.TabItemSource[((MainViewModel)DataContext).NavTestVM.TabIndex].DataListBox.Remove((TestDataModel)((Button)sender).DataContext);
+
+		private void AutoClear_IsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+		{
+			if (e.NewValue is false)
+				((CheckBox)sender).IsChecked = true;
+		}
 	}
 }

@@ -232,7 +232,7 @@ And should have at least 4 characters.</value>
     <value>Auto add</value>
   </data>
   <data name="AutoAddRecvStrTT" xml:space="preserve">
-    <value>Automatically add the received string to data list if no more data is received in 1 second.</value>
+    <value>When serial port is opened, automatically add the received string to data list if no more data is received in 1 second.</value>
   </data>
   <data name="ClearAfterAddingRecvStr" xml:space="preserve">
     <value>Auto clear</value>
@@ -263,5 +263,20 @@ And should have at least 4 characters.</value>
   </data>
   <data name="AddUnitSucc" xml:space="preserve">
     <value>Addition Successful.</value>
+  </data>
+  <data name="ClearAfterAddingRecvStrDisabledTT" xml:space="preserve">
+    <value>When auto add is on, auto clear is enforced.</value>
+  </data>
+  <data name="SaveAvg" xml:space="preserve">
+    <value>Save Avg. Value</value>
+  </data>
+  <data name="SaveSel" xml:space="preserve">
+    <value>Save Sel. Value</value>
+  </data>
+  <data name="Average" xml:space="preserve">
+    <value>Average Value</value>
+  </data>
+  <data name="AverageTT" xml:space="preserve">
+    <value>The average value of numbers in Data List.</value>
   </data>
 </root>

@@ -12,7 +12,7 @@
 	</Style>
 	<Style TargetType="{x:Type TextBox}">
 		<Setter Property="Background"
-				Value="{DynamicResource GlobalBG}" />
+				Value="{DynamicResource TextBoxBG}" />
 		<Setter Property="Foreground"
 				Value="{DynamicResource GlobalFG}" />
 		<Setter	Property="CaretBrush"
@@ -343,8 +343,6 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	<SolidColorBrush x:Key="ComboBox.Static.Background"
-					 Color="Transparent" />
 	<SolidColorBrush x:Key="ComboBox.Static.Border"
 					 Color="#ABADB3" />
 	<SolidColorBrush x:Key="ComboBox.Static.Glyph"
@@ -413,7 +411,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type ToggleButton}">
 					<Border x:Name="templateRoot"
-							Background="{StaticResource ComboBox.Static.Background}"
+							Background="{DynamicResource TextBoxBG}"
 							BorderBrush="{StaticResource ComboBox.Static.Border}"
 							BorderThickness="{TemplateBinding BorderThickness}"
 							SnapsToDevicePixels="true">
@@ -634,12 +632,12 @@
 						  IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
 						  Style="{StaticResource ComboBoxToggleButton}" />
 			<Border x:Name="border"
-					Background="Transparent"
+					Background="{DynamicResource TextBoxBG}"
 					Margin="{TemplateBinding BorderThickness}">
 				<TextBox x:Name="PART_EditableTextBox"
 						 CaretBrush="{DynamicResource GlobalCaret}"
 						 Foreground="{DynamicResource GlobalFG}"
-						 Background="{StaticResource ComboBox.Static.Background}"
+						 Background="{DynamicResource TextBoxBG}"
 						 HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
 						 IsReadOnly="{Binding IsReadOnly, RelativeSource={RelativeSource TemplatedParent}}"
 						 Margin="{TemplateBinding Padding}"
@@ -802,7 +800,7 @@
 	<Style x:Key="ComboBoxStyle"
 		   TargetType="{x:Type ComboBox}">
 		<Setter Property="Background"
-				Value="{StaticResource ComboBox.Static.Background}" />
+				Value="{DynamicResource TextBoxBG}" />
 		<Setter Property="BorderBrush"
 				Value="{StaticResource ComboBox.Static.Border}" />
 		<Setter Property="Foreground"

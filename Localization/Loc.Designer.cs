@@ -133,11 +133,29 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Automatically add the received string to data list if no more data is received in 1 second. 的本地化字符串。
+        ///   查找类似 When serial port is opened, automatically add the received string to data list if no more data is received in 1 second. 的本地化字符串。
         /// </summary>
         public static string AutoAddRecvStrTT {
             get {
                 return ResourceManager.GetString("AutoAddRecvStrTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Average Value 的本地化字符串。
+        /// </summary>
+        public static string Average {
+            get {
+                return ResourceManager.GetString("Average", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The average value of numbers in Data List. 的本地化字符串。
+        /// </summary>
+        public static string AverageTT {
+            get {
+                return ResourceManager.GetString("AverageTT", resourceCulture);
             }
         }
         
@@ -156,6 +174,15 @@ namespace StdEqpTesting.Localization {
         public static string ClearAfterAddingRecvStr {
             get {
                 return ResourceManager.GetString("ClearAfterAddingRecvStr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 When auto add is on, auto clear is enforced. 的本地化字符串。
+        /// </summary>
+        public static string ClearAfterAddingRecvStrDisabledTT {
+            get {
+                return ResourceManager.GetString("ClearAfterAddingRecvStrDisabledTT", resourceCulture);
             }
         }
         
@@ -495,11 +522,29 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Save Avg. Value 的本地化字符串。
+        /// </summary>
+        public static string SaveAvg {
+            get {
+                return ResourceManager.GetString("SaveAvg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Data List 的本地化字符串。
         /// </summary>
         public static string SaveDataTitle {
             get {
                 return ResourceManager.GetString("SaveDataTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Save Sel. Value 的本地化字符串。
+        /// </summary>
+        public static string SaveSel {
+            get {
+                return ResourceManager.GetString("SaveSel", resourceCulture);
             }
         }
         

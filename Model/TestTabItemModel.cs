@@ -6,10 +6,12 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Ports;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Data;
 
 namespace StdEqpTesting.Model
 {
@@ -19,11 +21,13 @@ namespace StdEqpTesting.Model
 		[ObservableProperty]
 		ObservableCollection<TestDataModel> _DataListBox = new ObservableCollection<TestDataModel>();
 		[ObservableProperty]
-		string _Message;
+		string _Message;    //Received String.
 		[ObservableProperty]
 		ObservableCollection<string> _UnitList = new ObservableCollection<string>();
 		[ObservableProperty]
 		bool _PortOpened = false;
+		[ObservableProperty]
+		decimal _Average = 0;
 
 		//Props that doesn't need to be observed (not updating constantly on UI).
 		public bool PropExpanded { get; set; } = false;
@@ -38,11 +42,13 @@ namespace StdEqpTesting.Model
 		CancellationTokenSource cts;
 		CancellationToken ct;
 		SerialPort serialPort = new SerialPort();
+		System.Timers.Timer timer = new System.Timers.Timer(1000) { AutoReset = true };
 		[RelayCommand]
 		public void Connect()
 		{
 			if (PortOpened)
 			{
+				timer.Close();
 				cts.Cancel();
 				serialPort.Close();
 				cts.Dispose();
@@ -68,15 +74,21 @@ namespace StdEqpTesting.Model
 				{
 					serialPort.Open();
 					Task.Run(() =>
-					{
+					{   //This task will keep running while the port is open.
 						while (true)
 						{
-							ct.ThrowIfCancellationRequested();  //This will throw an exception, which is not handled.
-							Message += serialPort.ReadExisting();
-							Thread.Sleep(100);
+							ct.ThrowIfCancellationRequested();  //This will throw an exception, which is not handled, thus stopping the task.
+							string incoming = serialPort.ReadExisting();
+							if (!string.IsNullOrEmpty(incoming))
+							{
+								Message += incoming;
+								timer.Interval = 1000;  //Setting the interval will cause the timer to reset.
+							}
+							Thread.Sleep(160);  //Wait time before next serial read to save some CPU time.
 						}
 					}, ct);
 					MainViewModel.MainVM.LogSth($"Serial port {PortName} opened.", 2);
+					timer.Start();
 				}
 				catch (Exception e)
 				{   //TODO: Make it pretty.
@@ -85,6 +97,26 @@ namespace StdEqpTesting.Model
 				}
 			}
 			PortOpened = serialPort.IsOpen;
+		}
+
+		private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
+		{   //Timer elapsed, add value to list and restart timer.
+			if (AutoAdd) Add2List();
+		}
+
+		[RelayCommand]
+		public void Add2List()
+		{
+			if (!string.IsNullOrWhiteSpace(Message))
+			{
+				DataListBox.Add(new TestDataModel { Index = DataListBox.Count + 1, Value = Message });
+				if (AutoClear) Message = string.Empty;
+			}
+		}
+		[RelayCommand]
+		public void SaveValue()
+		{
+
 		}
 
 		public void AddUnit()
@@ -125,6 +157,8 @@ namespace StdEqpTesting.Model
 		public TestTabItemModel(bool hasCOM = true)
 		{
 			NoCOM = !hasCOM;
+			timer.Elapsed += Timer_Elapsed;
+			DataListBox.CollectionChanged += DataListBox_CollectionChanged;
 			//Read units from file.
 			if (File.Exists($"Database{Path.DirectorySeparatorChar}Units.txt"))
 			{
@@ -133,6 +167,21 @@ namespace StdEqpTesting.Model
 				foreach (string unit in unitsInFile)
 					UnitList.Add(unit);
 			}
+			BindingOperations.EnableCollectionSynchronization(DataListBox, this);
+		}
+
+		private void DataListBox_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+				for (ushort i = 0; i < DataListBox.Count;)
+					DataListBox[i].Index = ++i;
+			Task.Run(() =>
+			{
+				decimal[] validValue = (from data in DataListBox
+										where decimal.TryParse(data.Value, out _) == true
+										select decimal.Parse(data.Value)).ToArray();
+				Average = validValue.Length == 0 ? 0 : validValue.Average();
+			});
 		}
 	}
 }

@@ -2,7 +2,7 @@
 
 namespace StdEqpTesting.Model
 {
-	public class ReportModel
+	public struct ReportModel
 	{
 		public string User { get; set; }
 		public UserTypeEnum UserType { get; set; }

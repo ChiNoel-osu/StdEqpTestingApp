@@ -252,7 +252,7 @@
     <value>自动添加</value>
   </data>
   <data name="AutoAddRecvStrTT" xml:space="preserve">
-    <value>1秒内没有收到更多数据时将现有数据添加至数据列表.</value>
+    <value>串口打开时, 1秒内没有收到更多数据时将现有数据添加至数据列表.</value>
   </data>
   <data name="ClearAfterAddingRecvStr" xml:space="preserve">
     <value>自动清除</value>
@@ -283,5 +283,20 @@
   </data>
   <data name="AddUnitSucc" xml:space="preserve">
     <value>添加成功.</value>
+  </data>
+  <data name="ClearAfterAddingRecvStrDisabledTT" xml:space="preserve">
+    <value>使用自动添加时必须开启自动清除.</value>
+  </data>
+  <data name="SaveAvg" xml:space="preserve">
+    <value>保存平均值</value>
+  </data>
+  <data name="SaveSel" xml:space="preserve">
+    <value>保存选择值</value>
+  </data>
+  <data name="Average" xml:space="preserve">
+    <value>平均值</value>
+  </data>
+  <data name="AverageTT" xml:space="preserve">
+    <value>数据列表中数字的平均值.</value>
   </data>
 </root>

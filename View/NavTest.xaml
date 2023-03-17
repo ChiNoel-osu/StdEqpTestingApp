@@ -22,6 +22,8 @@
 	</d:UserControl.Resources>
 	<!--Converters needs to be specified again, for some reason it can't get thing from RescDic.-->
 	<UserControl.Resources>
+		<Converter:IsObjectNullConverter x:Key="IsObjectNullConverter" />
+		<Converter:LogicalNotConverter x:Key="LogicalNotConverter" />
 		<Converter:InvertedBool2VisibilityConverter x:Key="InvertedBool2VisibilityConverter" />
 		<Converter:Bool2VisibilityConverter x:Key="Bool2VisibilityConverter" />
 	</UserControl.Resources>
@@ -330,13 +332,16 @@
 					<Grid Grid.Column="0"
 						  Visibility="{Binding NoCOM, Converter={StaticResource InvertedBool2VisibilityConverter}, Mode=OneWay}">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="*" />
-							<RowDefinition Height="*" />
+							<RowDefinition Height="*"
+										   MinHeight="110" />
+							<RowDefinition Height="*"
+										   MinHeight="180" />
 						</Grid.RowDefinitions>
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="*"
 											  MinWidth="140" />
-							<ColumnDefinition Width="*" />
+							<ColumnDefinition Width="*"
+											  MinWidth="180" />
 						</Grid.ColumnDefinitions>
 						<!--#region Resize thing-->
 						<Ellipse Width="4"
@@ -460,7 +465,7 @@
 									MinHeight="60"
 									MinWidth="100"
 									Command="{Binding ConnectCommand, Mode=OneWay}"
-									Margin="10,0,10,10">
+									Margin="10,0">
 								<Button.Style>
 									<Style TargetType="{x:Type Button}">
 										<Setter Property="Background"
@@ -575,18 +580,67 @@
 								</Button.Style>
 							</Button>
 						</DockPanel>
-						<DockPanel Grid.Row="0"
-								   Grid.Column="1">
-							<Label Content="{x:Static loc:Loc.AddInfo}"
-								   Margin="10,0,0,0"
+						<Grid Grid.Row="0"
+							  Grid.Column="1"
+							  Margin="10,0">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*"
+											   MinHeight="25" />
+								<RowDefinition Height="Auto"
+											   MinHeight="30" />
+							</Grid.RowDefinitions>
+							<Label Grid.Row="0"
 								   d:Foreground="White"
 								   FontSize="15"
-								   DockPanel.Dock="Top" />
-							<TextBox DockPanel.Dock="Bottom"
-									 Text="{Binding AdditionalInfo}"
-									 FontSize="20"
-									 Margin="10,0,10,10" />
-						</DockPanel>
+								   Content="{x:Static loc:Loc.RecvStr}" />
+							<TextBox Grid.Row="1"
+									 TextWrapping="Wrap"
+									 Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
+									 FontSize="22"
+									 HorizontalAlignment="Stretch"
+									 VerticalAlignment="Stretch" />
+							<DockPanel Grid.Row="2"
+									   Margin="0,0,0,-10">
+								<StackPanel DockPanel.Dock="Left"
+											VerticalAlignment="Center">
+									<CheckBox VerticalAlignment="Center"
+											  x:Name="AutoAddBtn"
+											  Foreground="{DynamicResource GlobalFG}"
+											  Content="{x:Static loc:Loc.AutoAddRecvStr}"
+											  ToolTip="{x:Static loc:Loc.AutoAddRecvStrTT}"
+											  IsChecked="{Binding AutoAdd}" />
+									<CheckBox VerticalAlignment="Center"
+											  Margin="0,5,0,0"
+											  Foreground="{DynamicResource GlobalFG}"
+											  IsEnabled="{Binding IsChecked, Converter={StaticResource LogicalNotConverter}, ElementName=AutoAddBtn}"
+											  IsEnabledChanged="AutoClear_IsEnabledChanged"
+											  Content="{x:Static loc:Loc.ClearAfterAddingRecvStr}"
+											  ToolTipService.ShowOnDisabled="True"
+											  IsChecked="{Binding AutoClear}">
+										<CheckBox.Style>
+											<Style TargetType="{x:Type CheckBox}">
+												<Setter Property="ToolTip"
+														Value="{x:Static loc:Loc.ClearAfterAddingRecvStrTT}" />
+												<Style.Triggers>
+													<Trigger Property="IsEnabled"
+															 Value="False">
+														<Setter Property="ToolTip"
+																Value="{x:Static loc:Loc.ClearAfterAddingRecvStrDisabledTT}" />
+													</Trigger>
+												</Style.Triggers>
+											</Style>
+										</CheckBox.Style>
+									</CheckBox>
+								</StackPanel>
+								<Button DockPanel.Dock="Right"
+										Margin="10,10,0,10"
+										Command="{Binding Add2ListCommand, Mode=OneWay}"
+										MinHeight="40"
+										FontSize="20"
+										Content="{x:Static loc:Loc.AddRecvStr}" />
+							</DockPanel>
+						</Grid>
 						<StackPanel Grid.Row="1"
 									Grid.Column="0"
 									Margin="10,0">
@@ -598,7 +652,7 @@
 							<DockPanel>
 								<Button Content="{x:Static loc:Loc.AddUnit}"
 										ToolTip="{x:Static loc:Loc.AddUnitTT}"
-										Click="Button_Click"
+										Click="AddUnit_Button_Click"
 										Margin="10,10,0,0"
 										Width="100"
 										FontSize="15"
@@ -616,49 +670,49 @@
 										  FontSize="18" />
 							</DockPanel>
 						</StackPanel>
-						<Grid Grid.Row="1"
-							  Grid.Column="1"
-							  Margin="10,0">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="*"
-											   MinHeight="25" />
-								<RowDefinition Height="Auto"
-											   MinHeight="30" />
-							</Grid.RowDefinitions>
-							<Label Grid.Row="0"
+						<DockPanel Grid.Row="1"
+								   Grid.Column="1">
+							<Grid DockPanel.Dock="Bottom">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition />
+									<ColumnDefinition />
+								</Grid.ColumnDefinitions>
+								<Button Height="50"
+										Grid.Column="0"
+										FontSize="15"
+										Content="{x:Static loc:Loc.SaveAvg}"
+										Margin="10,0,5,0"
+										Command="{Binding SaveValueCommand, Mode=OneWay}" />
+								<Button Height="50"
+										Grid.Column="1"
+										FontSize="15"
+										Content="{x:Static loc:Loc.SaveSel}"
+										IsEnabled="{Binding SelectedItem, ConverterParameter=True, Converter={StaticResource IsObjectNullConverter}, ElementName=DataBox}"
+										Margin="5,0,10,0"
+										Command="{Binding SaveValueCommand, Mode=OneWay}" />
+							</Grid>
+							<Label Content="{x:Static loc:Loc.AddInfo}"
+								   Margin="10,0,0,0"
 								   d:Foreground="White"
 								   FontSize="15"
-								   Content="{x:Static loc:Loc.RecvStr}" />
-							<TextBox Grid.Row="1"
-									 TextWrapping="Wrap"
-									 Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
+								   DockPanel.Dock="Top" />
+							<TextBox DockPanel.Dock="Top"
+									 Text="{Binding AdditionalInfo}"
+									 FontSize="18"
+									 Margin="10,0" />
+							<Label Content="{x:Static loc:Loc.Average}"
+								   ToolTip="{x:Static loc:Loc.AverageTT}"
+								   Margin="10,0,0,0"
+								   d:Foreground="White"
+								   FontSize="15"
+								   DockPanel.Dock="Top" />
+							<TextBox DockPanel.Dock="Top"
+									 Text="{Binding Average}"
+									 ToolTip="{x:Static loc:Loc.AverageTT}"
+									 IsReadOnly="True"
 									 FontSize="20"
-									 HorizontalAlignment="Stretch"
-									 VerticalAlignment="Stretch" />
-							<DockPanel Grid.Row="2"
-									   Margin="0,0,0,-10">
-								<StackPanel DockPanel.Dock="Left"
-											VerticalAlignment="Center">
-									<CheckBox VerticalAlignment="Center"
-											  Foreground="{DynamicResource GlobalFG}"
-											  Content="{x:Static loc:Loc.AutoAddRecvStr}"
-											  ToolTip="{x:Static loc:Loc.AutoAddRecvStrTT}"
-											  IsChecked="{Binding AutoAdd}" />
-									<CheckBox VerticalAlignment="Center"
-											  Margin="0,5,0,0"
-											  Foreground="{DynamicResource GlobalFG}"
-											  Content="{x:Static loc:Loc.ClearAfterAddingRecvStr}"
-											  ToolTip="{x:Static loc:Loc.ClearAfterAddingRecvStrTT}"
-											  IsChecked="{Binding AutoClear}" />
-								</StackPanel>
-								<Button DockPanel.Dock="Right"
-										Margin="10,10,0,10"
-										MinHeight="40"
-										FontSize="20"
-										Content="{x:Static loc:Loc.AddRecvStr}" />
-							</DockPanel>
-						</Grid>
+									 Margin="10,0,10,10" />
+						</DockPanel>
 					</Grid>
 					<!--data view-->
 					<DockPanel Grid.Column="1">
@@ -667,7 +721,8 @@
 							   FontSize="20"
 							   Margin="0,-22,0,0"
 							   DockPanel.Dock="Top" />
-						<ListBox DockPanel.Dock="Bottom"
+						<ListBox x:Name="DataBox"
+								 DockPanel.Dock="Bottom"
 								 Foreground="{DynamicResource GlobalFG}"
 								 Background="Transparent"
 								 ItemsSource="{Binding DataListBox}"
@@ -691,6 +746,7 @@
 												   Text="{Binding Value}"
 												   Margin="0,-2,0,0" />
 										<Button DockPanel.Dock="Right"
+												Click="RmData_Button_Click"
 												FontFamily="Webdings"
 												Content="r"
 												BorderBrush="Red"
