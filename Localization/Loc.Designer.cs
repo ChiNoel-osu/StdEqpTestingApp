@@ -205,11 +205,40 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Confirm Addition of Incomplete Record 的本地化字符串。
+        /// </summary>
+        public static string ConfirmAddEmptyRecord {
+            get {
+                return ResourceManager.GetString("ConfirmAddEmptyRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 You&apos;re seeing this because Test Name or Unit is left empty or are of whitespaces.
+        ///
+        ///Press No to go back so you can make some changes, otherwise you can press Yes to add this incomplete record, which can cause confusion. 的本地化字符串。
+        /// </summary>
+        public static string ConfirmAddEmptyRecordDesc {
+            get {
+                return ResourceManager.GetString("ConfirmAddEmptyRecordDesc", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Data Bits 的本地化字符串。
         /// </summary>
         public static string DataBits {
             get {
                 return ResourceManager.GetString("DataBits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Connecting to database.... 的本地化字符串。
+        /// </summary>
+        public static string DBConnect {
+            get {
+                return ResourceManager.GetString("DBConnect", resourceCulture);
             }
         }
         
@@ -405,6 +434,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Value is not saved 的本地化字符串。
+        /// </summary>
+        public static string NotSaved2DB {
+            get {
+                return ResourceManager.GetString("NotSaved2DB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Open Port 的本地化字符串。
         /// </summary>
         public static string OpenPort {
@@ -527,6 +565,15 @@ namespace StdEqpTesting.Localization {
         public static string SaveAvg {
             get {
                 return ResourceManager.GetString("SaveAvg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Value saved 的本地化字符串。
+        /// </summary>
+        public static string Saved2DB {
+            get {
+                return ResourceManager.GetString("Saved2DB", resourceCulture);
             }
         }
         

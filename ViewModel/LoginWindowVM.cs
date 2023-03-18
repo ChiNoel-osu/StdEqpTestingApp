@@ -151,9 +151,9 @@ namespace StdEqpTesting.ViewModel
 				SqliteCommand cmd = connection.CreateCommand();
 				cmd.CommandText = @"SELECT * FROM Users WHERE Username=$Username LIMIT 1";
 				cmd.Parameters.AddWithValue("$Username", Username).SqliteType = SqliteType.Text;
-				connection.Open();
 				try
 				{
+					connection.Open();
 					dataReader = cmd.ExecuteReader();
 					if (!dataReader.HasRows)
 					{

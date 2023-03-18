@@ -279,4 +279,21 @@ And should have at least 4 characters.</value>
   <data name="AverageTT" xml:space="preserve">
     <value>The average value of numbers in Data List.</value>
   </data>
+  <data name="DBConnect" xml:space="preserve">
+    <value>Connecting to database....</value>
+  </data>
+  <data name="Saved2DB" xml:space="preserve">
+    <value>Value saved</value>
+  </data>
+  <data name="NotSaved2DB" xml:space="preserve">
+    <value>Value is not saved</value>
+  </data>
+  <data name="ConfirmAddEmptyRecord" xml:space="preserve">
+    <value>Confirm Addition of Incomplete Record</value>
+  </data>
+  <data name="ConfirmAddEmptyRecordDesc" xml:space="preserve">
+    <value>You're seeing this because Test Name or Unit is left empty or are of whitespaces.
+
+Press No to go back so you can make some changes, otherwise you can press Yes to add this incomplete record, which can cause confusion.</value>
+  </data>
 </root>

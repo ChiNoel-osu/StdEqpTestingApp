@@ -299,4 +299,21 @@
   <data name="AverageTT" xml:space="preserve">
     <value>数据列表中数字的平均值.</value>
   </data>
+  <data name="DBConnect" xml:space="preserve">
+    <value>正在连接至数据库....</value>
+  </data>
+  <data name="Saved2DB" xml:space="preserve">
+    <value>数据已保存</value>
+  </data>
+  <data name="NotSaved2DB" xml:space="preserve">
+    <value>数据保存失败</value>
+  </data>
+  <data name="ConfirmAddEmptyRecord" xml:space="preserve">
+    <value>不完整的测试数据</value>
+  </data>
+  <data name="ConfirmAddEmptyRecordDesc" xml:space="preserve">
+    <value>由于测试名称或测量单位为空或由空格组成, 此次保存需要您再次确认.
+
+选择'否'以返回并更改数据, 或者您也可以选择'是'来添加这条不完整的数据.</value>
+  </data>
 </root>

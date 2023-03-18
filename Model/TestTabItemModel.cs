@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Data.Sqlite;
 using StdEqpTesting.Localization;
 using StdEqpTesting.ViewModel;
 using System;
@@ -37,7 +38,7 @@ namespace StdEqpTesting.Model
 		public string TestName { get; set; } = string.Empty;
 		public string MeaUnit { get; set; } = string.Empty;
 
-		public bool IsUnitAdded = false;    //Animation in code-behind.
+		public bool IsUnitAdded = false;    //Used by Animation in code-behind.
 
 		CancellationTokenSource cts;
 		CancellationToken ct;
@@ -114,9 +115,66 @@ namespace StdEqpTesting.Model
 			}
 		}
 		[RelayCommand]
-		public void SaveValue()
+		public async void SaveValue(TestDataModel? value)
 		{
-
+			if ((string.IsNullOrWhiteSpace(TestName) || string.IsNullOrWhiteSpace(MeaUnit)) && MessageBox.Show(Loc.ConfirmAddEmptyRecordDesc, Loc.ConfirmAddEmptyRecord, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No)
+				return;
+			MainViewModel.MainVM.UpdateMainStatus(Loc.DBConnect, true);
+			await Task.Run(() =>
+			{
+				using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
+				{   //Check if ComTestData exists or not.
+					SqliteCommand command = connection.CreateCommand();
+					command.CommandText = @"SELECT EXISTS (
+											SELECT name
+											FROM sqlite_schema 
+											WHERE type='table' AND name='ComTestData')";
+					try
+					{
+						connection.Open();
+						SqliteDataReader reader = command.ExecuteReader();
+						reader.Read();
+						if (int.Parse(reader.GetString(0)) == 0)    //Does not exist
+						{   //If not exist, create table.
+							reader.Close();
+							App.Logger.Warn("ComTestData table does not exist, creating a new one.");
+							command.CommandText = @"CREATE TABLE ComTestData (
+													ID	INTEGER NOT NULL UNIQUE,
+													User	TEXT NOT NULL,
+													TestName	TEXT NOT NULL,
+													ValueType	TEXT,
+													TestValue	TEXT NOT NULL,
+													TestUnit	TEXT NOT NULL,
+													Tag	TEXT,
+													COMPort	TEXT,
+													Time	INTEGER NOT NULL,
+													FOREIGN KEY(User) REFERENCES Users(Username),
+													PRIMARY KEY(ID AUTOINCREMENT))";
+							command.ExecuteNonQuery();
+						}
+						else reader.Close();
+						//Now it exists
+						command.CommandText = @"INSERT INTO ComTestData (User, TestName, ValueType, TestValue, TestUnit, Tag, COMPort, Time)
+												VALUES ($User, $TestName, $ValueType, $TestValue, $TestUnit, $Tag, $COMPort, $Time)";
+						command.Parameters.AddWithValue("$User", MainViewModel.MainVM.HomeViewVM.UserName);
+						command.Parameters.AddWithValue("$TestName", TestName);
+						command.Parameters.AddWithValue("$ValueType", value is null ? "Average" : "Selected");
+						command.Parameters.AddWithValue("$TestValue", value is null ? Average.ToString() : value.Value);
+						command.Parameters.AddWithValue("$TestUnit", MeaUnit);
+						command.Parameters.AddWithValue("$Tag", AdditionalInfo);
+						command.Parameters.AddWithValue("$COMPort", PortName);
+						command.Parameters.AddWithValue("$Time", DateTimeOffset.Now.ToUnixTimeSeconds());   //Time are stored as Unix Timestamp.
+						command.ExecuteNonQuery();
+						MainViewModel.MainVM.UpdateMainStatus(Loc.Saved2DB, true);
+					}
+					catch (SqliteException e)
+					{
+						MainViewModel.MainVM.UpdateMainStatus(Loc.NotSaved2DB, true, 4);
+						App.Logger.Error("Something is wrong when saving value.\n" + e.ToString());
+						MessageBox.Show(e.Message, "sth is wrong", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+					}
+				};
+			});
 		}
 
 		public void AddUnit()
@@ -154,6 +212,20 @@ namespace StdEqpTesting.Model
 		public int WriteTimeout { get; set; } = 1000;
 		#endregion
 
+		private void DataListBox_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+				for (ushort i = 0; i < DataListBox.Count;)
+					DataListBox[i].Index = ++i;
+			Task.Run(() =>
+			{
+				decimal[] validValue = (from data in DataListBox
+										where decimal.TryParse(data.Value, out _) == true
+										select decimal.Parse(data.Value)).ToArray();
+				Average = validValue.Length == 0 ? 0 : validValue.Average();
+			});
+		}
+
 		public TestTabItemModel(bool hasCOM = true)
 		{
 			NoCOM = !hasCOM;
@@ -168,20 +240,6 @@ namespace StdEqpTesting.Model
 					UnitList.Add(unit);
 			}
 			BindingOperations.EnableCollectionSynchronization(DataListBox, this);
-		}
-
-		private void DataListBox_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
-		{
-			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
-				for (ushort i = 0; i < DataListBox.Count;)
-					DataListBox[i].Index = ++i;
-			Task.Run(() =>
-			{
-				decimal[] validValue = (from data in DataListBox
-										where decimal.TryParse(data.Value, out _) == true
-										select decimal.Parse(data.Value)).ToArray();
-				Average = validValue.Length == 0 ? 0 : validValue.Average();
-			});
 		}
 	}
 }

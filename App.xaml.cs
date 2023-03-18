@@ -36,8 +36,8 @@ namespace StdEqpTesting
 				Directory.CreateDirectory(StdEqpTesting.Properties.Settings.Default.DBConnString.Remove(StdEqpTesting.Properties.Settings.Default.DBConnString.LastIndexOf('\\')));
 				using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = StdEqpTesting.Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWriteCreate }.ToString()))
 				{
-					SqliteCommand sqliteCommand = connection.CreateCommand();
-					sqliteCommand.CommandText = @"CREATE TABLE Users (
+					SqliteCommand comDataTableCmd = connection.CreateCommand();
+					comDataTableCmd.CommandText = @"CREATE TABLE Users (
 												ID	INTEGER NOT NULL UNIQUE,
 												Username	TEXT NOT NULL UNIQUE,
 												Password	TEXT NOT NULL,
@@ -46,7 +46,7 @@ namespace StdEqpTesting
 												Tag	TEXT,
 												PRIMARY KEY(ID AUTOINCREMENT))";
 					connection.Open();
-					sqliteCommand.ExecuteNonQuery();
+					comDataTableCmd.ExecuteNonQuery();
 				}
 			}
 			#endregion

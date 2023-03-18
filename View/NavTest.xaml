@@ -689,7 +689,8 @@
 										Content="{x:Static loc:Loc.SaveSel}"
 										IsEnabled="{Binding SelectedItem, ConverterParameter=True, Converter={StaticResource IsObjectNullConverter}, ElementName=DataBox}"
 										Margin="5,0,10,0"
-										Command="{Binding SaveValueCommand, Mode=OneWay}" />
+										Command="{Binding SaveValueCommand, Mode=OneWay}"
+										CommandParameter="{Binding ElementName=DataBox, Path=SelectedItem, Mode=OneWay}" />
 							</Grid>
 							<Label Content="{x:Static loc:Loc.AddInfo}"
 								   Margin="10,0,0,0"
