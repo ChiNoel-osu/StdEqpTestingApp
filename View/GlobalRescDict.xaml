@@ -716,8 +716,8 @@
 											  MinWidth="{Binding ActualWidth, ElementName=templateRoot}"
 											  MaxHeight="{TemplateBinding MaxDropDownHeight}">
 					<Border x:Name="dropDownBorder"
-							Background="{DynamicResource {x:Static SystemColors.WindowBrushKey}}"
-							BorderBrush="{DynamicResource {x:Static SystemColors.WindowFrameBrushKey}}"
+							Background="{DynamicResource GlobalBG}"
+							BorderBrush="{StaticResource ComboBox.Pressed.Editable.Border}"
 							BorderThickness="1">
 						<ScrollViewer x:Name="DropDownScrollViewer">
 							<Grid x:Name="grid"

@@ -38,7 +38,7 @@
 				ItemsSource="{Binding NavTestVM.TabItemSource, Mode=OneWay}"
 				d:ItemsSource="{d:SampleData ItemCount=5}">
 		<TabControl.Resources>
-			<!--#region TestTabItemStyle-->
+			<!--#region TabItem global style-->
 			<SolidColorBrush x:Key="TabItem.MouseOver.Background"
 							 Color="Transparent" />
 			<SolidColorBrush x:Key="TabItem.Selected.Background"

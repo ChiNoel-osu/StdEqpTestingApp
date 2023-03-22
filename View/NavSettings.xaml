@@ -4,10 +4,175 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 			 xmlns:local="clr-namespace:StdEqpTesting.View"
+			 xmlns:loc="clr-namespace:StdEqpTesting.Localization"
+			 xmlns:viewmodel="clr-namespace:StdEqpTesting.ViewModel"
 			 mc:Ignorable="d"
+			 d:DataContext="{d:DesignInstance Type={x:Type viewmodel:MainViewModel}}"
 			 d:DesignHeight="500"
 			 d:DesignWidth="800">
+	<!--This keeps the designer happy. The real resource is inherited from HomeViewWindow.-->
+	<d:UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/Theme/Dark.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/View/GlobalRescDict.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</d:UserControl.Resources>
 	<Grid>
-		
+		<TabControl TabStripPlacement="Right"
+					Focusable="False"
+					Background="Transparent"
+					BorderThickness="0,0,2,0"
+					BorderBrush="CornflowerBlue">
+			<TabControl.Resources>
+				<SolidColorBrush x:Key="TabItem.MouseOver.Background"
+								 Color="Transparent" />
+				<SolidColorBrush x:Key="TabItem.Selected.Background"
+								 Color="Transparent" />
+				<SolidColorBrush x:Key="TabItem.Selected.Border"
+								 Color="CornflowerBlue" />
+				<Style TargetType="{x:Type TabItem}">
+					<Setter Property="Foreground"
+							Value="{DynamicResource GlobalFG}" />
+					<Setter Property="Background"
+							Value="Transparent" />
+					<Setter Property="BorderBrush"
+							Value="{DynamicResource CheckedTabBG}" />
+					<Setter Property="BorderThickness"
+							Value="2" />
+					<Setter Property="FontWeight"
+							Value="SemiBold" />
+					<Setter Property="FontSize"
+							Value="20" />
+					<Setter Property="Width"
+							Value="100" />
+					<Setter Property="HorizontalAlignment"
+							Value="Left" />
+					<Setter Property="HorizontalContentAlignment"
+							Value="Stretch" />
+					<Setter Property="VerticalContentAlignment"
+							Value="Stretch" />
+					<Setter Property="Template">
+						<Setter.Value>
+							<ControlTemplate TargetType="{x:Type TabItem}">
+								<Grid x:Name="templateRoot"
+									  SnapsToDevicePixels="true">
+									<Border x:Name="mainBorder"
+											Background="{TemplateBinding Background}"
+											BorderBrush="{TemplateBinding BorderBrush}"
+											Margin="0">
+										<Border x:Name="innerBorder"
+												Background="{StaticResource TabItem.Selected.Background}"
+												BorderBrush="{StaticResource TabItem.Selected.Border}"
+												Margin="-1"
+												Opacity="0" />
+									</Border>
+									<ContentPresenter x:Name="contentPresenter"
+													  ContentSource="Header"
+													  Focusable="False"
+													  Margin="{TemplateBinding Padding}"
+													  RecognizesAccessKey="True"
+													  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+													  VerticalAlignment="Center"
+													  HorizontalAlignment="Left" />
+								</Grid>
+								<ControlTemplate.Triggers>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource Self}}"
+													   Value="true" />
+											<Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+													   Value="Right" />
+										</MultiDataTrigger.Conditions>
+										<Setter Property="Background"
+												TargetName="mainBorder"
+												Value="{StaticResource TabItem.MouseOver.Background}" />
+										<Setter Property="BorderBrush"
+												TargetName="mainBorder"
+												Value="{DynamicResource TabMouseOverBD}" />
+										<Setter Property="BorderThickness"
+												TargetName="mainBorder"
+												Value="1,0,0,0" />
+									</MultiDataTrigger>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding IsEnabled, RelativeSource={RelativeSource Self}}"
+													   Value="false" />
+											<Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+													   Value="Right" />
+										</MultiDataTrigger.Conditions>
+										<Setter Property="FontSize"
+												Value="15" />
+										<Setter Property="FontWeight"
+												Value="Normal" />
+										<Setter Property="Margin"
+												TargetName="contentPresenter"
+												Value="6,12,0,0" />
+									</MultiDataTrigger>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+													   Value="false" />
+											<Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+													   Value="Right" />
+										</MultiDataTrigger.Conditions>
+									</MultiDataTrigger>
+									<MultiDataTrigger>
+										<MultiDataTrigger.Conditions>
+											<Condition Binding="{Binding IsSelected, RelativeSource={RelativeSource Self}}"
+													   Value="true" />
+											<Condition Binding="{Binding TabStripPlacement, RelativeSource={RelativeSource AncestorType={x:Type TabControl}}}"
+													   Value="Right" />
+										</MultiDataTrigger.Conditions>
+										<Setter Property="Opacity"
+												TargetName="innerBorder"
+												Value="1" />
+										<Setter Property="BorderThickness"
+												TargetName="innerBorder"
+												Value="5,1,1,1" />
+										<Setter Property="BorderThickness"
+												TargetName="mainBorder"
+												Value="0,1,1,1" />
+										<Setter Property="Padding"
+												Value="8,2,0,2" />
+									</MultiDataTrigger>
+								</ControlTemplate.Triggers>
+							</ControlTemplate>
+						</Setter.Value>
+					</Setter>
+				</Style>
+			</TabControl.Resources>
+			<TabItem Header="{x:Static loc:Loc.SettingTitleGeneral}">
+				<Grid Margin="15,0">
+					<StackPanel>
+						<Label Content="{x:Static loc:Loc.SettingLang}" />
+						<ComboBox Style="{DynamicResource ComboBoxStyle}"
+								  Foreground="{DynamicResource GlobalFG}"
+								  SelectedIndex="{Binding NavSettingsVM.LangIndex, Mode=TwoWay}"
+								  Width="200"
+								  HorizontalAlignment="Left">
+							<ComboBoxItem Content="中文" />
+							<ComboBoxItem Content="English" />
+						</ComboBox>
+					</StackPanel>
+				</Grid>
+			</TabItem>
+			<TabItem Header="{x:Static loc:Loc.SettingTitleMeasurement}"
+					 IsEnabled="False" />
+			<TabItem Header="{x:Static loc:Loc.SettingTitleCOM}" />
+			<TabItem Header="{x:Static loc:Loc.SettingTitleUSB}" />
+			<TabItem Header="{x:Static loc:Loc.SettingTitleNet}" />
+			<TabItem Header="{x:Static loc:Loc.NavReview}"
+					 IsEnabled="False" />
+			<TabItem Header="Options" />
+			<TabItem Header="{x:Static loc:Loc.NavExport}"
+					 IsEnabled="False" />
+			<TabItem Header="Options" />
+		</TabControl>
+		<Button Content="About"
+				Focusable="False"
+				HorizontalAlignment="Right"
+				VerticalAlignment="Bottom" />
 	</Grid>
 </UserControl>

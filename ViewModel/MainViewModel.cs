@@ -9,6 +9,7 @@ namespace StdEqpTesting.ViewModel
 
 		public HomeViewVM HomeViewVM { get; } = new HomeViewVM();
 		public NavTestVM NavTestVM { get; } = new NavTestVM();
+		public NavSettingsVM NavSettingsVM { get; } = new NavSettingsVM();
 
 		//Accessing any ObservableProperty of this class will trigger CS0229 (in VS).
 		//But the code still work and no exceptions are thorn.

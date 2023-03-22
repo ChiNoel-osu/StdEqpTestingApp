@@ -53,7 +53,7 @@ namespace StdEqpTesting.Model
 				cts.Cancel();
 				serialPort.Close();
 				cts.Dispose();
-				MainViewModel.MainVM.LogSth($"Serial port {PortName} closed.", 2);
+				MainViewModel.MainVM.UpdateMainStatus(Loc.COMClose.Replace("%Name", PortName), true);
 			}
 			else
 			{
@@ -88,8 +88,8 @@ namespace StdEqpTesting.Model
 							Thread.Sleep(160);  //Wait time before next serial read to save some CPU time.
 						}
 					}, ct);
-					MainViewModel.MainVM.LogSth($"Serial port {PortName} opened.", 2);
-					timer.Start();
+					MainViewModel.MainVM.UpdateMainStatus(Loc.COMOpen.Replace("%Name", PortName), true);
+					timer.Start();	//Timer for auto add.
 				}
 				catch (Exception e)
 				{   //TODO: Make it pretty.

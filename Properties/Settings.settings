@@ -2,10 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="StdEqpTesting.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Locale" Type="System.String" Scope="Application">
+    <Setting Name="Locale" Type="System.String" Scope="User">
       <Value Profile="(Default)">zh-CN</Value>
     </Setting>
-    <Setting Name="DBConnString" Type="System.String" Scope="Application">
+    <Setting Name="DBConnString" Type="(Connection string)" Scope="Application">
+      <DesignTimeValue Profile="(Default)">&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;SerializableConnectionString xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"&gt;
+  &lt;ConnectionString&gt;Database\Main.db&lt;/ConnectionString&gt;
+&lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Database\Main.db</Value>
     </Setting>
   </Settings>

@@ -296,4 +296,32 @@ And should have at least 4 characters.</value>
 
 Press No to go back so you can make some changes, otherwise you can press Yes to add this incomplete record, which can cause confusion.</value>
   </data>
+  <data name="COMOpen" xml:space="preserve">
+    <value>Serial Port %Name opened</value>
+  </data>
+  <data name="COMClose" xml:space="preserve">
+    <value>Serial Port %Name closed</value>
+  </data>
+  <data name="SettingTitleGeneral" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="SettingTitleMeasurement" xml:space="preserve">
+    <value>Measurement</value>
+  </data>
+  <data name="SettingTitleCOM" xml:space="preserve">
+    <value>COM</value>
+  </data>
+  <data name="SettingTitleUSB" xml:space="preserve">
+    <value>USB</value>
+  </data>
+  <data name="SettingTitleNet" xml:space="preserve">
+    <value>Network</value>
+  </data>
+  <data name="SettingLang" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="SettingLangSaved" xml:space="preserve">
+    <value>Language setting saved. But requires an application restart to take effect.
+Would you like to restart now?</value>
+  </data>
 </root>

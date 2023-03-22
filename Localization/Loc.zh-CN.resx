@@ -316,4 +316,32 @@
 
 选择'否'以返回并更改数据, 或者您也可以选择'是'来添加这条不完整的数据.</value>
   </data>
+  <data name="COMClose" xml:space="preserve">
+    <value>串口 %Name 已关闭</value>
+  </data>
+  <data name="COMOpen" xml:space="preserve">
+    <value>串口 %Name 已开启</value>
+  </data>
+  <data name="SettingTitleGeneral" xml:space="preserve">
+    <value>通用</value>
+  </data>
+  <data name="SettingTitleMeasurement" xml:space="preserve">
+    <value>测量</value>
+  </data>
+  <data name="SettingTitleCOM" xml:space="preserve">
+    <value>COM</value>
+  </data>
+  <data name="SettingTitleUSB" xml:space="preserve">
+    <value>USB</value>
+  </data>
+  <data name="SettingTitleNet" xml:space="preserve">
+    <value>网络</value>
+  </data>
+  <data name="SettingLang" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="SettingLangSaved" xml:space="preserve">
+    <value>已保存语言设置. 但需要重启应用才能生效.
+您想要现在重启应用吗?</value>
+  </data>
 </root>
