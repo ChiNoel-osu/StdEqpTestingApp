@@ -4,15 +4,18 @@ using Microsoft.Data.Sqlite;
 using StdEqpTesting.Localization;
 using StdEqpTesting.ViewModel;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Ports;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace StdEqpTesting.Model
 {
@@ -42,11 +45,12 @@ namespace StdEqpTesting.Model
 
 		CancellationTokenSource cts;
 		CancellationToken ct;
-		SerialPort serialPort = new SerialPort();
+		SerialPort serialPort = new SerialPort();	//The one and only SerialPort in this Tab.
 		System.Timers.Timer timer = new System.Timers.Timer(1000) { AutoReset = true };
 		[RelayCommand]
 		public void Connect()
 		{
+			Mouse.OverrideCursor = Cursors.AppStarting;
 			if (PortOpened)
 			{
 				timer.Close();
@@ -89,7 +93,7 @@ namespace StdEqpTesting.Model
 						}
 					}, ct);
 					MainViewModel.MainVM.UpdateMainStatus(Loc.COMOpen.Replace("%Name", PortName), true);
-					timer.Start();	//Timer for auto add.
+					timer.Start();  //Timer for auto add.
 				}
 				catch (Exception e)
 				{   //TODO: Make it pretty.
@@ -98,6 +102,7 @@ namespace StdEqpTesting.Model
 				}
 			}
 			PortOpened = serialPort.IsOpen;
+			Mouse.OverrideCursor = null;
 		}
 
 		private void Timer_Elapsed(object? sender, System.Timers.ElapsedEventArgs e)
@@ -119,6 +124,7 @@ namespace StdEqpTesting.Model
 		{
 			if ((string.IsNullOrWhiteSpace(TestName) || string.IsNullOrWhiteSpace(MeaUnit)) && MessageBox.Show(Loc.ConfirmAddEmptyRecordDesc, Loc.ConfirmAddEmptyRecord, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No)
 				return;
+			Mouse.OverrideCursor = Cursors.AppStarting;
 			MainViewModel.MainVM.UpdateMainStatus(Loc.DBConnect, true);
 			await Task.Run(() =>
 			{
@@ -175,6 +181,7 @@ namespace StdEqpTesting.Model
 					}
 				};
 			});
+			Mouse.OverrideCursor = null;
 		}
 
 		public void AddUnit()
@@ -200,16 +207,67 @@ namespace StdEqpTesting.Model
 
 		public bool NoCOM { get; }
 
+		List<FileSystemWatcher> fsWatchers = new List<FileSystemWatcher>();
+
 		#region Port properties
-		public string PortName { get; set; }
-		public int BaudRate { get; set; } = 9600;
-		public Parity Parity { get; set; } = Parity.None;
-		public int DataBits { get; set; } = 8;
-		public StopBits StopBits { get; set; } = StopBits.One;
-		public Handshake Handshake { get; set; } = Handshake.None;
-		public Encoding Encoding { get; set; } = Encoding.UTF8;
-		public int ReadTimeout { get; set; } = 1000;
-		public int WriteTimeout { get; set; } = 1000;
+		string _PortName;
+		public string PortName
+		{
+			get => _PortName;
+			set
+			{	//Should only run once.
+				if (value != Loc.NoCOMTabHeader)
+				{
+					if (!File.Exists(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", value + "SP.json")))
+						//New COM Port that doesn't have a json file. This should not trigger as long as user don't try to.
+						MainViewModel.MainVM.NavSettingsVM.GetSetting(PortName);
+					COMPortPropModel setting = JsonSerializer.Deserialize<COMPortPropModel>(File.ReadAllText(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", value + "SP.json")));
+					BaudRate = setting.BaudRate;
+					Parity = setting.Parity;
+					DataBits = setting.DataBits;
+					StopBits = setting.StopBits;
+					Handshake = setting.Handshake;
+					Encoding = Encoding.GetEncoding(setting.EncodingString);
+					ReadTimeout = setting.ReadTimeout;
+					WriteTimeout = setting.WriteTimeout;
+
+					FileSystemWatcher fsWatcher = new FileSystemWatcher(Path.Combine(Directory.GetCurrentDirectory(), Properties.Settings.Default.ConfigFolderDir, "COM"))
+						{ Filter = value + "SP.json", NotifyFilter = NotifyFilters.LastWrite, EnableRaisingEvents = true };
+					fsWatcher.Changed += FsWatcher_Changed;
+					fsWatchers.Add(fsWatcher);	//Save the watcher so it don't get disposed.
+				}
+				_PortName = value;
+			}
+		}
+		private void FsWatcher_Changed(object sender, FileSystemEventArgs e)
+		{   //Setting json file changed, update settings.
+			RetrySettingUpdate:
+			try
+			{
+				COMPortPropModel setting = JsonSerializer.Deserialize<COMPortPropModel>(File.ReadAllText(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", PortName + "SP.json")));
+				BaudRate = setting.BaudRate;
+				Parity = setting.Parity;
+				DataBits = setting.DataBits;
+				StopBits = setting.StopBits;
+				Handshake = setting.Handshake;
+				Encoding = Encoding.GetEncoding(setting.EncodingString);
+				ReadTimeout = setting.ReadTimeout;
+				WriteTimeout = setting.WriteTimeout;
+			}
+			catch (IOException)
+			{	//WriteAllText in NavSettingsVM has not yet been completed.
+				goto RetrySettingUpdate;
+			}	//This can also be solved by adding 100ms of delay before reading it, but whatever.
+		}
+
+		public int BaudRate { get; set; }
+		public Parity Parity { get; set; }
+		public int DataBits { get; set; }
+		public StopBits StopBits { get; set; }
+		public Handshake Handshake { get; set; }
+		public Encoding Encoding { get; set; }
+		public int ReadTimeout { get; set; }
+		public int WriteTimeout { get; set; }
 		#endregion
 
 		private void DataListBox_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)

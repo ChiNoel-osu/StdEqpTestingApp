@@ -13,7 +13,9 @@
 		Title="Main"
 		ResizeMode="CanResizeWithGrip"
 		Height="600"
-		Width="800">
+		Width="800"
+		MinHeight="430"
+		MinWidth="710">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -56,15 +58,13 @@
 		</Grid.RowDefinitions>
 		<StackPanel Orientation="Horizontal"
 					Grid.Row="0">
-			<Label Name="Username"
-				   Margin="6,0,0,0"
-				   VerticalAlignment="Center"
-				   d:Content="Victor"
-				   Content="{Binding HomeViewVM.UserName, Mode=OneWay}" />
-			<Label Name="Type"
-				   VerticalAlignment="Center"
-				   d:Content="User"
-				   Content="{Binding HomeViewVM.UserType, Mode=OneWay}" />
+			<TextBlock Margin="8,0"
+					   VerticalAlignment="Center"
+					   d:Text="Victor"
+					   Text="{Binding HomeViewVM.UserName, Mode=OneWay}" />
+			<TextBlock VerticalAlignment="Center"
+					   d:Text="User"
+					   Text="{Binding HomeViewVM.UserType, Mode=OneWay}" />
 			<Button Name="ThemeBtn"
 					Style="{DynamicResource ThemeButtonStyle}"
 					d:Content="☀"

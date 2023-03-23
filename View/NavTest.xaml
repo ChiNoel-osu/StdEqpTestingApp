@@ -296,6 +296,12 @@
 		<TabControl.ContentTemplate>
 			<DataTemplate>
 				<Grid>
+					<Grid.Resources>
+						<Style TargetType="{x:Type TextBlock}">
+							<Setter Property="Foreground"
+									Value="{DynamicResource GlobalFG}" />
+						</Style>
+					</Grid.Resources>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition Width="200" />
@@ -393,70 +399,86 @@
 										<RowDefinition Height="*" />
 									</Grid.RowDefinitions>
 									<Grid.Resources>
-										<d:Style TargetType="{x:Type Label}">
+										<Style TargetType="{x:Type TextBlock}">
 											<Setter Property="Foreground"
-													Value="White" />
-										</d:Style>
+													Value="{DynamicResource GlobalFG}" />
+										</Style>
 									</Grid.Resources>
 									<StackPanel Grid.Row="0"
 												Grid.Column="0"
+												Margin="0,0,5,0"
 												Orientation="Horizontal"
 												HorizontalAlignment="Right">
-										<Label Content="{Binding BaudRate, Mode=OneWay}" />
-										<Label Content="{x:Static loc:Loc.BaudRate}"
-											   FontWeight="Bold" />
+										<TextBlock Text="{Binding BaudRate, Mode=OneWay}" />
+										<TextBlock Text="{x:Static loc:Loc.BaudRate}"
+												   Margin="4,0,0,0"
+												   FontWeight="Bold" />
 									</StackPanel>
 									<StackPanel Grid.Row="1"
 												Grid.Column="0"
+												Margin="0,0,5,0"
 												Orientation="Horizontal"
 												HorizontalAlignment="Right">
-										<Label Content="{Binding Parity, Mode=OneWay}" />
-										<Label Content="{x:Static loc:Loc.Parity}"
-											   FontWeight="Bold" />
+										<TextBlock Text="{Binding Parity, Mode=OneWay}" />
+										<TextBlock Text="{x:Static loc:Loc.Parity}"
+												   Margin="4,0,0,0"
+												   FontWeight="Bold" />
 									</StackPanel>
 									<StackPanel Grid.Row="2"
 												Grid.Column="0"
+												Margin="0,0,5,0"
 												Orientation="Horizontal"
 												HorizontalAlignment="Right">
-										<Label Content="{Binding DataBits, Mode=OneWay}" />
-										<Label Content="{x:Static loc:Loc.DataBits}"
-											   FontWeight="Bold" />
+										<TextBlock Text="{Binding DataBits, Mode=OneWay}" />
+										<TextBlock Text="{x:Static loc:Loc.DataBits}"
+												   Margin="4,0,0,0"
+												   FontWeight="Bold" />
 									</StackPanel>
 									<StackPanel Grid.Row="3"
 												Grid.Column="0"
+												Margin="0,0,5,0"
 												Orientation="Horizontal"
 												HorizontalAlignment="Right">
-										<Label Content="{Binding StopBits, Mode=OneWay}" />
-										<Label Content="{x:Static loc:Loc.StopBits}"
-											   FontWeight="Bold" />
+										<TextBlock Text="{Binding StopBits, Mode=OneWay}" />
+										<TextBlock Text="{x:Static loc:Loc.StopBits}"
+												   Margin="4,0,0,0"
+												   FontWeight="Bold" />
 									</StackPanel>
 									<StackPanel Grid.Row="0"
 												Grid.Column="1"
+												Margin="5,0,0,0"
 												Orientation="Horizontal">
-										<Label Content="{x:Static loc:Loc.Handshake}"
-											   FontWeight="Bold" />
-										<Label Content="{Binding Handshake, Mode=OneWay}" />
+										<TextBlock Text="{x:Static loc:Loc.Handshake}"
+												   FontWeight="Bold"
+												   Margin="0,0,4,0" />
+										<TextBlock Text="{Binding Handshake, Mode=OneWay}" />
 									</StackPanel>
 									<StackPanel Grid.Row="1"
 												Grid.Column="1"
+												Margin="5,0,0,0"
 												Orientation="Horizontal">
-										<Label Content="{x:Static loc:Loc.Encoding}"
-											   FontWeight="Bold" />
-										<Label Content="{Binding Encoding, Mode=OneWay}" />
+										<TextBlock Text="{x:Static loc:Loc.Encoding}"
+												   FontWeight="Bold"
+												   Margin="0,0,4,0" />
+										<TextBlock Text="{Binding Encoding, Mode=OneWay}" />
 									</StackPanel>
 									<StackPanel Grid.Row="2"
 												Grid.Column="1"
+												Margin="5,0,0,0"
 												Orientation="Horizontal">
-										<Label Content="{x:Static loc:Loc.ReadT}"
-											   FontWeight="Bold" />
-										<Label Content="{Binding ReadTimeout, Mode=OneWay}" />
+										<TextBlock Text="{x:Static loc:Loc.ReadT}"
+												   FontWeight="Bold"
+												   Margin="0,0,4,0" />
+										<TextBlock Text="{Binding ReadTimeout, Mode=OneWay}" />
 									</StackPanel>
 									<StackPanel Grid.Row="3"
 												Grid.Column="1"
+												Margin="5,0,0,0"
 												Orientation="Horizontal">
-										<Label Content="{x:Static loc:Loc.WriteT}"
-											   FontWeight="Bold" />
-										<Label Content="{Binding WriteTimeout, Mode=OneWay}" />
+										<TextBlock Text="{x:Static loc:Loc.WriteT}"
+												   FontWeight="Bold"
+												   Margin="0,0,4,0" />
+										<TextBlock Text="{Binding WriteTimeout, Mode=OneWay}" />
 									</StackPanel>
 								</Grid>
 							</Expander>
@@ -590,10 +612,11 @@
 								<RowDefinition Height="Auto"
 											   MinHeight="30" />
 							</Grid.RowDefinitions>
-							<Label Grid.Row="0"
-								   d:Foreground="White"
-								   FontSize="15"
-								   Content="{x:Static loc:Loc.RecvStr}" />
+							<TextBlock Grid.Row="0"
+									   d:Foreground="White"
+									   Padding="5"
+									   FontSize="15"
+									   Text="{x:Static loc:Loc.RecvStr}" />
 							<TextBox Grid.Row="1"
 									 TextWrapping="Wrap"
 									 Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
@@ -644,9 +667,10 @@
 						<StackPanel Grid.Row="1"
 									Grid.Column="0"
 									Margin="10,0">
-							<Label Content="{x:Static loc:Loc.TestName}"
-								   d:Foreground="White"
-								   FontSize="15" />
+							<TextBlock Text="{x:Static loc:Loc.TestName}"
+									   Padding="5"
+									   d:Foreground="White"
+									   FontSize="15" />
 							<TextBox FontSize="20"
 									 Text="{Binding TestName}" />
 							<DockPanel>
@@ -657,10 +681,11 @@
 										Width="100"
 										FontSize="15"
 										DockPanel.Dock="Right" />
-								<Label DockPanel.Dock="Top"
-									   d:Foreground="White"
-									   Content="{x:Static loc:Loc.UoM}"
-									   FontSize="15" />
+								<TextBlock DockPanel.Dock="Top"
+										   d:Foreground="White"
+										   Padding="5"
+										   Text="{x:Static loc:Loc.UoM}"
+										   FontSize="15" />
 								<ComboBox Style="{DynamicResource ComboBoxStyle}"
 										  ItemsSource="{Binding UnitList, Mode=OneWay}"
 										  DockPanel.Dock="Bottom"
@@ -692,21 +717,23 @@
 										Command="{Binding SaveValueCommand, Mode=OneWay}"
 										CommandParameter="{Binding ElementName=DataBox, Path=SelectedItem, Mode=OneWay}" />
 							</Grid>
-							<Label Content="{x:Static loc:Loc.AddInfo}"
-								   Margin="10,0,0,0"
-								   d:Foreground="White"
-								   FontSize="15"
-								   DockPanel.Dock="Top" />
+							<TextBlock Text="{x:Static loc:Loc.AddInfo}"
+									   Margin="10,0,0,0"
+									   Padding="5"
+									   d:Foreground="White"
+									   FontSize="15"
+									   DockPanel.Dock="Top" />
 							<TextBox DockPanel.Dock="Top"
 									 Text="{Binding AdditionalInfo}"
 									 FontSize="18"
 									 Margin="10,0" />
-							<Label Content="{x:Static loc:Loc.Average}"
-								   ToolTip="{x:Static loc:Loc.AverageTT}"
-								   Margin="10,0,0,0"
-								   d:Foreground="White"
-								   FontSize="15"
-								   DockPanel.Dock="Top" />
+							<TextBlock Text="{x:Static loc:Loc.Average}"
+									   ToolTip="{x:Static loc:Loc.AverageTT}"
+									   Margin="10,0,0,0"
+									   Padding="5"
+									   d:Foreground="White"
+									   FontSize="15"
+									   DockPanel.Dock="Top" />
 							<TextBox DockPanel.Dock="Top"
 									 Text="{Binding Average}"
 									 ToolTip="{x:Static loc:Loc.AverageTT}"
@@ -717,11 +744,12 @@
 					</Grid>
 					<!--data view-->
 					<DockPanel Grid.Column="1">
-						<Label Content="{x:Static loc:Loc.SaveDataTitle}"
-							   FontFamily="Bahnschrift"
-							   FontSize="20"
-							   Margin="0,-22,0,0"
-							   DockPanel.Dock="Top" />
+						<TextBlock Text="{x:Static loc:Loc.SaveDataTitle}"
+								   FontFamily="Bahnschrift"
+								   FontSize="20"
+								   Margin="0,-22,0,0"
+								   Padding="5"
+								   DockPanel.Dock="Top" />
 						<ListBox x:Name="DataBox"
 								 DockPanel.Dock="Bottom"
 								 Foreground="{DynamicResource GlobalFG}"
@@ -765,7 +793,8 @@
 		</TabControl.ContentTemplate>
 		<TabControl.ItemTemplate>
 			<DataTemplate>
-				<Label Content="{Binding PortName}" />
+				<TextBlock Text="{Binding PortName}"
+						   Padding="6" />
 			</DataTemplate>
 		</TabControl.ItemTemplate>
 	</TabControl>

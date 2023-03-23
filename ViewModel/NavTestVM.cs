@@ -17,7 +17,7 @@ namespace StdEqpTesting.ViewModel
 		[ObservableProperty]
 		int _TabIndex = 0;
 
-		List<string> COMList = new List<string>();
+		public List<string> COMList = new List<string>();
 
 		readonly TestTabItemModel noCOM = new TestTabItemModel(false) { PortName = Localization.Loc.NoCOMTabHeader };
 		[RelayCommand]

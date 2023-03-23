@@ -243,7 +243,7 @@
     <value>测量 (网络设备)</value>
   </data>
   <data name="FoundCOMDevices" xml:space="preserve">
-    <value>检测到 %Num 个COM设备.</value>
+    <value>检测到 %Num 个COM设备</value>
   </data>
   <data name="AddRecvStr" xml:space="preserve">
     <value>添加 -&gt;</value>
@@ -341,7 +341,19 @@
     <value>语言</value>
   </data>
   <data name="SettingLangSaved" xml:space="preserve">
-    <value>已保存语言设置. 但需要重启应用才能生效.
+    <value>已保存语言设置. 但需要重启应用才能完全生效.
 您想要现在重启应用吗?</value>
+  </data>
+  <data name="SettingDefaultCOM" xml:space="preserve">
+    <value>新串口的默认值</value>
+  </data>
+  <data name="PortProp" xml:space="preserve">
+    <value>串口参数</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="COMSettingSaved" xml:space="preserve">
+    <value>已保存 %PortName 的设置</value>
   </data>
 </root>

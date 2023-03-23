@@ -3,8 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using StdEqpTesting.Model;
 using StdEqpTesting.View;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace StdEqpTesting.ViewModel
 {

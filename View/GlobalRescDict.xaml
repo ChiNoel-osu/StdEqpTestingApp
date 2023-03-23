@@ -319,6 +319,8 @@
 	<!--#region ComboBoxStyle-->
 	<Style x:Key="ComboBoxEditableTextBox"
 		   TargetType="{x:Type TextBox}">
+		<Setter Property="Foreground"
+				Value="{DynamicResource GlobalFG}" />
 		<Setter Property="OverridesDefaultStyle"
 				Value="true" />
 		<Setter Property="AllowDrop"
@@ -380,7 +382,7 @@
 	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Border"
 					 Color="CornflowerBlue" />
 	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Background"
-					 Color="Transparent"/>
+					 Color="Transparent" />
 	<SolidColorBrush x:Key="ComboBox.Pressed.Editable.Button.Border"
 					 Color="CornflowerBlue" />
 	<SolidColorBrush x:Key="ComboBox.Disabled.Background"
@@ -804,7 +806,7 @@
 		<Setter Property="BorderBrush"
 				Value="{StaticResource ComboBox.Static.Border}" />
 		<Setter Property="Foreground"
-				Value="{DynamicResource {x:Static SystemColors.WindowTextBrushKey}}" />
+				Value="{DynamicResource GlobalFG}" />
 		<Setter Property="BorderThickness"
 				Value="1" />
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility"

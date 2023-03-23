@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace StdEqpTesting
 		public App()
 		{
 			Logger.Info("The application is starting.");
-			#region Load settings.
+			#region Load language settings.
 			try
 			{
 				CultureInfo.CurrentUICulture = new CultureInfo(StdEqpTesting.Properties.Settings.Default.Locale);
@@ -26,6 +27,7 @@ namespace StdEqpTesting
 				Task.Run(() => MessageBox.Show($"{ex.Message}\nThe app will now use zh-CN as default language.", "Nope", MessageBoxButton.OK, MessageBoxImage.Asterisk));
 				CultureInfo.CurrentUICulture = new CultureInfo("zh-CN");
 			}
+			Logger.Info("Current UI Culture is: " + CultureInfo.CurrentUICulture);
 			#endregion
 			#region Check db existance.
 			Logger.Trace("Checking database");
@@ -50,9 +52,37 @@ namespace StdEqpTesting
 				}
 			}
 			#endregion
+			#region Global exception handling
+			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
+			Dispatcher.UnhandledException += Dispatcher_UnhandledException;
+			Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
+			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
+			#endregion
 			Current.Exit += Current_Exit;
 		}
+		#region Global exception handling
+		private void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
 
+		private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+
+		private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
+		{
+			Logger.Fatal($"The sender is: {sender}\n{e.Exception}");
+			MessageBox.Show($"The application ran into a serious problem and is going to be shutdown. The following information might be helpful:\nThe sender is: {sender}\n{e.Exception}\n\nAlso check the log folder.", "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
+			throw new NotImplementedException();
+		}
+
+		public void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+		{
+			throw new NotImplementedException();
+		}
+		#endregion
 		private void Current_Exit(object sender, ExitEventArgs e)
 		{
 			Logger.Info($"The application has stopped. [{e.ApplicationExitCode}]");

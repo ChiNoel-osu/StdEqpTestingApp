@@ -144,23 +144,156 @@
 				</Style>
 			</TabControl.Resources>
 			<TabItem Header="{x:Static loc:Loc.SettingTitleGeneral}">
-				<Grid Margin="15,0">
-					<StackPanel>
-						<Label Content="{x:Static loc:Loc.SettingLang}" />
-						<ComboBox Style="{DynamicResource ComboBoxStyle}"
-								  Foreground="{DynamicResource GlobalFG}"
-								  SelectedIndex="{Binding NavSettingsVM.LangIndex, Mode=TwoWay}"
-								  Width="200"
-								  HorizontalAlignment="Left">
-							<ComboBoxItem Content="中文" />
-							<ComboBoxItem Content="English" />
-						</ComboBox>
-					</StackPanel>
-				</Grid>
+				<StackPanel Margin="15,5">
+					<TextBlock Text="{x:Static loc:Loc.SettingLang}"
+							   Padding="5" />
+					<ComboBox Style="{DynamicResource ComboBoxStyle}"
+							  Foreground="{DynamicResource GlobalFG}"
+							  SelectedIndex="{Binding NavSettingsVM.LangIndex, Mode=TwoWay}"
+							  Width="200"
+							  HorizontalAlignment="Left">
+						<ComboBoxItem Content="中文" />
+						<ComboBoxItem Content="English" />
+					</ComboBox>
+				</StackPanel>
 			</TabItem>
 			<TabItem Header="{x:Static loc:Loc.SettingTitleMeasurement}"
 					 IsEnabled="False" />
-			<TabItem Header="{x:Static loc:Loc.SettingTitleCOM}" />
+			<TabItem Header="{x:Static loc:Loc.SettingTitleCOM}">
+				<StackPanel Margin="15,5">
+					<DockPanel LastChildFill="False">
+						<TextBlock DockPanel.Dock="Left"
+								   Text="{x:Static loc:Loc.PortProp}"
+								   Padding="5" />
+						<ComboBox x:Name="COMSettingPort"
+								  DockPanel.Dock="Right"
+								  HorizontalAlignment="Right"
+								  Margin="0,0,2,0"
+								  Style="{DynamicResource ComboBoxStyle}"
+								  Foreground="{DynamicResource GlobalFG}"
+								  FontWeight="Normal"
+								  FontSize="16"
+								  VerticalContentAlignment="Center"
+								  Width="180"
+								  Height="30"
+								  SelectedItem="{Binding NavSettingsVM.SelectedPort, Mode=OneWayToSource}"
+								  SelectedIndex="{Binding NavSettingsVM.SelectedCOMIndex}"
+								  ItemsSource="{Binding	NavSettingsVM.COMSettingPorts, Mode=OneWay}" />
+						<Button DockPanel.Dock="Right"
+								Margin="10,0"
+								FontSize="16"
+								Width="60"
+								Height="30"
+								Click="SaveCOMButton_Click"
+								Content="{x:Static loc:Loc.Save}" />
+					</DockPanel>
+					<Grid >
+						<Grid.Resources>
+							<Style TargetType="{x:Type TextBlock}">
+								<Setter Property="Foreground"
+										Value="{DynamicResource GlobalFG}" />
+								<Setter	Property="FontWeight"
+										Value="Normal" />
+								<Setter Property="FontSize"
+										Value="15" />
+							</Style>
+						</Grid.Resources>
+						<Grid.RowDefinitions>
+							<RowDefinition />
+							<RowDefinition />
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+							<ColumnDefinition />
+						</Grid.ColumnDefinitions>
+						<DockPanel Grid.Row="0"
+								   Grid.Column="0"
+								   Margin="2">
+							<TextBlock Text="{x:Static loc:Loc.BaudRate}"
+									   Padding="5" />
+							<TextBox Text="{Binding NavSettingsVM.BaudRate}"
+									 FontWeight="Normal" />
+						</DockPanel>
+						<DockPanel Grid.Row="0"
+								   Grid.Column="1"
+								   Margin="2">
+							<TextBlock Text="{x:Static loc:Loc.Parity}"
+									   Padding="5" />
+							<ComboBox Style="{DynamicResource ComboBoxStyle}"
+									  SelectedIndex="{Binding NavSettingsVM.ParityOrdinal}"
+									  FontWeight="Normal">
+								<ComboBoxItem Content="None" />
+								<ComboBoxItem Content="Odd" />
+								<ComboBoxItem Content="Even" />
+								<ComboBoxItem Content="Mark" />
+								<ComboBoxItem Content="Space" />
+							</ComboBox>
+						</DockPanel>
+						<DockPanel Grid.Row="0"
+								   Grid.Column="2"
+								   Margin="2">
+							<TextBlock Text="{x:Static loc:Loc.DataBits}"
+									   Padding="5" />
+							<TextBox Text="{Binding NavSettingsVM.DataBits}"
+									 FontWeight="Normal" />
+						</DockPanel>
+						<DockPanel Grid.Row="0"
+								   Grid.Column="3"
+								   Margin="2">
+							<TextBlock Text="{x:Static loc:Loc.StopBits}"
+									   Padding="5" />
+							<ComboBox Style="{DynamicResource ComboBoxStyle}"
+									  SelectedIndex="{Binding NavSettingsVM.StopBitsOrdinal}"
+									  FontWeight="Normal">
+								<ComboBoxItem Content="None" />
+								<ComboBoxItem Content="1" />
+								<ComboBoxItem Content="2" />
+								<ComboBoxItem Content="1.5" />
+							</ComboBox>
+						</DockPanel>
+						<DockPanel Grid.Row="1"
+								   Grid.Column="0"
+								   Margin="2">
+							<TextBlock Text="{x:Static loc:Loc.Handshake}"
+									   Padding="5" />
+							<ComboBox Style="{DynamicResource ComboBoxStyle}"
+									  SelectedIndex="{Binding NavSettingsVM.HandshakeOrdinal}"
+									  FontWeight="Normal">
+								<ComboBoxItem Content="None" />
+								<ComboBoxItem Content="XOnXOff" />
+								<ComboBoxItem Content="RequestToSend" />
+								<ComboBoxItem Content="RequestToSendXOnXOff" />
+							</ComboBox>
+						</DockPanel>
+						<DockPanel Grid.Row="1"
+								   Grid.Column="1"
+								   Margin="2">
+							<TextBlock Text="{x:Static loc:Loc.Encoding}"
+									   Padding="5" />
+							<TextBox Text="{Binding NavSettingsVM.EncodingStr}"
+									 FontWeight="Normal" />
+						</DockPanel>
+						<DockPanel Grid.Row="1"
+								   Grid.Column="2"
+								   Margin="2">
+							<TextBlock Text="{x:Static loc:Loc.ReadT}"
+									   Padding="5" />
+							<TextBox Text="{Binding NavSettingsVM.ReadTimeout}"
+									 FontWeight="Normal" />
+						</DockPanel>
+						<DockPanel Grid.Row="1"
+								   Grid.Column="3"
+								   Margin="2">
+							<TextBlock Text="{x:Static loc:Loc.WriteT}"
+									   Padding="5" />
+							<TextBox Text="{Binding NavSettingsVM.WriteTimeout}"
+									 FontWeight="Normal" />
+						</DockPanel>
+					</Grid>
+				</StackPanel>
+			</TabItem>
 			<TabItem Header="{x:Static loc:Loc.SettingTitleUSB}" />
 			<TabItem Header="{x:Static loc:Loc.SettingTitleNet}" />
 			<TabItem Header="{x:Static loc:Loc.NavReview}"

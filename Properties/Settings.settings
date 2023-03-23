@@ -12,5 +12,8 @@
 &lt;/SerializableConnectionString&gt;</DesignTimeValue>
       <Value Profile="(Default)">Database\Main.db</Value>
     </Setting>
+    <Setting Name="ConfigFolderDir" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Database</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

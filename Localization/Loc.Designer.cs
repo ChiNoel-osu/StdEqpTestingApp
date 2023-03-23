@@ -223,6 +223,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings for %PortName has been saved.
+        /// </summary>
+        public static string COMSettingSaved {
+            get {
+                return ResourceManager.GetString("COMSettingSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm Addition of Incomplete Record.
         /// </summary>
         public static string ConfirmAddEmptyRecord {
@@ -270,7 +279,7 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Found %Num COM device(s)..
+        ///   Looks up a localized string similar to %Num COM device(s) detected.
         /// </summary>
         public static string FoundCOMDevices {
             get {
@@ -479,6 +488,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Port Properties.
+        /// </summary>
+        public static string PortProp {
+            get {
+                return ResourceManager.GetString("PortProp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to ^^^^Properties^^^^.
         /// </summary>
         public static string PortPropExpander {
@@ -578,6 +596,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save.
+        /// </summary>
+        public static string Save {
+            get {
+                return ResourceManager.GetString("Save", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save Avg. Value.
         /// </summary>
         public static string SaveAvg {
@@ -614,6 +641,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Port Defaults.
+        /// </summary>
+        public static string SettingDefaultCOM {
+            get {
+                return ResourceManager.GetString("SettingDefaultCOM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Language.
         /// </summary>
         public static string SettingLang {
@@ -623,7 +659,7 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Language setting saved. But requires an application restart to take effect.
+        ///   Looks up a localized string similar to Language setting saved. But requires an application restart to fully take effect.
         ///Would you like to restart now?.
         /// </summary>
         public static string SettingLangSaved {

@@ -29,15 +29,13 @@
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0"
 					HorizontalAlignment="Center">
-			<Label Content="{x:Static loc:Loc.LoginWelcome}"
-				   FontSize="20"
-				   Padding="0"
-				   Margin="0,5,0,0"
-				   HorizontalAlignment="Center" />
-			<Label Content="{Binding LoginWindowVM.Status, Mode=OneWay}"
-				   d:Content="{x:Static loc:Loc.LoginEnterCred}"
-				   Padding="0"
-				   HorizontalAlignment="Center" />
+			<TextBlock Text="{x:Static loc:Loc.LoginWelcome}"
+					   FontSize="20"
+					   Margin="0,5,0,0"
+					   HorizontalAlignment="Center" />
+			<TextBlock Text="{Binding LoginWindowVM.Status, Mode=OneWay}"
+					   d:Text="{x:Static loc:Loc.LoginEnterCred}"
+					   HorizontalAlignment="Center" />
 		</StackPanel>
 		<Separator VerticalAlignment="Bottom"
 				   Background="Gray"
@@ -74,8 +72,8 @@
 		</Separator>
 		<StackPanel Grid.Row="1"
 					Margin="20,2">
-			<Label Content="{x:Static loc:Loc.LoginUsername}"
-				   Margin="-4,0,0,-2" />
+			<TextBlock Text="{x:Static loc:Loc.LoginUsername}"
+					   Margin="0,4" />
 			<TextBox Text="{Binding LoginWindowVM.Username, Mode=OneWayToSource, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
 					 Height="20"
 					 Background="{DynamicResource GlobalBG}"
@@ -107,8 +105,8 @@
 					</Style>
 				</TextBox.Style>
 			</TextBox>
-			<Label Content="{x:Static loc:Loc.LoginPassword}"
-				   Margin="-4,0,0,-2" />
+			<TextBlock Text="{x:Static loc:Loc.LoginPassword}"
+					   Margin="0,4" />
 			<PasswordBox model:BindablePasswordBox.Attach="True"
 						 model:BindablePasswordBox.Password="{Binding LoginWindowVM.Password, Mode=OneWayToSource, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
 						 Height="20"

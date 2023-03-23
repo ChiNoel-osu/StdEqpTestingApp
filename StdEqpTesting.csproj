@@ -13,13 +13,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Database\**" />
-    <EmbeddedResource Remove="Database\**" />
-    <None Remove="Database\**" />
-    <Page Remove="Database\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Remove="View\TabOpacityMask.png" />
   </ItemGroup>
 
@@ -29,9 +22,9 @@
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.1.0" />
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.3" />
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.4" />
     <PackageReference Include="NLog" Version="5.1.2" />
-    <PackageReference Include="QuestPDF" Version="2022.12.1" />
+    <PackageReference Include="QuestPDF" Version="2022.12.2" />
     <PackageReference Include="System.IO.Ports" Version="7.0.0" />
   </ItemGroup>
 
