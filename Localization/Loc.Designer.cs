@@ -398,6 +398,24 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image Device.
+        /// </summary>
+        public static string NavImg {
+            get {
+                return ResourceManager.GetString("NavImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proximity Sensor.
+        /// </summary>
+        public static string NavProx {
+            get {
+                return ResourceManager.GetString("NavProx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Review.
         /// </summary>
         public static string NavReview {
@@ -421,24 +439,6 @@ namespace StdEqpTesting.Localization {
         public static string NavTest {
             get {
                 return ResourceManager.GetString("NavTest", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Measure (Net).
-        /// </summary>
-        public static string NavTestNET {
-            get {
-                return ResourceManager.GetString("NavTestNET", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Measure (USB).
-        /// </summary>
-        public static string NavTestUSB {
-            get {
-                return ResourceManager.GetString("NavTestUSB", resourceCulture);
             }
         }
         
@@ -596,6 +596,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Data Type.
+        /// </summary>
+        public static string ReviewDataType {
+            get {
+                return ResourceManager.GetString("ReviewDataType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string Save {
@@ -687,6 +696,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Image.
+        /// </summary>
+        public static string SettingTitleImg {
+            get {
+                return ResourceManager.GetString("SettingTitleImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Measurement.
         /// </summary>
         public static string SettingTitleMeasurement {
@@ -696,20 +714,11 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Network.
+        ///   Looks up a localized string similar to Proximity.
         /// </summary>
-        public static string SettingTitleNet {
+        public static string SettingTitleProx {
             get {
-                return ResourceManager.GetString("SettingTitleNet", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to USB.
-        /// </summary>
-        public static string SettingTitleUSB {
-            get {
-                return ResourceManager.GetString("SettingTitleUSB", resourceCulture);
+                return ResourceManager.GetString("SettingTitleProx", resourceCulture);
             }
         }
         
@@ -755,6 +764,15 @@ namespace StdEqpTesting.Localization {
         public static string UoM {
             get {
                 return ResourceManager.GetString("UoM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string Update {
+            get {
+                return ResourceManager.GetString("Update", resourceCulture);
             }
         }
         

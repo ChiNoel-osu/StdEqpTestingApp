@@ -3,11 +3,62 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			 xmlns:viewmodel="clr-namespace:StdEqpTesting.ViewModel"
 			 xmlns:local="clr-namespace:StdEqpTesting.View"
+			 xmlns:loc="clr-namespace:StdEqpTesting.Localization"
 			 mc:Ignorable="d"
+			 d:DataContext="{d:DesignInstance Type={x:Type viewmodel:MainViewModel}}"
 			 d:DesignHeight="500"
 			 d:DesignWidth="800">
+	<!--This keeps the designer happy. The real resource is inherited from HomeViewWindow.-->
+	<d:UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary Source="pack://application:,,,/Theme/Dark.xaml" />
+				<ResourceDictionary Source="pack://application:,,,/View/GlobalRescDict.xaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</d:UserControl.Resources>
+	<UserControl.Resources>
+		<Style TargetType="{x:Type TextBlock}">
+			<Setter Property="Foreground"
+					Value="{DynamicResource GlobalFG}" />
+		</Style>
+	</UserControl.Resources>
 	<Grid>
-		<Rectangle Fill="Blue" Margin="66" />
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="*" />
+		</Grid.ColumnDefinitions>
+		<DataGrid Style="{DynamicResource DataGridStyle}"
+				  Grid.Column="0"
+				  ItemsSource="{Binding NavReviewVM.DataGridSource}" />
+		<GridSplitter Grid.Column="1"
+					  HorizontalAlignment="Left"
+					  VerticalAlignment="Stretch"
+					  Width="4" />
+		<DockPanel Grid.Column="1"
+				   Margin="10,5"
+				   LastChildFill="False">
+			<TextBlock DockPanel.Dock="Top"
+					   FontSize="20"
+					   Text="{x:Static loc:Loc.ReviewDataType}" />
+			<ComboBox DockPanel.Dock="Top"
+					  x:Name="DataType"
+					  FontSize="20"
+					  Margin="0,5"
+					  SelectedIndex="{Binding NavReviewVM.DataTypeIndex}"
+					  Style="{DynamicResource ComboBoxStyle}">
+				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleCOM}" />
+				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleProx}" />
+				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleImg}" />
+			</ComboBox>
+			<Button DockPanel.Dock="Top"
+					Content="{x:Static loc:Loc.Update}"
+					Command="{Binding NavReviewVM.ReadDBCommand}"
+					CommandParameter="{Binding ElementName=DataType, Path=SelectedIndex}"
+					FontSize="20"
+					Height="40" />
+		</DockPanel>
 	</Grid>
 </UserControl>

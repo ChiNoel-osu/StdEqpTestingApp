@@ -236,11 +236,11 @@
   <data name="RecvStr" xml:space="preserve">
     <value>接收字符串</value>
   </data>
-  <data name="NavTestUSB" xml:space="preserve">
-    <value>测量 (USB设备)</value>
+  <data name="NavProx" xml:space="preserve">
+    <value>位移传感器</value>
   </data>
-  <data name="NavTestNET" xml:space="preserve">
-    <value>测量 (网络设备)</value>
+  <data name="NavImg" xml:space="preserve">
+    <value>图像设备</value>
   </data>
   <data name="FoundCOMDevices" xml:space="preserve">
     <value>检测到 %Num 个COM设备</value>
@@ -331,11 +331,11 @@
   <data name="SettingTitleCOM" xml:space="preserve">
     <value>COM</value>
   </data>
-  <data name="SettingTitleUSB" xml:space="preserve">
-    <value>USB</value>
+  <data name="SettingTitleProx" xml:space="preserve">
+    <value>位移</value>
   </data>
-  <data name="SettingTitleNet" xml:space="preserve">
-    <value>网络</value>
+  <data name="SettingTitleImg" xml:space="preserve">
+    <value>图像</value>
   </data>
   <data name="SettingLang" xml:space="preserve">
     <value>语言</value>
@@ -355,5 +355,11 @@
   </data>
   <data name="COMSettingSaved" xml:space="preserve">
     <value>已保存 %PortName 的设置</value>
+  </data>
+  <data name="ReviewDataType" xml:space="preserve">
+    <value>数据类型</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>更新</value>
   </data>
 </root>

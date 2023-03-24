@@ -216,11 +216,11 @@ And should have at least 4 characters.</value>
   <data name="RecvStr" xml:space="preserve">
     <value>Recv. String</value>
   </data>
-  <data name="NavTestUSB" xml:space="preserve">
-    <value>Measure (USB)</value>
+  <data name="NavProx" xml:space="preserve">
+    <value>Proximity Sensor</value>
   </data>
-  <data name="NavTestNET" xml:space="preserve">
-    <value>Measure (Net)</value>
+  <data name="NavImg" xml:space="preserve">
+    <value>Image Device</value>
   </data>
   <data name="FoundCOMDevices" xml:space="preserve">
     <value>%Num COM device(s) detected</value>
@@ -312,11 +312,11 @@ Press No to go back so you can make some changes, otherwise you can press Yes to
   <data name="SettingTitleCOM" xml:space="preserve">
     <value>COM</value>
   </data>
-  <data name="SettingTitleUSB" xml:space="preserve">
-    <value>USB</value>
+  <data name="SettingTitleProx" xml:space="preserve">
+    <value>Proximity</value>
   </data>
-  <data name="SettingTitleNet" xml:space="preserve">
-    <value>Network</value>
+  <data name="SettingTitleImg" xml:space="preserve">
+    <value>Image</value>
   </data>
   <data name="SettingLang" xml:space="preserve">
     <value>Language</value>
@@ -336,5 +336,11 @@ Would you like to restart now?</value>
   </data>
   <data name="COMSettingSaved" xml:space="preserve">
     <value>Settings for %PortName has been saved</value>
+  </data>
+  <data name="ReviewDataType" xml:space="preserve">
+    <value>Data Type</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>Update</value>
   </data>
 </root>

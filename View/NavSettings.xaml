@@ -247,7 +247,7 @@
 							<ComboBox Style="{DynamicResource ComboBoxStyle}"
 									  SelectedIndex="{Binding NavSettingsVM.StopBitsOrdinal}"
 									  FontWeight="Normal">
-								<ComboBoxItem Content="None" />
+								<ComboBoxItem Content="None" IsEnabled="False"/>
 								<ComboBoxItem Content="1" />
 								<ComboBoxItem Content="2" />
 								<ComboBoxItem Content="1.5" />
@@ -294,8 +294,8 @@
 					</Grid>
 				</StackPanel>
 			</TabItem>
-			<TabItem Header="{x:Static loc:Loc.SettingTitleUSB}" />
-			<TabItem Header="{x:Static loc:Loc.SettingTitleNet}" />
+			<TabItem Header="{x:Static loc:Loc.SettingTitleProx}" />
+			<TabItem Header="{x:Static loc:Loc.SettingTitleImg}" />
 			<TabItem Header="{x:Static loc:Loc.NavReview}"
 					 IsEnabled="False" />
 			<TabItem Header="Options" />

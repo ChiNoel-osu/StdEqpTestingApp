@@ -8,7 +8,7 @@ using System.IO.Ports;
 using System.Text;
 using System.Text.Json;
 using System.Windows;
-//TODO: Logging
+
 namespace StdEqpTesting.ViewModel
 {
 	public partial class NavSettingsVM : ObservableObject

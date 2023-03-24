@@ -45,7 +45,7 @@ namespace StdEqpTesting.Model
 
 		CancellationTokenSource cts;
 		CancellationToken ct;
-		SerialPort serialPort = new SerialPort();	//The one and only SerialPort in this Tab.
+		SerialPort serialPort = new SerialPort();   //The one and only SerialPort in this Tab.
 		System.Timers.Timer timer = new System.Timers.Timer(1000) { AutoReset = true };
 		[RelayCommand]
 		public void Connect()
@@ -125,6 +125,7 @@ namespace StdEqpTesting.Model
 			if ((string.IsNullOrWhiteSpace(TestName) || string.IsNullOrWhiteSpace(MeaUnit)) && MessageBox.Show(Loc.ConfirmAddEmptyRecordDesc, Loc.ConfirmAddEmptyRecord, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No)
 				return;
 			Mouse.OverrideCursor = Cursors.AppStarting;
+			App.Logger.Info("Saving COM value to DB.");
 			MainViewModel.MainVM.UpdateMainStatus(Loc.DBConnect, true);
 			await Task.Run(() =>
 			{
@@ -215,7 +216,7 @@ namespace StdEqpTesting.Model
 		{
 			get => _PortName;
 			set
-			{	//Should only run once.
+			{   //Should only run once.
 				if (value != Loc.NoCOMTabHeader)
 				{
 					if (!File.Exists(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", value + "SP.json")))
@@ -232,16 +233,16 @@ namespace StdEqpTesting.Model
 					WriteTimeout = setting.WriteTimeout;
 
 					FileSystemWatcher fsWatcher = new FileSystemWatcher(Path.Combine(Directory.GetCurrentDirectory(), Properties.Settings.Default.ConfigFolderDir, "COM"))
-						{ Filter = value + "SP.json", NotifyFilter = NotifyFilters.LastWrite, EnableRaisingEvents = true };
+					{ Filter = value + "SP.json", NotifyFilter = NotifyFilters.LastWrite, EnableRaisingEvents = true };
 					fsWatcher.Changed += FsWatcher_Changed;
-					fsWatchers.Add(fsWatcher);	//Save the watcher so it don't get disposed.
+					fsWatchers.Add(fsWatcher);  //Save the watcher so it don't get disposed.
 				}
 				_PortName = value;
 			}
 		}
 		private void FsWatcher_Changed(object sender, FileSystemEventArgs e)
 		{   //Setting json file changed, update settings.
-			RetrySettingUpdate:
+		RetrySettingUpdate:
 			try
 			{
 				COMPortPropModel setting = JsonSerializer.Deserialize<COMPortPropModel>(File.ReadAllText(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", PortName + "SP.json")));
@@ -255,9 +256,9 @@ namespace StdEqpTesting.Model
 				WriteTimeout = setting.WriteTimeout;
 			}
 			catch (IOException)
-			{	//WriteAllText in NavSettingsVM has not yet been completed.
+			{   //WriteAllText in NavSettingsVM has not yet been completed.
 				goto RetrySettingUpdate;
-			}	//This can also be solved by adding 100ms of delay before reading it, but whatever.
+			}   //This can also be solved by adding 100ms of delay before reading it, but whatever.
 		}
 
 		public int BaudRate { get; set; }
