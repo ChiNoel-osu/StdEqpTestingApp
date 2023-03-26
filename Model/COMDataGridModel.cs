@@ -1,7 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using Microsoft.Data.Sqlite;
+using StdEqpTesting.ViewModel;
 using System;
-//TODO: Logging
+using System.Windows;
+
 namespace StdEqpTesting.Model
 {
 	public partial class COMDataGridModel : ObservableObject
@@ -33,7 +35,30 @@ namespace StdEqpTesting.Model
 				_Time = (long)value;
 			}
 		}
-
+		private void COMDataGridModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+		{
+			App.Logger.Info($"Updating DB ComTestData {e.PropertyName}={this.GetType().GetProperty(e.PropertyName).GetValue(this)}, ID:{ID}");
+			using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
+			{
+				connection.Open();
+				using (SqliteCommand command = connection.CreateCommand())
+				{
+					command.CommandText = $"UPDATE ComTestData SET {e.PropertyName}=$STH WHERE ID = $ID";
+					command.Parameters.AddWithValue("$ID", this.ID);
+					command.Parameters.AddWithValue("$STH", this.GetType().GetProperty(e.PropertyName).GetValue(this).ToString());
+					try
+					{
+						command.ExecuteNonQuery();
+						MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.Saved2DB, true);
+					}
+					catch (SqliteException ex)
+					{
+						MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.NotSaved2DB, true, 3);
+						MessageBox.Show(Localization.Loc.SQLReviewEx.Replace("%Exception", ex.Message), "SQL command failed.", MessageBoxButton.OK, MessageBoxImage.Warning); ;
+					}
+				}
+			}
+		}
 		public COMDataGridModel(int ID, string User, string TestName, string? ValueType, string TestValue, string TestUnit, string? Tag, string? COMPort, long UnixTimeStamp)
 		{
 			this.ID = ID;
@@ -47,21 +72,6 @@ namespace StdEqpTesting.Model
 			this.Time = UnixTimeStamp;
 
 			this.PropertyChanged += COMDataGridModel_PropertyChanged;
-		}
-
-		private void COMDataGridModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-		{
-			using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
-			{
-				connection.Open();
-				using (SqliteCommand command = connection.CreateCommand())
-				{
-					command.CommandText = $"UPDATE ComTestData SET {e.PropertyName}=${e.PropertyName} WHERE ID = $ID";
-					command.Parameters.AddWithValue($"${e.PropertyName}", this.GetType().GetProperty(e.PropertyName).GetValue(this).ToString());
-					command.Parameters.AddWithValue("$ID", this.ID);
-					command.ExecuteNonQuery();
-				}
-			}
 		}
 	}
 }

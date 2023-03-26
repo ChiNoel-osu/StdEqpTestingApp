@@ -359,7 +359,17 @@
   <data name="ReviewDataType" xml:space="preserve">
     <value>数据类型</value>
   </data>
-  <data name="Update" xml:space="preserve">
-    <value>更新</value>
+  <data name="Search" xml:space="preserve">
+    <value>搜索</value>
+  </data>
+  <data name="SQLReviewEx" xml:space="preserve">
+    <value>发生了一个SQL错误. 您作出的更改未保存. 以下信息可能会帮到您:
+
+%Exception
+
+要查看最新的有效数据, 请重新执行搜索以更新此列表.</value>
+  </data>
+  <data name="ReviewConfirmDelete" xml:space="preserve">
+    <value>您确定要删除这条记录吗?</value>
   </data>
 </root>

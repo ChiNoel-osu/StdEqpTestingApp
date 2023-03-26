@@ -52,12 +52,14 @@ namespace StdEqpTesting
 				}
 			}
 			#endregion
+#if Release
 			#region Global exception handling
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			Dispatcher.UnhandledException += Dispatcher_UnhandledException;
 			Application.Current.DispatcherUnhandledException += Current_DispatcherUnhandledException;
 			TaskScheduler.UnobservedTaskException += TaskScheduler_UnobservedTaskException;
 			#endregion
+#endif
 			Current.Exit += Current_Exit;
 		}
 		#region Global exception handling
@@ -82,7 +84,7 @@ namespace StdEqpTesting
 		{
 			throw new NotImplementedException();
 		}
-		#endregion
+#endregion
 		private void Current_Exit(object sender, ExitEventArgs e)
 		{
 			Logger.Info($"The application has stopped. [{e.ApplicationExitCode}]");

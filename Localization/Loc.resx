@@ -340,7 +340,17 @@ Would you like to restart now?</value>
   <data name="ReviewDataType" xml:space="preserve">
     <value>Data Type</value>
   </data>
-  <data name="Update" xml:space="preserve">
-    <value>Update</value>
+  <data name="Search" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SQLReviewEx" xml:space="preserve">
+    <value>An SQL exception has occurred. Your changes are not saved. The following information might help:
+
+%Exception
+
+To view the last valid value, search again to update this list.</value>
+  </data>
+  <data name="ReviewConfirmDelete" xml:space="preserve">
+    <value>Are you sure you want to delete this record?</value>
   </data>
 </root>

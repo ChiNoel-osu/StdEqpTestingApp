@@ -9,7 +9,8 @@
 			 mc:Ignorable="d"
 			 d:DataContext="{d:DesignInstance Type={x:Type viewmodel:MainViewModel}}"
 			 d:DesignHeight="500"
-			 d:DesignWidth="800">
+			 d:DesignWidth="800"
+			 xmlns:theme="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero2">
 	<!--This keeps the designer happy. The real resource is inherited from HomeViewWindow.-->
 	<d:UserControl.Resources>
 		<ResourceDictionary>
@@ -31,9 +32,13 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<DataGrid Style="{DynamicResource DataGridStyle}"
+				  Margin="0,1,0,0"
 				  Grid.Column="0"
+				  FontSize="14"
+				  Keyboard.PreviewKeyDown="DataGrid_PreviewKeyDown"
 				  ItemsSource="{Binding NavReviewVM.DataGridSource}" />
 		<GridSplitter Grid.Column="1"
+					  Margin="0,1,0,0"
 					  HorizontalAlignment="Left"
 					  VerticalAlignment="Stretch"
 					  Width="4" />
@@ -53,8 +58,15 @@
 				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleProx}" />
 				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleImg}" />
 			</ComboBox>
+			<TextBlock DockPanel.Dock="Top"
+					   FontSize="20"
+					   Text="{x:Static loc:Loc.TestName}" />
+			<TextBox DockPanel.Dock="Top"
+					 Text="{Binding NavReviewVM.SearchString, Mode=OneWayToSource}"
+					 FontSize="20"
+					 Margin="0,5" />
 			<Button DockPanel.Dock="Top"
-					Content="{x:Static loc:Loc.Update}"
+					Content="{x:Static loc:Loc.Search}"
 					Command="{Binding NavReviewVM.ReadDBCommand}"
 					CommandParameter="{Binding ElementName=DataType, Path=SelectedIndex}"
 					FontSize="20"
