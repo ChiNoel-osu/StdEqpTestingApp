@@ -84,7 +84,7 @@ namespace StdEqpTesting
 		{
 			throw new NotImplementedException();
 		}
-#endregion
+		#endregion
 		private void Current_Exit(object sender, ExitEventArgs e)
 		{
 			Logger.Info($"The application has stopped. [{e.ApplicationExitCode}]");

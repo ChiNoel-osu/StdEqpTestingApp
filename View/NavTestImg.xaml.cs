@@ -3,11 +3,11 @@
 namespace StdEqpTesting.View
 {
 	/// <summary>
-	/// NavTestUSB.xaml 的交互逻辑
+	/// NavTestImg.xaml 的交互逻辑
 	/// </summary>
-	public partial class NavTestUSB : UserControl
+	public partial class NavTestImg : UserControl
 	{
-		public NavTestUSB()
+		public NavTestImg()
 		{
 			InitializeComponent();
 		}

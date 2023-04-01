@@ -9,6 +9,8 @@ namespace StdEqpTesting.ViewModel
 
 		public HomeViewVM HomeViewVM { get; } = new HomeViewVM();
 		public NavTestVM NavTestVM { get; } = new NavTestVM();
+		public NavTestDispVM NavTestDispVM { get; } = new NavTestDispVM();
+		public NavTestImgVM NavTestImgVM { get; } = new NavTestImgVM();
 		public NavSettingsVM NavSettingsVM { get; } = new NavSettingsVM();
 		public NavReviewVM NavReviewVM { get; } = new NavReviewVM();
 
@@ -44,7 +46,7 @@ namespace StdEqpTesting.ViewModel
 				LogSth(status, logLevel);
 		}
 
-		public void LogSth(string logString, byte logLevel)
+		public static void LogSth(string logString, byte logLevel)
 		{
 			switch (logLevel)
 			{

@@ -55,7 +55,7 @@
 					  SelectedIndex="{Binding NavReviewVM.DataTypeIndex}"
 					  Style="{DynamicResource ComboBoxStyle}">
 				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleCOM}" />
-				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleProx}" />
+				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleDisplacement}" />
 				<ComboBoxItem Content="{x:Static loc:Loc.SettingTitleImg}" />
 			</ComboBox>
 			<TextBlock DockPanel.Dock="Top"

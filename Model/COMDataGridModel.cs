@@ -38,25 +38,21 @@ namespace StdEqpTesting.Model
 		private void COMDataGridModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{
 			App.Logger.Info($"Updating DB ComTestData {e.PropertyName}={this.GetType().GetProperty(e.PropertyName).GetValue(this)}, ID:{ID}");
-			using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
+			using SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString());
+			connection.Open();
+			using SqliteCommand command = connection.CreateCommand();
+			command.CommandText = $"UPDATE ComTestData SET {e.PropertyName}=$STH WHERE ID = $ID";
+			command.Parameters.AddWithValue("$ID", this.ID);
+			command.Parameters.AddWithValue("$STH", this.GetType().GetProperty(e.PropertyName).GetValue(this).ToString());
+			try
 			{
-				connection.Open();
-				using (SqliteCommand command = connection.CreateCommand())
-				{
-					command.CommandText = $"UPDATE ComTestData SET {e.PropertyName}=$STH WHERE ID = $ID";
-					command.Parameters.AddWithValue("$ID", this.ID);
-					command.Parameters.AddWithValue("$STH", this.GetType().GetProperty(e.PropertyName).GetValue(this).ToString());
-					try
-					{
-						command.ExecuteNonQuery();
-						MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.Saved2DB, true);
-					}
-					catch (SqliteException ex)
-					{
-						MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.NotSaved2DB, true, 3);
-						MessageBox.Show(Localization.Loc.SQLReviewEx.Replace("%Exception", ex.Message), "SQL command failed.", MessageBoxButton.OK, MessageBoxImage.Warning); ;
-					}
-				}
+				command.ExecuteNonQuery();
+				MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.Saved2DB, true);
+			}
+			catch (SqliteException ex)
+			{
+				MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.NotSaved2DB, true, 3);
+				MessageBox.Show(Localization.Loc.SQLReviewEx.Replace("%Exception", ex.Message), "SQL command failed.", MessageBoxButton.OK, MessageBoxImage.Warning); ;
 			}
 		}
 		public COMDataGridModel(int ID, string User, string TestName, string? ValueType, string TestValue, string TestUnit, string? Tag, string? COMPort, long UnixTimeStamp)

@@ -88,13 +88,13 @@
 			<RadioButton Style="{DynamicResource RadioButtonTabStyle}"
 						 Content="{x:Static loc:Loc.NavProx}"
 						 GroupName="TabGroup"
-						 IsChecked="{Binding HomeViewVM.NavTestUSBChecked}"
+						 IsChecked="{Binding HomeViewVM.NavTestDispChecked}"
 						 Checked="TabChecked"
 						 Unchecked="TabUnchecked" />
 			<RadioButton Style="{DynamicResource RadioButtonTabStyle}"
 						 Content="{x:Static loc:Loc.NavImg}"
 						 GroupName="TabGroup"
-						 IsChecked="{Binding HomeViewVM.NavTestNetChecked}"
+						 IsChecked="{Binding HomeViewVM.NavTestImgChecked}"
 						 Checked="TabChecked"
 						 Unchecked="TabUnchecked" />
 			<RadioButton Style="{DynamicResource RadioButtonTabStyle}"

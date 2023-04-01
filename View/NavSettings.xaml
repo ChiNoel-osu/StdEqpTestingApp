@@ -294,7 +294,7 @@
 					</Grid>
 				</StackPanel>
 			</TabItem>
-			<TabItem Header="{x:Static loc:Loc.SettingTitleProx}" />
+			<TabItem Header="{x:Static loc:Loc.SettingTitleDisplacement}" />
 			<TabItem Header="{x:Static loc:Loc.SettingTitleImg}" />
 			<TabItem Header="{x:Static loc:Loc.NavReview}"
 					 IsEnabled="False" />

@@ -407,7 +407,7 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Proximity Sensor 的本地化字符串。
+        ///   查找类似 Displacement 的本地化字符串。
         /// </summary>
         public static string NavProx {
             get {
@@ -705,6 +705,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 DISP. 的本地化字符串。
+        /// </summary>
+        public static string SettingTitleDisplacement {
+            get {
+                return ResourceManager.GetString("SettingTitleDisplacement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 General 的本地化字符串。
         /// </summary>
         public static string SettingTitleGeneral {
@@ -732,15 +741,6 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   查找类似 Proximity 的本地化字符串。
-        /// </summary>
-        public static string SettingTitleProx {
-            get {
-                return ResourceManager.GetString("SettingTitleProx", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   查找类似 An SQL exception has occurred. Your changes are not saved. The following information might help:
         ///
         ///%Exception
@@ -750,6 +750,15 @@ namespace StdEqpTesting.Localization {
         public static string SQLReviewEx {
             get {
                 return ResourceManager.GetString("SQLReviewEx", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Start 的本地化字符串。
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
             }
         }
         
@@ -768,6 +777,15 @@ namespace StdEqpTesting.Localization {
         public static string StatusReady {
             get {
                 return ResourceManager.GetString("StatusReady", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Stop 的本地化字符串。
+        /// </summary>
+        public static string Stop {
+            get {
+                return ResourceManager.GetString("Stop", resourceCulture);
             }
         }
         

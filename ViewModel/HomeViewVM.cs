@@ -16,8 +16,8 @@ namespace StdEqpTesting.ViewModel
 
 		#region Navigation Stuff
 		static readonly NavTest navTest = new NavTest();
-		static readonly NavTestUSB navTestUSB = new NavTestUSB();
-		static readonly NavTestNet navTestNet = new NavTestNet();
+		static readonly NavTestDISP navTestDISP = new NavTestDISP();
+		static readonly NavTestImg navTestImg = new NavTestImg();
 		static readonly NavReview navReview = new NavReview();
 		static readonly NavExport navExport = new NavExport();
 		static readonly NavSettings navSettings = new NavSettings();
@@ -31,24 +31,24 @@ namespace StdEqpTesting.ViewModel
 				OnPropertyChanged(nameof(NavTestChecked));
 			}
 		}
-		bool _NavTestUSBChecked = false;
-		public bool NavTestUSBChecked
+		bool _NavTestDispChecked = false;
+		public bool NavTestDispChecked
 		{
-			get => _NavTestUSBChecked;
+			get => _NavTestDispChecked;
 			set
 			{
-				if (_NavTestUSBChecked = value) Content = navTestUSB;
-				OnPropertyChanged(nameof(NavTestUSBChecked));
+				if (_NavTestDispChecked = value) Content = navTestDISP;
+				OnPropertyChanged(nameof(NavTestDispChecked));
 			}
 		}
-		bool _NavTestNetChecked = false;
-		public bool NavTestNetChecked
+		bool _NavTestImgChecked = false;
+		public bool NavTestImgChecked
 		{
-			get => _NavTestNetChecked;
+			get => _NavTestImgChecked;
 			set
 			{
-				if (_NavTestNetChecked = value) Content = navTestNet;
-				OnPropertyChanged(nameof(NavTestNetChecked));
+				if (_NavTestImgChecked = value) Content = navTestImg;
+				OnPropertyChanged(nameof(NavTestImgChecked));
 			}
 		}
 		bool _NavReviewChecked = false;
@@ -87,8 +87,8 @@ namespace StdEqpTesting.ViewModel
 			switch (TabNumber)
 			{
 				case "1": Content = navTest; NavTestChecked = true; break;
-				case "2": Content = navTestUSB; NavTestUSBChecked = true; break;
-				case "3": Content = navTestNet; NavTestNetChecked = true; break;
+				case "2": Content = navTestDISP; NavTestDispChecked = true; break;
+				case "3": Content = navTestImg; NavTestImgChecked = true; break;
 				case "4": Content = navReview; NavReviewChecked = true; break;
 				case "5": Content = navExport; NavExportChecked = true; break;
 				case "O": Content = navSettings; NavSettingsChecked = true; break;
@@ -99,31 +99,7 @@ namespace StdEqpTesting.ViewModel
 
 		public HomeViewVM()
 		{
-			//Document.Create(container =>
-			//{
-			//	container.Page(page =>
-			//	{
-			//		page.Size(PageSizes.A4);
-			//		page.Margin(2, Unit.Centimetre);
-			//		page.PageColor(Colors.White);
-			//		page.DefaultTextStyle(x => x.FontSize(20));
 
-			//		page.Header().Text("标题").SemiBold().FontSize(40).FontColor(Colors.Red.Lighten1).FontFamily("FZLanTingHei-DB-GBK");
-
-			//		page.Content().PaddingVertical(1, Unit.Centimetre).Column(x =>
-			//		{
-			//			x.Spacing(20);
-
-			//			x.Item().Text(Placeholders.LoremIpsum());
-			//			x.Item().Image(Placeholders.Image(200, 100));
-			//		});
-
-			//		page.Footer().AlignCenter().Text(x =>
-			//		{
-			//			x.CurrentPageNumber().FontSize(10); x.Span("/").FontSize(10); x.TotalPages().FontSize(10);
-			//		});
-			//	});
-			//}).ShowInPreviewerAsync();
 		}
 	}
 }

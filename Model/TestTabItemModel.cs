@@ -97,7 +97,7 @@ namespace StdEqpTesting.Model
 				}
 				catch (Exception e)
 				{   //TODO: Make it pretty.
-					MainViewModel.MainVM.LogSth(e.ToString(), 4);
+					App.Logger.Error(e.ToString());
 					MessageBox.Show(e.Message);
 				}
 			}
@@ -201,16 +201,15 @@ namespace StdEqpTesting.Model
 			{
 				IsUnitAdded = true;
 				UnitList.Add(MeaUnit);
-				File.WriteAllLines($"Database{Path.DirectorySeparatorChar}Units.txt", UnitList);
+				File.WriteAllLines($"Database{Path.DirectorySeparatorChar}UnitsCOM.txt", UnitList);
 				MainViewModel.MainVM.UpdateSecStatus(Loc.AddUnitSucc, true);
 			}
 		}
 
 		public bool NoCOM { get; }
 
-		List<FileSystemWatcher> fsWatchers = new List<FileSystemWatcher>();
-
 		#region Port properties
+		List<FileSystemWatcher> fsWatchers = new List<FileSystemWatcher>();
 		string _PortName;
 		public string PortName
 		{
@@ -256,7 +255,7 @@ namespace StdEqpTesting.Model
 				WriteTimeout = setting.WriteTimeout;
 			}
 			catch (IOException)
-			{   //WriteAllText in NavSettingsVM has not yet been completed.
+			{   //WriteAllText in NavSettingsVM has not completed yet.
 				goto RetrySettingUpdate;
 			}   //This can also be solved by adding 100ms of delay before reading it, but whatever.
 		}
@@ -275,9 +274,9 @@ namespace StdEqpTesting.Model
 		{
 			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
 				for (ushort i = 0; i < DataListBox.Count;)
-					DataListBox[i].Index = ++i;
+					DataListBox[i].Index = ++i; //Update index
 			Task.Run(() =>
-			{
+			{   //Recalculate avg value using valid data.
 				decimal[] validValue = (from data in DataListBox
 										where decimal.TryParse(data.Value, out _) == true
 										select decimal.Parse(data.Value)).ToArray();
@@ -291,9 +290,9 @@ namespace StdEqpTesting.Model
 			timer.Elapsed += Timer_Elapsed;
 			DataListBox.CollectionChanged += DataListBox_CollectionChanged;
 			//Read units from file.
-			if (File.Exists($"Database{Path.DirectorySeparatorChar}Units.txt"))
+			if (File.Exists($"Database{Path.DirectorySeparatorChar}UnitsCOM.txt"))
 			{
-				string[] unitsInFile = File.ReadAllLines($"Database{Path.DirectorySeparatorChar}Units.txt");
+				string[] unitsInFile = File.ReadAllLines($"Database{Path.DirectorySeparatorChar}UnitsCOM.txt");
 				_UnitList.Clear();
 				foreach (string unit in unitsInFile)
 					UnitList.Add(unit);

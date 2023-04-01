@@ -15,27 +15,6 @@ namespace StdEqpTesting.View
 	{
 		readonly Uri darkUri = new Uri($"pack://application:,,,/Theme/Dark.xaml");
 		readonly Uri lightUri = new Uri($"pack://application:,,,/Theme/Light.xaml");
-		public HomeViewWindow(UserInfo userInfo)
-		{
-			InitializeComponent();
-			DataContext = MainViewModel.MainVM;
-			//Gets the user info passed from loginWindow.
-			((MainViewModel)DataContext).HomeViewVM.UserName = userInfo.username;
-			((MainViewModel)DataContext).HomeViewVM.UserType = userInfo.type;
-			((MainViewModel)DataContext).SecondaryStatus = Localization.Loc.StatusLoggedIn.Replace("%User", userInfo.username).Replace("%Type", userInfo.type.ToString());
-			#region Theme Init
-			if (userInfo.theme == 0)
-			{
-				ThemeBtn.Content = "☀";
-				Resources.MergedDictionaries[0].Source = darkUri;
-			}
-			else if (userInfo.theme == 1)
-			{
-				ThemeBtn.Content = "🌙";
-				Resources.MergedDictionaries[0].Source = lightUri;
-			}
-			#endregion
-		}
 		private void ThemeBtn_Click(object sender, RoutedEventArgs e)
 		{
 			if (((Button)sender).Content.ToString() == "🌙")
@@ -76,5 +55,33 @@ namespace StdEqpTesting.View
 			storyboard.Children.Clear();
 		}
 		#endregion
+		public HomeViewWindow(UserInfo userInfo)
+		{
+			InitializeComponent();
+			DataContext = MainViewModel.MainVM;
+			//Gets the user info passed from loginWindow.
+			((MainViewModel)DataContext).HomeViewVM.UserName = userInfo.username;
+			((MainViewModel)DataContext).HomeViewVM.UserType = userInfo.type;
+			((MainViewModel)DataContext).SecondaryStatus = Localization.Loc.StatusLoggedIn.Replace("%User", userInfo.username).Replace("%Type", userInfo.type.ToString());
+			#region Theme Init
+			if (userInfo.theme == 0)
+			{
+				ThemeBtn.Content = "☀";
+				Resources.MergedDictionaries[0].Source = darkUri;
+			}
+			else if (userInfo.theme == 1)
+			{
+				ThemeBtn.Content = "🌙";
+				Resources.MergedDictionaries[0].Source = lightUri;
+			}
+			#endregion
+			this.Closed += HomeWindow_Closed;
+		}
+
+		private void HomeWindow_Closed(object? sender, EventArgs e)
+		{
+			//Close the video capture device.
+			((MainViewModel)DataContext).NavTestImgVM.VCD?.SignalToStop();
+		}
 	}
 }
