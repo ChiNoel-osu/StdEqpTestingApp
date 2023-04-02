@@ -237,7 +237,7 @@
     <value>接收字符串</value>
   </data>
   <data name="NavProx" xml:space="preserve">
-    <value>位移传感器</value>
+    <value>位移</value>
   </data>
   <data name="NavImg" xml:space="preserve">
     <value>图像设备</value>
@@ -377,5 +377,30 @@
   </data>
   <data name="Stop" xml:space="preserve">
     <value>停止</value>
+  </data>
+  <data name="CameraList" xml:space="preserve">
+    <value>相机列表</value>
+  </data>
+  <data name="SaveImg" xml:space="preserve">
+    <value>保存图像</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>文件名</value>
+  </data>
+  <data name="ImgNameTT" xml:space="preserve">
+    <value>不带拓展名的文件名.
+单击以使用当前系统时间.</value>
+  </data>
+  <data name="SaveImgFailed" xml:space="preserve">
+    <value>保存图像失败</value>
+  </data>
+  <data name="F5Refresh" xml:space="preserve">
+    <value>您可以使用F5键来刷新.</value>
+  </data>
+  <data name="OpenFileLoc" xml:space="preserve">
+    <value>打开文件位置</value>
+  </data>
+  <data name="Capabilities" xml:space="preserve">
+    <value>支持的模式</value>
   </data>
 </root>

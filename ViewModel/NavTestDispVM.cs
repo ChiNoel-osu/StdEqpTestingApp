@@ -8,7 +8,7 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-//TODO: Logging
+
 namespace StdEqpTesting.ViewModel
 {
 	public partial class NavTestDispVM : ObservableObject
@@ -66,7 +66,7 @@ namespace StdEqpTesting.ViewModel
 		}
 
 		[RelayCommand]
-		public async void SaveValue()
+		public async void SaveDispValue()
 		{
 			if ((string.IsNullOrWhiteSpace(TestName) || string.IsNullOrWhiteSpace(MeaUnit)) && MessageBox.Show(Loc.ConfirmAddEmptyRecordDesc, Loc.ConfirmAddEmptyRecord, MessageBoxButton.YesNo, MessageBoxImage.Question, MessageBoxResult.No) == MessageBoxResult.No)
 				return;
@@ -136,6 +136,7 @@ namespace StdEqpTesting.ViewModel
 				_UnitList.Clear();
 				foreach (string unit in unitsInFile)
 					UnitList.Add(unit);
+				App.Logger.Info($"Read {unitsInFile.Length} displacement units.");
 			}
 		}
 	}

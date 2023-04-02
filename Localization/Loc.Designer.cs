@@ -169,6 +169,24 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 Camera List 的本地化字符串。
+        /// </summary>
+        public static string CameraList {
+            get {
+                return ResourceManager.GetString("CameraList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Video Capabilities 的本地化字符串。
+        /// </summary>
+        public static string Capabilities {
+            get {
+                return ResourceManager.GetString("Capabilities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Auto clear 的本地化字符串。
         /// </summary>
         public static string ClearAfterAddingRecvStr {
@@ -279,6 +297,24 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 You can press F5 to refresh this. 的本地化字符串。
+        /// </summary>
+        public static string F5Refresh {
+            get {
+                return ResourceManager.GetString("F5Refresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 File Name 的本地化字符串。
+        /// </summary>
+        public static string FileName {
+            get {
+                return ResourceManager.GetString("FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 %Num COM device(s) detected 的本地化字符串。
         /// </summary>
         public static string FoundCOMDevices {
@@ -293,6 +329,16 @@ namespace StdEqpTesting.Localization {
         public static string Handshake {
             get {
                 return ResourceManager.GetString("Handshake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The file name without extension.
+        ///Click to use the current system time. 的本地化字符串。
+        /// </summary>
+        public static string ImgNameTT {
+            get {
+                return ResourceManager.GetString("ImgNameTT", resourceCulture);
             }
         }
         
@@ -466,6 +512,15 @@ namespace StdEqpTesting.Localization {
         public static string NotSaved2DB {
             get {
                 return ResourceManager.GetString("NotSaved2DB", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Open File Location 的本地化字符串。
+        /// </summary>
+        public static string OpenFileLoc {
+            get {
+                return ResourceManager.GetString("OpenFileLoc", resourceCulture);
             }
         }
         
@@ -646,6 +701,24 @@ namespace StdEqpTesting.Localization {
         public static string SaveDataTitle {
             get {
                 return ResourceManager.GetString("SaveDataTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Save Image 的本地化字符串。
+        /// </summary>
+        public static string SaveImg {
+            get {
+                return ResourceManager.GetString("SaveImg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Failed to save image 的本地化字符串。
+        /// </summary>
+        public static string SaveImgFailed {
+            get {
+                return ResourceManager.GetString("SaveImgFailed", resourceCulture);
             }
         }
         

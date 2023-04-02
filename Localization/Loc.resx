@@ -359,4 +359,29 @@ To view the last valid value, search again to update this list.</value>
   <data name="Stop" xml:space="preserve">
     <value>Stop</value>
   </data>
+  <data name="CameraList" xml:space="preserve">
+    <value>Camera List</value>
+  </data>
+  <data name="SaveImg" xml:space="preserve">
+    <value>Save Image</value>
+  </data>
+  <data name="FileName" xml:space="preserve">
+    <value>File Name</value>
+  </data>
+  <data name="ImgNameTT" xml:space="preserve">
+    <value>The file name without extension.
+Click to use the current system time.</value>
+  </data>
+  <data name="SaveImgFailed" xml:space="preserve">
+    <value>Failed to save image</value>
+  </data>
+  <data name="F5Refresh" xml:space="preserve">
+    <value>You can press F5 to refresh this.</value>
+  </data>
+  <data name="OpenFileLoc" xml:space="preserve">
+    <value>Open File Location</value>
+  </data>
+  <data name="Capabilities" xml:space="preserve">
+    <value>Video Capabilities</value>
+  </data>
 </root>

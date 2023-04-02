@@ -15,5 +15,11 @@
     <Setting Name="ConfigFolderDir" Type="System.String" Scope="Application">
       <Value Profile="(Default)">Database</Value>
     </Setting>
+    <Setting Name="ImageSaveDir" Type="System.String" Scope="User">
+      <Value Profile="(Default)">SavedImage</Value>
+    </Setting>
+    <Setting Name="ImageSaveQuality" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">80</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

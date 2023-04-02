@@ -6,6 +6,9 @@ using System.Windows;
 
 namespace StdEqpTesting.Model
 {
+	/// <summary>
+	/// Represents the COM data in the Review section.
+	/// </summary>
 	public partial class COMDataGridModel : ObservableObject
 	{
 		public int ID { get; private set; }
@@ -36,7 +39,7 @@ namespace StdEqpTesting.Model
 			}
 		}
 		private void COMDataGridModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
-		{
+		{	//Data Grid updated, update DB as well.
 			App.Logger.Info($"Updating DB ComTestData {e.PropertyName}={this.GetType().GetProperty(e.PropertyName).GetValue(this)}, ID:{ID}");
 			using SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString());
 			connection.Open();

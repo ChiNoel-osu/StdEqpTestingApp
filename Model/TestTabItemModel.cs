@@ -296,6 +296,7 @@ namespace StdEqpTesting.Model
 				_UnitList.Clear();
 				foreach (string unit in unitsInFile)
 					UnitList.Add(unit);
+				App.Logger.Info($"Read {unitsInFile.Length} COM units.");
 			}
 			BindingOperations.EnableCollectionSynchronization(DataListBox, this);
 		}

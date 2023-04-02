@@ -119,7 +119,7 @@
 					 FontSize="20" />
 			<Button DockPanel.Dock="Bottom"
 					FontSize="25"
-					Command="{Binding NavTestDispVM.SaveValueCommand}"
+					Command="{Binding NavTestDispVM.SaveDispValueCommand}"
 					Content="{x:Static loc:Loc.Save}"
 					Margin="0,20" />
 		</DockPanel>
