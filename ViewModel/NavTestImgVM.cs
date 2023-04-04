@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 namespace StdEqpTesting.ViewModel
@@ -33,7 +33,7 @@ namespace StdEqpTesting.ViewModel
 		string _SavingFileName = string.Empty;
 
 		[ObservableProperty]
-		[NotifyCanExecuteChangedFor(nameof(StartCameraCommand))]
+		[NotifyCanExecuteChangedFor(nameof(StartStopCameraCommand))]
 		ComboBoxItem? _SelectedCamera;
 		partial void OnSelectedCameraChanged(ComboBoxItem? value)
 		{   //Update VCD and capability list.
@@ -55,18 +55,18 @@ namespace StdEqpTesting.ViewModel
 			CameraList.Clear();
 			foreach (FilterInfo filterInfo in videoDevices)
 				CameraList.Add(new ComboBoxItem { Content = filterInfo.Name, Tag = filterInfo });
-			MainViewModel.MainVM?.UpdateMainStatus($"Got {videoDevices.Count} video devices", true);
+			MainViewModel.MainVM?.UpdateMainStatus(Localization.Loc.FoundVideoDevices.Replace("%Num", videoDevices.Count.ToString()), true);
 		}
 
 		[RelayCommand(CanExecute = nameof(IsSelectedCamNotNull))]
-		public void StartCamera()
+		public void StartStopCamera()
 		{
 			if (IsCameraRunning)
 			{
 				App.Logger.Info($"Stopping video device {VCD.Source}");
 				VCD.SignalToStop();
-				BitmapSource = null;
-				while (VCD.IsRunning) ; //Wait for it to stop
+				this.BitmapSource = null;
+				while (VCD.IsRunning) ; //Wait for it to stop	//TODO: Add failsafe
 			}
 			else
 			{
@@ -79,15 +79,28 @@ namespace StdEqpTesting.ViewModel
 			IsCameraRunning = VCD.IsRunning;
 		}
 		private void OnNewFrame(object sender, NewFrameEventArgs eventArgs)
-		{   //This will be called like 30 times a sec i dunno if this is good.
+		{   //https://stackoverflow.com/questions/30727343/fast-converting-bitmap-to-bitmapsource-wpf
+			//This stops memory leak, idk why. And supposely it's faster.
+			System.Drawing.Bitmap bitmap = eventArgs.Frame.Clone() as System.Drawing.Bitmap;
+			System.Drawing.Imaging.BitmapData bitmapData = bitmap.LockBits(
+								new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
+								System.Drawing.Imaging.ImageLockMode.ReadOnly,
+								bitmap.PixelFormat);
 			Application.Current.Dispatcher.Invoke(() =>
 			{   // Convert the Bitmap to a BitmapSource
-				this.BitmapSource = Imaging.CreateBitmapSourceFromHBitmap(
-					eventArgs.Frame.GetHbitmap(),
-					IntPtr.Zero,
-					Int32Rect.Empty,
-					BitmapSizeOptions.FromEmptyOptions());
+				this.BitmapSource = BitmapSource.Create(
+									bitmapData.Width,
+									bitmapData.Height,
+									bitmap.HorizontalResolution,
+									bitmap.VerticalResolution,
+									PixelFormats.Bgr24,
+									null,
+									bitmapData.Scan0,
+									bitmapData.Stride * bitmapData.Height,
+									bitmapData.Stride);
+				bitmap.UnlockBits(bitmapData);
 			});
+			eventArgs.Frame.Dispose();
 		}
 
 		bool CanSaveImage() => !(this.BitmapSource is null || string.IsNullOrWhiteSpace(SavingFileName));
@@ -96,16 +109,19 @@ namespace StdEqpTesting.ViewModel
 		{
 			try
 			{
-				Directory.CreateDirectory(Properties.Settings.Default.ImageSaveDir);
+				if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.ImageSaveDir))
+					Directory.CreateDirectory(Properties.Settings.Default.ImageSaveDir);
 				using FileStream fileStream = new FileStream(Path.Combine(Properties.Settings.Default.ImageSaveDir, SavingFileName + ".jpg"), FileMode.CreateNew);
 				JpegBitmapEncoder encoder = new JpegBitmapEncoder();
 				encoder.QualityLevel = Properties.Settings.Default.ImageSaveQuality;
 				encoder.Frames.Add(BitmapFrame.Create(this.BitmapSource));
 				encoder.Save(fileStream);
+				MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.ImageSaved, true);
 			}
 			catch (IOException ex)
 			{
 				MessageBox.Show(ex.Message, Localization.Loc.SaveImgFailed, MessageBoxButton.OK);
+				MainViewModel.MainVM.UpdateSecStatus(Localization.Loc.SaveImgFailed, true, 4);
 			}
 		}
 		[RelayCommand]

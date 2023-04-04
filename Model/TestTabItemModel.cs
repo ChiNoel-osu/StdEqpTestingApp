@@ -220,7 +220,7 @@ namespace StdEqpTesting.Model
 				{
 					if (!File.Exists(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", value + "SP.json")))
 						//New COM Port that doesn't have a json file. This should not trigger as long as user don't try to.
-						MainViewModel.MainVM.NavSettingsVM.GetSetting(PortName);
+						MainViewModel.MainVM.NavSettingsVM.GetCOMSetting(PortName);
 					COMPortPropModel setting = JsonSerializer.Deserialize<COMPortPropModel>(File.ReadAllText(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", value + "SP.json")));
 					BaudRate = setting.BaudRate;
 					Parity = setting.Parity;

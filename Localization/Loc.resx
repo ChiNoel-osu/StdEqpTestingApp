@@ -384,4 +384,23 @@ Click to use the current system time.</value>
   <data name="Capabilities" xml:space="preserve">
     <value>Video Capabilities</value>
   </data>
+  <data name="FoundVideoDevices" xml:space="preserve">
+    <value>%Num video device(s) detected</value>
+  </data>
+  <data name="ImageSaved" xml:space="preserve">
+    <value>Image Saved</value>
+  </data>
+  <data name="SettingsNotAvail" xml:space="preserve">
+    <value>No settings are available yet....</value>
+  </data>
+  <data name="SettingsImgDir" xml:space="preserve">
+    <value>Image Save Directory (Relative)</value>
+  </data>
+  <data name="SettingsImgDirTT" xml:space="preserve">
+    <value>The directory here is relative. For example, entering "SavedImage" will save the image to the "SavedImage" folder in the root folder of the application.
+Leaving this field empty will make the image to be saved in the root folder of the app.</value>
+  </data>
+  <data name="JPEGQuality" xml:space="preserve">
+    <value>JPEG Quality</value>
+  </data>
 </root>

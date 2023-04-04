@@ -324,11 +324,29 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   查找类似 %Num video device(s) detected 的本地化字符串。
+        /// </summary>
+        public static string FoundVideoDevices {
+            get {
+                return ResourceManager.GetString("FoundVideoDevices", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Handshake 的本地化字符串。
         /// </summary>
         public static string Handshake {
             get {
                 return ResourceManager.GetString("Handshake", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image Saved 的本地化字符串。
+        /// </summary>
+        public static string ImageSaved {
+            get {
+                return ResourceManager.GetString("ImageSaved", resourceCulture);
             }
         }
         
@@ -339,6 +357,15 @@ namespace StdEqpTesting.Localization {
         public static string ImgNameTT {
             get {
                 return ResourceManager.GetString("ImgNameTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 JPEG Quality 的本地化字符串。
+        /// </summary>
+        public static string JPEGQuality {
+            get {
+                return ResourceManager.GetString("JPEGQuality", resourceCulture);
             }
         }
         
@@ -765,6 +792,34 @@ namespace StdEqpTesting.Localization {
         public static string SettingLangSaved {
             get {
                 return ResourceManager.GetString("SettingLangSaved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 Image Save Directory (Relative) 的本地化字符串。
+        /// </summary>
+        public static string SettingsImgDir {
+            get {
+                return ResourceManager.GetString("SettingsImgDir", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 The directory here is relative. For example, entering &quot;SavedImage&quot; will save the image to the &quot;SavedImage&quot; folder in the root folder of the application.
+        ///Leaving this field empty will make the image to be saved in the root folder of the app. 的本地化字符串。
+        /// </summary>
+        public static string SettingsImgDirTT {
+            get {
+                return ResourceManager.GetString("SettingsImgDirTT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 No settings are available yet.... 的本地化字符串。
+        /// </summary>
+        public static string SettingsNotAvail {
+            get {
+                return ResourceManager.GetString("SettingsNotAvail", resourceCulture);
             }
         }
         

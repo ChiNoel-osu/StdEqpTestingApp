@@ -22,7 +22,7 @@ namespace StdEqpTesting.ViewModel
 				DataGridSource = (_DataTypeIndex = value) switch
 				{
 					0 => COMDataGridSource,
-					1 => COMDataGridSource2,
+					1 => DISPDataGridSource,
 					_ => throw new NotImplementedException(),
 				};
 			}
@@ -30,8 +30,7 @@ namespace StdEqpTesting.ViewModel
 		public string SearchString { get; set; }
 
 		ObservableCollection<COMDataGridModel> COMDataGridSource = new ObservableCollection<COMDataGridModel>();
-		//TODO: Prox and Img
-		ObservableCollection<COMDataGridModel> COMDataGridSource2 = new ObservableCollection<COMDataGridModel>();
+		ObservableCollection<DISPDataGridModel> DISPDataGridSource = new ObservableCollection<DISPDataGridModel>();
 
 		private bool Reading;
 		[RelayCommand]
@@ -52,15 +51,28 @@ namespace StdEqpTesting.ViewModel
 							COMDataGridSource.Add(new COMDataGridModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetInt64(8)));
 					}
 					break;
+				case 1: //Displacement Data
+					DISPDataGridSource.Clear();
+					using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
+					{
+						connection.Open();
+						using SqliteCommand command = connection.CreateCommand();
+						command.CommandText = $"SELECT * FROM DispTestData WHERE TestName LIKE '%{SearchString}%'";
+						using SqliteDataReader reader = command.ExecuteReader();
+						while (reader.Read())
+							DISPDataGridSource.Add(new DISPDataGridModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetInt64(6)));
+					}
+					break;
 				default:
 					throw new NotImplementedException();
 			}
 			Reading = false;
 		}
 
+		#region DataGrid row add/remove
 		private void COMDataGridSource_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
 		{   //Row added or removed.
-			if (Reading) return;
+			if (Reading) return;    //Don't do this if DB Reading is in progress.
 			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
 			{
 				using SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString());
@@ -68,21 +80,35 @@ namespace StdEqpTesting.ViewModel
 				using SqliteCommand command = connection.CreateCommand();
 				command.CommandText = "DELETE FROM ComTestData WHERE ID = $ID";
 				command.Parameters.AddWithValue("$ID", ((COMDataGridModel)e.OldItems[0]).ID);
-				using SqliteDataReader reader = command.ExecuteReader();
-				while (reader.Read())
-					COMDataGridSource.Add(new COMDataGridModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetInt64(8)));
+				command.ExecuteNonQuery();
 			}
 
 		}
+		private void DISPDataGridSource_CollectionChanged(object? sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+		{
+			if (Reading) return;
+			if (e.Action == System.Collections.Specialized.NotifyCollectionChangedAction.Remove)
+			{
+				using SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString());
+				connection.Open();
+				using SqliteCommand command = connection.CreateCommand();
+				command.CommandText = "DELETE FROM DispTestData WHERE ID = $ID";
+				command.Parameters.AddWithValue("$ID", ((DISPDataGridModel)e.OldItems[0]).ID);
+				command.ExecuteNonQuery();
+			}
+
+		}
+		#endregion
 
 		public NavReviewVM()
 		{
 			Task.Run(() =>
 			{
 				ReadDB(0);
+				ReadDB(1);
 			});
 			COMDataGridSource.CollectionChanged += COMDataGridSource_CollectionChanged;
-			COMDataGridSource2.Add(new COMDataGridModel(1, "bruh", "Name3", null, "66", "V", null, null, 1679672308));
+			DISPDataGridSource.CollectionChanged += DISPDataGridSource_CollectionChanged;
 			DataGridSource = COMDataGridSource; //Index 0
 		}
 	}

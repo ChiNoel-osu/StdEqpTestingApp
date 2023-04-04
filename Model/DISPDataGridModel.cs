@@ -7,9 +7,9 @@ using System.Windows;
 namespace StdEqpTesting.Model
 {
 	/// <summary>
-	/// Represents the COM data in the Review section.
+	/// Represents the displacement data in the Review section.
 	/// </summary>
-	public partial class COMDataGridModel : ObservableObject
+	public partial class DISPDataGridModel : ObservableObject
 	{
 		public int ID { get; private set; }
 		[ObservableProperty]
@@ -17,15 +17,11 @@ namespace StdEqpTesting.Model
 		[ObservableProperty]
 		string _TestName = string.Empty;
 		[ObservableProperty]
-		string? _ValueType;
-		[ObservableProperty]
 		string _TestValue = string.Empty;
 		[ObservableProperty]
 		string _TestUnit = string.Empty;
 		[ObservableProperty]
 		string? _Tag;
-		[ObservableProperty]
-		string? _COMPort;
 		long _Time;
 		public object Time
 		{
@@ -38,13 +34,13 @@ namespace StdEqpTesting.Model
 				_Time = (long)value;
 			}
 		}
-		private void COMDataGridModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
+		private void DISPDataGridModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{   //Data Grid updated, update DB as well.
-			App.Logger.Info($"Updating DB ComTestData {e.PropertyName}={this.GetType().GetProperty(e.PropertyName).GetValue(this)}, ID:{ID}");
+			App.Logger.Info($"Updating DB DispTestData {e.PropertyName}={this.GetType().GetProperty(e.PropertyName).GetValue(this)}, ID:{ID}");
 			using SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString());
 			connection.Open();
 			using SqliteCommand command = connection.CreateCommand();
-			command.CommandText = $"UPDATE ComTestData SET {e.PropertyName}=$STH WHERE ID = $ID";
+			command.CommandText = $"UPDATE DispTestData SET {e.PropertyName}=$STH WHERE ID = $ID";
 			command.Parameters.AddWithValue("$ID", this.ID);
 			command.Parameters.AddWithValue("$STH", this.GetType().GetProperty(e.PropertyName).GetValue(this).ToString());
 			try
@@ -58,19 +54,17 @@ namespace StdEqpTesting.Model
 				MessageBox.Show(Localization.Loc.SQLReviewEx.Replace("%Exception", ex.Message), "SQL command failed.", MessageBoxButton.OK, MessageBoxImage.Warning); ;
 			}
 		}
-		public COMDataGridModel(int ID, string User, string TestName, string? ValueType, string TestValue, string TestUnit, string? Tag, string? COMPort, long UnixTimeStamp)
+		public DISPDataGridModel(int ID, string User, string TestName, string TestValue, string TestUnit, string? Tag, long UnixTimeStamp)
 		{
 			this.ID = ID;
 			this.User = User;
 			this.TestName = TestName;
-			this.ValueType = ValueType;
 			this.TestValue = TestValue;
 			this.TestUnit = TestUnit;
 			this.Tag = Tag;
-			this.COMPort = COMPort;
 			this.Time = UnixTimeStamp;
 
-			this.PropertyChanged += COMDataGridModel_PropertyChanged;
+			this.PropertyChanged += DISPDataGridModel_PropertyChanged;
 		}
 	}
 }

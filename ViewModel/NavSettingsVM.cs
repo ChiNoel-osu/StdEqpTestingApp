@@ -37,6 +37,32 @@ namespace StdEqpTesting.ViewModel
 			}
 		}
 
+		public string ImageSaveDir
+		{
+			get
+			{
+				return Properties.Settings.Default.ImageSaveDir;
+			}
+			set
+			{
+				Properties.Settings.Default.ImageSaveDir = value;
+				Properties.Settings.Default.Save();
+			}
+		}
+
+		public int JPEGQuality
+		{
+			get
+			{
+				return Properties.Settings.Default.ImageSaveQuality;
+			}
+			set
+			{
+				Properties.Settings.Default.ImageSaveQuality = value;
+				Properties.Settings.Default.Save();
+			}
+		}
+
 		#region COM Setting Prop
 		string _SelectedPort;
 		public string SelectedPort
@@ -44,7 +70,7 @@ namespace StdEqpTesting.ViewModel
 			get => _SelectedPort;
 			set
 			{
-				GetSetting(_SelectedPort = value);
+				GetCOMSetting(_SelectedPort = value);
 			}
 		}
 		public int SelectedCOMIndex { get; set; }   //To make the view remember selection.
@@ -89,7 +115,7 @@ namespace StdEqpTesting.ViewModel
 			saved = true;
 		}
 
-		public void GetSetting(string name)
+		public void GetCOMSetting(string name)
 		{
 			string configDir = Properties.Settings.Default.ConfigFolderDir;
 			string filePath;
@@ -134,9 +160,14 @@ namespace StdEqpTesting.ViewModel
 			WriteTimeout = setting.WriteTimeout;
 		}
 
+		public void GetImgSetting()
+		{
+
+		}
+
 		public NavSettingsVM()
 		{
-			GetSetting("NewCOMDefault");
+			GetCOMSetting("NewCOMDefault");
 
 			LangIndex = Properties.Settings.Default.Locale switch
 			{

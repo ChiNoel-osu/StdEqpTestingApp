@@ -403,4 +403,23 @@
   <data name="Capabilities" xml:space="preserve">
     <value>支持的模式</value>
   </data>
+  <data name="FoundVideoDevices" xml:space="preserve">
+    <value>检测到 %Num 个视频设备</value>
+  </data>
+  <data name="ImageSaved" xml:space="preserve">
+    <value>图像已保存</value>
+  </data>
+  <data name="SettingsNotAvail" xml:space="preserve">
+    <value>暂时还没有可以设置的地方....</value>
+  </data>
+  <data name="SettingsImgDir" xml:space="preserve">
+    <value>保存图像路径 (相对)</value>
+  </data>
+  <data name="SettingsImgDirTT" xml:space="preserve">
+    <value>该路径是相对的. 比方说, 输入"SavedImage"将会使图片保存到程序根目录下的"SavedImage"文件夹中.
+如此处留空, 图片将会保存到程序根目录下.</value>
+  </data>
+  <data name="JPEGQuality" xml:space="preserve">
+    <value>JPEG 质量</value>
+  </data>
 </root>

@@ -187,7 +187,7 @@
 								Click="SaveCOMButton_Click"
 								Content="{x:Static loc:Loc.Save}" />
 					</DockPanel>
-					<Grid >
+					<Grid>
 						<Grid.Resources>
 							<Style TargetType="{x:Type TextBlock}">
 								<Setter Property="Foreground"
@@ -247,7 +247,8 @@
 							<ComboBox Style="{DynamicResource ComboBoxStyle}"
 									  SelectedIndex="{Binding NavSettingsVM.StopBitsOrdinal}"
 									  FontWeight="Normal">
-								<ComboBoxItem Content="None" IsEnabled="False"/>
+								<ComboBoxItem Content="None"
+											  IsEnabled="False" />
 								<ComboBoxItem Content="1" />
 								<ComboBoxItem Content="2" />
 								<ComboBoxItem Content="1.5" />
@@ -294,14 +295,53 @@
 					</Grid>
 				</StackPanel>
 			</TabItem>
-			<TabItem Header="{x:Static loc:Loc.SettingTitleDisplacement}" />
-			<TabItem Header="{x:Static loc:Loc.SettingTitleImg}" />
+			<TabItem Header="{x:Static loc:Loc.SettingTitleDisplacement}">
+				<StackPanel Margin="15,5">
+					<TextBlock Text="{x:Static loc:Loc.SettingsNotAvail}"
+							   Padding="5" />
+				</StackPanel>
+			</TabItem>
+			<TabItem Header="{x:Static loc:Loc.SettingTitleImg}">
+				<StackPanel Margin="15,5">
+					<TextBlock Text="{x:Static loc:Loc.SettingsImgDir}"
+							   ToolTip="{x:Static loc:Loc.SettingsImgDirTT}"
+							   Padding="5" />
+					<TextBox Text="{Binding NavSettingsVM.ImageSaveDir, UpdateSourceTrigger=LostFocus}" />
+					<TextBlock Text="{x:Static loc:Loc.JPEGQuality}"
+							   Padding="5" />
+					<Slider x:Name="JpgQualitySlider"
+							Minimum="1"
+							Maximum="100"
+							ToolTipService.ShowsToolTipOnKeyboardFocus="True"
+							ToolTipService.InitialShowDelay="0"
+							Value="{Binding NavSettingsVM.JPEGQuality}"
+							SmallChange="4"
+							LargeChange="11"
+							IsSnapToTickEnabled="True"
+							Cursor="ScrollWE">
+						<Slider.ToolTip>
+							<TextBlock Text="{Binding NavSettingsVM.JPEGQuality,Mode=OneWay}"
+									   Foreground="Black"/>
+						</Slider.ToolTip>
+					</Slider>
+				</StackPanel>
+			</TabItem>
 			<TabItem Header="{x:Static loc:Loc.NavReview}"
 					 IsEnabled="False" />
-			<TabItem Header="Options" />
+			<TabItem Header="Options">
+				<StackPanel Margin="15,5">
+					<TextBlock Text="{x:Static loc:Loc.SettingsNotAvail}"
+							   Padding="5" />
+				</StackPanel>
+			</TabItem>
 			<TabItem Header="{x:Static loc:Loc.NavExport}"
 					 IsEnabled="False" />
-			<TabItem Header="Options" />
+			<TabItem Header="Options">
+				<StackPanel Margin="15,5">
+					<TextBlock Text="{x:Static loc:Loc.SettingsNotAvail}"
+							   Padding="5" />
+				</StackPanel>
+			</TabItem>
 		</TabControl>
 		<Button Content="About"
 				Focusable="False"
