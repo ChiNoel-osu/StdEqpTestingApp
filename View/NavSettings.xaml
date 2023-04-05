@@ -326,6 +326,12 @@
 					</Slider>
 				</StackPanel>
 			</TabItem>
+			<TabItem Header="{x:Static loc:Loc.PLC}">
+				<StackPanel Margin="15,5">
+					<TextBlock Text="{x:Static loc:Loc.SettingsNotAvail}"
+							   Padding="5" />
+				</StackPanel>
+			</TabItem>
 			<TabItem Header="{x:Static loc:Loc.NavReview}"
 					 IsEnabled="False" />
 			<TabItem Header="Options">

@@ -422,4 +422,7 @@
   <data name="JPEGQuality" xml:space="preserve">
     <value>JPEG 质量</value>
   </data>
+  <data name="PLC" xml:space="preserve">
+    <value>PLC</value>
+  </data>
 </root>

@@ -45,6 +45,10 @@
 					Modifiers="Ctrl"
 					Command="{Binding HomeViewVM.TabNavigateCommand}"
 					CommandParameter="5" />
+		<KeyBinding Key="D6"
+					Modifiers="Ctrl"
+					Command="{Binding HomeViewVM.TabNavigateCommand}"
+					CommandParameter="6" />
 		<KeyBinding Key="O"
 					Modifiers="Ctrl"
 					Command="{Binding HomeViewVM.TabNavigateCommand}"
@@ -95,6 +99,12 @@
 						 Content="{x:Static loc:Loc.NavImg}"
 						 GroupName="TabGroup"
 						 IsChecked="{Binding HomeViewVM.NavTestImgChecked}"
+						 Checked="TabChecked"
+						 Unchecked="TabUnchecked" />
+			<RadioButton Style="{DynamicResource RadioButtonTabStyle}"
+						 Content="{x:Static loc:Loc.PLC}"
+						 GroupName="TabGroup"
+						 IsChecked="{Binding HomeViewVM.NavTestPLCChecked}"
 						 Checked="TabChecked"
 						 Unchecked="TabUnchecked" />
 			<RadioButton Style="{DynamicResource RadioButtonTabStyle}"

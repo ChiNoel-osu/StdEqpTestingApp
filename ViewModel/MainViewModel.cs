@@ -11,6 +11,7 @@ namespace StdEqpTesting.ViewModel
 		public NavTestVM NavTestVM { get; } = new NavTestVM();
 		public NavTestDispVM NavTestDispVM { get; } = new NavTestDispVM();
 		public NavTestImgVM NavTestImgVM { get; } = new NavTestImgVM();
+		public NavTestPLCVM NavTestPLCVM { get; } = new NavTestPLCVM();
 		public NavSettingsVM NavSettingsVM { get; } = new NavSettingsVM();
 		public NavReviewVM NavReviewVM { get; } = new NavReviewVM();
 

@@ -80,7 +80,7 @@ namespace StdEqpTesting.ViewModel
 		}
 		private void OnNewFrame(object sender, NewFrameEventArgs eventArgs)
 		{   //https://stackoverflow.com/questions/30727343/fast-converting-bitmap-to-bitmapsource-wpf
-			//This stops memory leak, idk why. And supposely it's faster.
+			//This stops memory leak, idk why. And supposedly it's faster.
 			System.Drawing.Bitmap bitmap = eventArgs.Frame.Clone() as System.Drawing.Bitmap;
 			System.Drawing.Imaging.BitmapData bitmapData = bitmap.LockBits(
 								new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
