@@ -579,6 +579,33 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ILS file loaded from %Path.
+        /// </summary>
+        public static string PLCLoadedILS {
+            get {
+                return ResourceManager.GetString("PLCLoadedILS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ILS file is not loaded..
+        /// </summary>
+        public static string PLCNotLoadILS {
+            get {
+                return ResourceManager.GetString("PLCNotLoadILS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open ILS File.
+        /// </summary>
+        public static string PLCOpenILS {
+            get {
+                return ResourceManager.GetString("PLCOpenILS", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Port Properties.
         /// </summary>
         public static string PortProp {

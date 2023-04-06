@@ -14,7 +14,7 @@
 		ResizeMode="CanResizeWithGrip"
 		Height="600"
 		Width="800"
-		MinHeight="430"
+		MinHeight="520"
 		MinWidth="710">
 	<Window.Resources>
 		<ResourceDictionary>
@@ -130,6 +130,7 @@
 					 IsChecked="{Binding HomeViewVM.NavSettingsChecked}"
 					 Checked="TabChecked"
 					 Unchecked="TabUnchecked" />
+		<!--Line below tab-->
 		<Separator Grid.Row="0"
 				   Margin="-1"
 				   Background="{DynamicResource CheckedTabBG}"

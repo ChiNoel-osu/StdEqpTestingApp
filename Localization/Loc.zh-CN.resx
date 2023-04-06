@@ -425,4 +425,13 @@
   <data name="PLC" xml:space="preserve">
     <value>PLC</value>
   </data>
+  <data name="PLCOpenILS" xml:space="preserve">
+    <value>打开指令表文件</value>
+  </data>
+  <data name="PLCLoadedILS" xml:space="preserve">
+    <value>已加载指令表文件 %Path</value>
+  </data>
+  <data name="PLCNotLoadILS" xml:space="preserve">
+    <value>未加载ILS文件.</value>
+  </data>
 </root>

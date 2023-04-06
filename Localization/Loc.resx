@@ -406,4 +406,13 @@ Leaving this field empty will make the image to be saved in the root folder of t
   <data name="PLC" xml:space="preserve">
     <value>PLC</value>
   </data>
+  <data name="PLCOpenILS" xml:space="preserve">
+    <value>Open ILS File</value>
+  </data>
+  <data name="PLCLoadedILS" xml:space="preserve">
+    <value>ILS file loaded from %Path</value>
+  </data>
+  <data name="PLCNotLoadILS" xml:space="preserve">
+    <value>ILS file is not loaded.</value>
+  </data>
 </root>

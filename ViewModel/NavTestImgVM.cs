@@ -64,9 +64,11 @@ namespace StdEqpTesting.ViewModel
 			if (IsCameraRunning)
 			{
 				App.Logger.Info($"Stopping video device {VCD.Source}");
+				VCD.NewFrame -= OnNewFrame;
 				VCD.SignalToStop();
 				this.BitmapSource = null;
-				while (VCD.IsRunning) ; //Wait for it to stop	//TODO: Add failsafe
+				//TODO: Add failsafe for stopping
+				while (VCD.IsRunning) ; //Wait for it to stop
 			}
 			else
 			{
@@ -81,7 +83,7 @@ namespace StdEqpTesting.ViewModel
 		private void OnNewFrame(object sender, NewFrameEventArgs eventArgs)
 		{   //https://stackoverflow.com/questions/30727343/fast-converting-bitmap-to-bitmapsource-wpf
 			//This stops memory leak, idk why. And supposedly it's faster.
-			System.Drawing.Bitmap bitmap = eventArgs.Frame.Clone() as System.Drawing.Bitmap;
+			System.Drawing.Bitmap bitmap = (System.Drawing.Bitmap)eventArgs.Frame.Clone();
 			System.Drawing.Imaging.BitmapData bitmapData = bitmap.LockBits(
 								new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height),
 								System.Drawing.Imaging.ImageLockMode.ReadOnly,
