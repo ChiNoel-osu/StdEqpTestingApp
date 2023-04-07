@@ -297,6 +297,24 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export CSV.
+        /// </summary>
+        public static string ExportCSV {
+            get {
+                return ResourceManager.GetString("ExportCSV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exported to %Path.
+        /// </summary>
+        public static string ExportedCSV {
+            get {
+                return ResourceManager.GetString("ExportedCSV", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You can press F5 to refresh this..
         /// </summary>
         public static string F5Refresh {
@@ -498,6 +516,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Review &amp; Export.
+        /// </summary>
+        public static string NavReviewExport {
+            get {
+                return ResourceManager.GetString("NavReviewExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Settings.
         /// </summary>
         public static string NavSettings {
@@ -530,6 +557,15 @@ namespace StdEqpTesting.Localization {
         public static string NoCOMTabInstruction {
             get {
                 return ResourceManager.GetString("NoCOMTabInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not exported..
+        /// </summary>
+        public static string NotExported {
+            get {
+                return ResourceManager.GetString("NotExported", resourceCulture);
             }
         }
         
@@ -860,6 +896,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Rev &amp; Exp.
+        /// </summary>
+        public static string SettingsRevExp {
+            get {
+                return ResourceManager.GetString("SettingsRevExp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to COM.
         /// </summary>
         public static string SettingTitleCOM {
@@ -977,6 +1022,15 @@ namespace StdEqpTesting.Localization {
         public static string UoM {
             get {
                 return ResourceManager.GetString("UoM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update Interval (ms).
+        /// </summary>
+        public static string UpdateInterval {
+            get {
+                return ResourceManager.GetString("UpdateInterval", resourceCulture);
             }
         }
         

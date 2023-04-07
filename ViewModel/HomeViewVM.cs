@@ -20,7 +20,6 @@ namespace StdEqpTesting.ViewModel
 		static readonly NavTestImg navTestImg = new NavTestImg();
 		static readonly NavTestPLC navTestPLC = new NavTestPLC();
 		static readonly NavReview navReview = new NavReview();
-		static readonly NavExport navExport = new NavExport();
 		static readonly NavSettings navSettings = new NavSettings();
 
 		[ObservableProperty]
@@ -39,9 +38,6 @@ namespace StdEqpTesting.ViewModel
 		bool _NavReviewChecked = false;
 		partial void OnNavReviewCheckedChanged(bool value) { if (NavReviewChecked = value) Content = navReview; }
 		[ObservableProperty]
-		bool _NavExportChecked = false;
-		partial void OnNavExportCheckedChanged(bool value) { if (NavExportChecked = value) Content = navExport; }
-		[ObservableProperty]
 		bool _NavSettingsChecked = false;
 		partial void OnNavSettingsCheckedChanged(bool value) { if (NavSettingsChecked = value) Content = navSettings; }
 
@@ -55,7 +51,6 @@ namespace StdEqpTesting.ViewModel
 				case "3": Content = navTestImg; NavTestImgChecked = true; break;
 				case "4": Content = navTestPLC; NavTestPLCChecked = true; break;
 				case "5": Content = navReview; NavReviewChecked = true; break;
-				case "6": Content = navExport; NavExportChecked = true; break;
 				case "O": Content = navSettings; NavSettingsChecked = true; break;
 				default: throw new NotImplementedException();
 			}

@@ -12,8 +12,8 @@ namespace StdEqpTesting.ViewModel
 		public NavTestDispVM NavTestDispVM { get; } = new NavTestDispVM();
 		public NavTestImgVM NavTestImgVM { get; } = new NavTestImgVM();
 		public NavTestPLCVM NavTestPLCVM { get; } = new NavTestPLCVM();
-		public NavSettingsVM NavSettingsVM { get; } = new NavSettingsVM();
 		public NavReviewVM NavReviewVM { get; } = new NavReviewVM();
+		public NavSettingsVM NavSettingsVM { get; } = new NavSettingsVM();
 
 		//Accessing any ObservableProperty of this class will trigger CS0229 (in VS).
 		//But the code still work and no exceptions are thorn.

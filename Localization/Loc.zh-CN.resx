@@ -177,7 +177,7 @@
     <value>评估</value>
   </data>
   <data name="NavExport" xml:space="preserve">
-    <value>输出</value>
+    <value>导出</value>
   </data>
   <data name="NavSettings" xml:space="preserve">
     <value>设置</value>
@@ -433,5 +433,23 @@
   </data>
   <data name="PLCNotLoadILS" xml:space="preserve">
     <value>未加载ILS文件.</value>
+  </data>
+  <data name="NavReviewExport" xml:space="preserve">
+    <value>评估 &amp; 导出</value>
+  </data>
+  <data name="SettingsRevExp" xml:space="preserve">
+    <value>评估导出</value>
+  </data>
+  <data name="ExportCSV" xml:space="preserve">
+    <value>导出 CSV</value>
+  </data>
+  <data name="ExportedCSV" xml:space="preserve">
+    <value>已导出至 %Path</value>
+  </data>
+  <data name="NotExported" xml:space="preserve">
+    <value>未导出.</value>
+  </data>
+  <data name="UpdateInterval" xml:space="preserve">
+    <value>更新间隔 (毫秒)</value>
   </data>
 </root>

@@ -31,6 +31,7 @@
 			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
 		<DataGrid Style="{DynamicResource DataGridStyle}"
+				  x:Name="DataGrid"
 				  Margin="0,1,0,0"
 				  Grid.Column="0"
 				  FontSize="14"
@@ -60,15 +61,27 @@
 					   FontSize="20"
 					   Text="{x:Static loc:Loc.TestName}" />
 			<TextBox DockPanel.Dock="Top"
-					 Text="{Binding NavReviewVM.SearchString, Mode=OneWayToSource}"
+					 Text="{Binding NavReviewVM.SearchString, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
 					 FontSize="20"
-					 Margin="0,5" />
+					 Margin="0,5">
+				<TextBox.InputBindings>
+					<KeyBinding Key="Return"
+								Command="{Binding NavReviewVM.ReadDBCommand}"
+								CommandParameter="{Binding ElementName=DataType, Path=SelectedIndex}" />
+				</TextBox.InputBindings>
+			</TextBox>
 			<Button DockPanel.Dock="Top"
 					Content="{x:Static loc:Loc.Search}"
 					Command="{Binding NavReviewVM.ReadDBCommand}"
 					CommandParameter="{Binding ElementName=DataType, Path=SelectedIndex}"
 					FontSize="20"
 					Height="40" />
+			<Button DockPanel.Dock="Bottom"
+					Height="40"
+					FontSize="20"
+					Content="{x:Static loc:Loc.ExportCSV}"
+					Command="{Binding NavReviewVM.ExportCSVCommand}"
+					CommandParameter="{Binding ElementName=DataGrid}" />
 		</DockPanel>
 	</Grid>
 </UserControl>

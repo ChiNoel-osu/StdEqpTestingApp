@@ -15,7 +15,7 @@
 		Height="600"
 		Width="800"
 		MinHeight="520"
-		MinWidth="710">
+		MinWidth="750">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -45,10 +45,6 @@
 					Modifiers="Ctrl"
 					Command="{Binding HomeViewVM.TabNavigateCommand}"
 					CommandParameter="5" />
-		<KeyBinding Key="D6"
-					Modifiers="Ctrl"
-					Command="{Binding HomeViewVM.TabNavigateCommand}"
-					CommandParameter="6" />
 		<KeyBinding Key="O"
 					Modifiers="Ctrl"
 					Command="{Binding HomeViewVM.TabNavigateCommand}"
@@ -108,16 +104,10 @@
 						 Checked="TabChecked"
 						 Unchecked="TabUnchecked" />
 			<RadioButton Style="{DynamicResource RadioButtonTabStyle}"
-						 Content="{x:Static loc:Loc.NavReview}"
+						 Content="{x:Static loc:Loc.NavReviewExport}"
 						 Margin="10,0,0,0"
 						 GroupName="TabGroup"
 						 IsChecked="{Binding HomeViewVM.NavReviewChecked}"
-						 Checked="TabChecked"
-						 Unchecked="TabUnchecked" />
-			<RadioButton Style="{DynamicResource RadioButtonTabStyle}"
-						 Content="{x:Static loc:Loc.NavExport}"
-						 GroupName="TabGroup"
-						 IsChecked="{Binding HomeViewVM.NavExportChecked}"
 						 Checked="TabChecked"
 						 Unchecked="TabUnchecked" />
 		</StackPanel>

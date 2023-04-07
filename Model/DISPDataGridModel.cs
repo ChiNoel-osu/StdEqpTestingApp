@@ -54,6 +54,7 @@ namespace StdEqpTesting.Model
 				MessageBox.Show(Localization.Loc.SQLReviewEx.Replace("%Exception", ex.Message), "SQL command failed.", MessageBoxButton.OK, MessageBoxImage.Warning); ;
 			}
 		}
+		public string[] ToStringArray() => new string[] { ID.ToString(), (string)Time, this.User, this.TestName, this.TestValue, this.TestUnit, this.Tag };
 		public DISPDataGridModel(int ID, string User, string TestName, string TestValue, string TestUnit, string? Tag, long UnixTimeStamp)
 		{
 			this.ID = ID;

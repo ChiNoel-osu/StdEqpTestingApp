@@ -415,4 +415,22 @@ Leaving this field empty will make the image to be saved in the root folder of t
   <data name="PLCNotLoadILS" xml:space="preserve">
     <value>ILS file is not loaded.</value>
   </data>
+  <data name="NavReviewExport" xml:space="preserve">
+    <value>Review &amp; Export</value>
+  </data>
+  <data name="SettingsRevExp" xml:space="preserve">
+    <value>Rev &amp; Exp</value>
+  </data>
+  <data name="ExportCSV" xml:space="preserve">
+    <value>Export CSV</value>
+  </data>
+  <data name="ExportedCSV" xml:space="preserve">
+    <value>Exported to %Path</value>
+  </data>
+  <data name="NotExported" xml:space="preserve">
+    <value>Not exported.</value>
+  </data>
+  <data name="UpdateInterval" xml:space="preserve">
+    <value>Update Interval (ms)</value>
+  </data>
 </root>

@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Win32;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,44 +11,13 @@ namespace StdEqpTesting.ViewModel
 {
 	public partial class NavTestPLCVM : ObservableObject
 	{
-		#region SB & Q
-		bool _SB1EN;
-		public object SB1EN
+		#region Visualization
+		bool _Q00;
+		public object Q00
 		{
-			get => _SB1EN.ToString();
-			set { _SB1EN = bool.Parse(value.ToString()); OnPropertyChanged(nameof(SB1EN)); }
+			get => _Q00.ToString();
+			set { _Q00 = bool.Parse(value.ToString()); OnPropertyChanged(nameof(Q00)); }
 		}
-		bool _SB2EN;
-		public object SB2EN
-		{
-			get => _SB2EN.ToString();
-			set { _SB2EN = bool.Parse(value.ToString()); OnPropertyChanged(nameof(SB2EN)); }
-		}
-		bool _SB3EN;
-		public object SB3EN
-		{
-			get => _SB3EN.ToString();
-			set { _SB3EN = bool.Parse(value.ToString()); OnPropertyChanged(nameof(SB3EN)); }
-		}
-		bool _SB4EN;
-		public object SB4EN
-		{
-			get => _SB4EN.ToString();
-			set { _SB4EN = bool.Parse(value.ToString()); OnPropertyChanged(nameof(SB4EN)); }
-		}
-		bool _SB5EN;
-		public object SB5EN
-		{
-			get => _SB5EN.ToString();
-			set { _SB5EN = bool.Parse(value.ToString()); OnPropertyChanged(nameof(SB5EN)); }
-		}
-		bool _SB6EN;
-		public object SB6EN
-		{
-			get => _SB6EN.ToString();
-			set { _SB6EN = bool.Parse(value.ToString()); OnPropertyChanged(nameof(SB6EN)); }
-		}
-
 		bool _Q01;
 		public object Q01
 		{
@@ -74,6 +42,24 @@ namespace StdEqpTesting.ViewModel
 			get => _Q04.ToString();
 			set { _Q04 = bool.Parse(value.ToString()); OnPropertyChanged(nameof(Q04)); }
 		}
+		bool _Q05;
+		public object Q05
+		{
+			get => _Q05.ToString();
+			set { _Q05 = bool.Parse(value.ToString()); OnPropertyChanged(nameof(Q05)); }
+		}
+		bool _Q06;
+		public object Q06
+		{
+			get => _Q06.ToString();
+			set { _Q06 = bool.Parse(value.ToString()); OnPropertyChanged(nameof(Q06)); }
+		}
+		bool _Q07;
+		public object Q07
+		{
+			get => _Q07.ToString();
+			set { _Q07 = bool.Parse(value.ToString()); OnPropertyChanged(nameof(Q07)); }
+		}
 		#endregion
 		bool _SimStatus = false;
 		public object SimStatus
@@ -95,7 +81,7 @@ namespace StdEqpTesting.ViewModel
 			{
 				try
 				{
-					ILSText = File.ReadAllText(openFileDialog.FileName);
+					ILSText = File.ReadAllText(ILSPath = openFileDialog.FileName);
 					MainViewModel.MainVM.UpdateSecStatus(Localization.Loc.PLCLoadedILS.Replace("%Path", openFileDialog.FileName), true);
 				}
 				catch (Exception ex)
@@ -112,6 +98,10 @@ namespace StdEqpTesting.ViewModel
 		}
 		[ObservableProperty]
 		string _ILSText = string.Empty;
+		[ObservableProperty]
+		string _Updating = "Nope";
+
+		string ILSPath = string.Empty;
 
 		CancellationTokenSource cts;
 		CancellationToken ct;
@@ -137,74 +127,24 @@ namespace StdEqpTesting.ViewModel
 		}
 		void StuffHappens(CancellationToken ct)
 		{
-			string[] ILSbyLine = ILSText.Split('\n');
-			string[,] ILS2D = new string[ILSbyLine.Length, 2];
-			for (ushort i = 0; i < ILSbyLine.Length; i++)
-			{   //Put everything in a 2D string array.
-				string[] op = ILSbyLine[i].Split(' ');
-				ILS2D[i, 0] = op[0].Trim();
-				if (op.Length > 1)
-					ILS2D[i, 1] = op[1].Trim();
-			}
-			Stack<string> oprndStack = new Stack<string>();
-			for (ushort i = 0; i < ILS2D.GetLength(0); i++)
-			{   //Start processing stuff.
-				string oprtr = ILS2D[i, 0];
-				string? oprnd = ILS2D[i, 1];
-				switch (oprtr)
-				{
-					case "LD":  //Load
-						oprndStack.Push(oprnd);
-						break;
-					case "LDI": //Load inverted
-						break;
-					case "AND": //AND
-						break;
-					case "ANI": //AND inverted
-						break;
-					case "OR":  //OR
-						break;
-					case "ORI": //OR inverted
-						break;
-					case "INV": //Invert result (no operand)
-						break;
-					case "OUT": //Result
-						break;
-					case "END": //End of ILS (no operand)
-						break;
-					default:
-						throw new NotImplementedException();
-				}
-			}
 			while (true)
 			{
 				ct.ThrowIfCancellationRequested();
-			}
-		}
-
-		[RelayCommand]
-		public void SBToggle(string num)
-		{
-			switch (byte.Parse(num))
-			{
-				case 1:
-					SB1EN = !_SB1EN;
-					break;
-				case 2:
-					SB2EN = !_SB2EN;
-					break;
-				case 3:
-					SB3EN = !_SB3EN;
-					break;
-				case 4:
-					SB4EN = !_SB4EN;
-					break;
-				case 5:
-					SB5EN = !_SB5EN;
-					break;
-				case 6:
-					SB6EN = !_SB6EN;
-					break;
+				ILSText = File.ReadAllText(ILSPath);
+				string[] ILSbyLine = ILSText.Split('\n');
+				string[,] ILS2D = new string[ILSbyLine.Length, 2];
+				for (ushort i = 0; i < ILSbyLine.Length; i++)
+				{   //Put everything in a 2D string array.
+					string[] op = ILSbyLine[i].Split(' ');
+					ILS2D[i, 0] = op[0].Trim();
+					if (op.Length > 1)
+						ILS2D[i, 1] = op[1].Trim();
+				}
+				Application.Current.Dispatcher.Invoke(() => { Updating = "Update"; });
+				for (ushort i = 0; i < ILS2D.GetLength(0); i++)
+					this.GetType().GetProperty(ILS2D[i, 0]).SetValue(this, ILS2D[i, 1]);
+				Application.Current.Dispatcher.Invoke(() => { Updating = "Nope"; });
+				Thread.Sleep(Properties.Settings.Default.PLCUpdateInterval);
 			}
 		}
 	}

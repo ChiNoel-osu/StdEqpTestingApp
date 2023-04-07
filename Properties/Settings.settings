@@ -21,5 +21,8 @@
     <Setting Name="ImageSaveQuality" Type="System.Int32" Scope="User">
       <Value Profile="(Default)">80</Value>
     </Setting>
+    <Setting Name="PLCUpdateInterval" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">1000</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

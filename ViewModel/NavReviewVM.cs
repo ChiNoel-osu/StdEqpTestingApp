@@ -1,10 +1,17 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using Microsoft.Data.Sqlite;
+using Microsoft.Win32;
 using StdEqpTesting.Model;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 
 namespace StdEqpTesting.ViewModel
 {
@@ -67,6 +74,61 @@ namespace StdEqpTesting.ViewModel
 					throw new NotImplementedException();
 			}
 			Reading = false;
+		}
+
+		[RelayCommand]
+		public void ExportCSV(DataGrid dataGrid)
+		{
+			StringBuilder csvString = new StringBuilder();
+			//Header
+			csvString.AppendJoin(',', from col in dataGrid.Columns select col.Header);
+			csvString.Append('\n');
+			//Data
+			foreach (DataGridRow dataGridRow in GetDataGridRows(dataGrid))
+			{
+				switch (dataGridRow.Item)
+				{
+					case COMDataGridModel _:
+						csvString.AppendJoin(',', ((COMDataGridModel)dataGridRow.Item).ToStringArray());
+						break;
+					case DISPDataGridModel _:
+						csvString.AppendJoin(',', ((DISPDataGridModel)dataGridRow.Item).ToStringArray());
+						break;
+					default:
+						throw new NotImplementedException();
+				}
+				//if (dataGridRow.Item.GetType() == typeof(COMDataGridModel))
+				//	csvString.AppendJoin(',', ((COMDataGridModel)dataGridRow.Item).ToStringArray());
+				csvString.Append('\n');
+			}
+			//Prompt for path.
+			SaveFileDialog saveCSVDialog = new SaveFileDialog()
+			{
+				InitialDirectory = Directory.GetCurrentDirectory(),
+				ValidateNames = true,
+				FilterIndex = 0,
+				Filter = "CSV Files (*.csv)|*.csv",
+				Title = Localization.Loc.ExportCSV
+			};
+			if ((bool)saveCSVDialog.ShowDialog())
+			{
+				File.WriteAllTextAsync(saveCSVDialog.FileName, csvString.ToString());
+				MainViewModel.MainVM.UpdateSecStatus(Localization.Loc.ExportedCSV, true);
+			}
+			else
+			{
+				MainViewModel.MainVM.UpdateSecStatus(Localization.Loc.NotExported, true);
+			}
+		}
+		IEnumerable<DataGridRow> GetDataGridRows(DataGrid grid)
+		{
+			IEnumerable? itemsSource = grid.ItemsSource;
+			if (null == itemsSource) yield return null;
+			foreach (object? item in itemsSource)
+			{
+				DataGridRow? row = grid.ItemContainerGenerator.ContainerFromItem(item) as DataGridRow;
+				if (null != row) yield return row;
+			}
 		}
 
 		#region DataGrid row add/remove

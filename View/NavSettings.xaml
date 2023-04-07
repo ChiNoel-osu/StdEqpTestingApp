@@ -321,26 +321,35 @@
 							Cursor="ScrollWE">
 						<Slider.ToolTip>
 							<TextBlock Text="{Binding NavSettingsVM.JPEGQuality,Mode=OneWay}"
-									   Foreground="Black"/>
+									   Foreground="Black" />
 						</Slider.ToolTip>
 					</Slider>
 				</StackPanel>
 			</TabItem>
 			<TabItem Header="{x:Static loc:Loc.PLC}">
 				<StackPanel Margin="15,5">
-					<TextBlock Text="{x:Static loc:Loc.SettingsNotAvail}"
+					<TextBlock Text="{x:Static loc:Loc.UpdateInterval}"
 							   Padding="5" />
+					<DockPanel>
+						<TextBlock DockPanel.Dock="Left"
+								   HorizontalAlignment="Left"
+								   d:Text="500"
+								   Text="{Binding NavSettingsVM.UpdateInterval, Mode=OneWay}" />
+						<Slider DockPanel.Dock="Right"
+								VerticalAlignment="Center"
+								Minimum="100"
+								Maximum="8000"
+								Value="{Binding NavSettingsVM.UpdateInterval}"
+								SmallChange="100"
+								LargeChange="500"
+								TickFrequency="100"
+								IsSnapToTickEnabled="True"
+								Cursor="ScrollWE"
+								Margin="5,0,0,0" />
+					</DockPanel>
 				</StackPanel>
 			</TabItem>
-			<TabItem Header="{x:Static loc:Loc.NavReview}"
-					 IsEnabled="False" />
-			<TabItem Header="Options">
-				<StackPanel Margin="15,5">
-					<TextBlock Text="{x:Static loc:Loc.SettingsNotAvail}"
-							   Padding="5" />
-				</StackPanel>
-			</TabItem>
-			<TabItem Header="{x:Static loc:Loc.NavExport}"
+			<TabItem Header="{x:Static loc:Loc.SettingsRevExp}"
 					 IsEnabled="False" />
 			<TabItem Header="Options">
 				<StackPanel Margin="15,5">

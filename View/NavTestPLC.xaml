@@ -28,103 +28,41 @@
 	<Grid Margin="0,10">
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition Width="2*" />
-			<ColumnDefinition Width="*" />
 			<ColumnDefinition Width="2*" />
+			<ColumnDefinition Width="*" />
 		</Grid.ColumnDefinitions>
+		<Grid.Resources>
+			<Style TargetType="{x:Type Ellipse}">
+				<Setter Property="Height"
+						Value="50" />
+				<Setter Property="Width"
+						Value="50" />
+				<Setter Property="Stroke"
+						Value="Gray" />
+				<Setter Property="Fill"
+						Value="{DynamicResource GlobalBG}" />
+				<Setter Property="StrokeThickness"
+						Value="4" />
+				<Setter Property="Margin"
+						Value="10" />
+				<Style.Triggers>
+					<Trigger Property="Tag"
+							 Value="True">
+						<Setter Property="Fill"
+								Value="Lime" />
+					</Trigger>
+					<Trigger Property="IsMouseOver"
+							 Value="True">
+						<Setter Property="Cursor"
+								Value="No" />
+					</Trigger>
+				</Style.Triggers>
+			</Style>
+		</Grid.Resources>
 		<StackPanel Grid.Column="0"
 					Orientation="Vertical"
 					VerticalAlignment="Center">
 			<StackPanel.Resources>
-				<Style TargetType="{x:Type Button}">
-					<Setter Property="Background"
-							Value="Transparent" />
-					<Setter Property="BorderBrush"
-							Value="Gray" />
-					<Setter Property="Foreground"
-							Value="{DynamicResource GlobalFG}" />
-					<Setter Property="BorderThickness"
-							Value="5" />
-					<Setter Property="Height"
-							Value="50" />
-					<Setter Property="Width"
-							Value="50" />
-					<Setter Property="Tag"
-							Value="False" />
-					<Setter Property="Template">
-						<Setter.Value>
-							<ControlTemplate TargetType="{x:Type ButtonBase}">
-								<Border x:Name="border"
-										Background="{TemplateBinding Background}"
-										BorderBrush="{TemplateBinding BorderBrush}"
-										BorderThickness="{TemplateBinding BorderThickness}"
-										SnapsToDevicePixels="true">
-									<ContentPresenter x:Name="contentPresenter"
-													  Focusable="False"
-													  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-													  Margin="{TemplateBinding Padding}"
-													  RecognizesAccessKey="True"
-													  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
-													  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-								</Border>
-								<ControlTemplate.Triggers>
-									<Trigger Property="Button.IsDefaulted"
-											 Value="true">
-										<Setter Property="BorderBrush"
-												TargetName="border"
-												Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
-									</Trigger>
-									<Trigger Property="IsPressed"
-											 Value="true">
-										<Setter Property="Background"
-												Value="{DynamicResource GlobalPressedBD}" />
-									</Trigger>
-								</ControlTemplate.Triggers>
-							</ControlTemplate>
-						</Setter.Value>
-					</Setter>
-					<Setter Property="Margin"
-							Value="10" />
-					<Style.Triggers>
-						<Trigger Property="Tag"
-								 Value="True">
-							<Setter Property="BorderBrush"
-									Value="Lime" />
-							<Trigger.EnterActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<ThicknessAnimation Storyboard.TargetProperty="BorderThickness"
-															From="5"
-															To="10"
-															Duration="0:0:0.5">
-											<ThicknessAnimation.EasingFunction>
-												<CircleEase EasingMode="EaseOut" />
-											</ThicknessAnimation.EasingFunction>
-										</ThicknessAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard>
-									<Storyboard>
-										<ThicknessAnimation Storyboard.TargetProperty="BorderThickness"
-															From="10"
-															To="5"
-															Duration="0:0:0.5">
-											<ThicknessAnimation.EasingFunction>
-												<CircleEase EasingMode="EaseOut" />
-											</ThicknessAnimation.EasingFunction>
-										</ThicknessAnimation>
-									</Storyboard>
-								</BeginStoryboard>
-							</Trigger.ExitActions>
-						</Trigger>
-						<Trigger Property="IsMouseOver"
-								 Value="True">
-							<Setter Property="Cursor"
-									Value="Hand" />
-						</Trigger>
-					</Style.Triggers>
-				</Style>
 				<Style TargetType="{x:Type StackPanel}">
 					<Setter Property="HorizontalAlignment"
 							Value="Center" />
@@ -143,43 +81,62 @@
 				</Style>
 			</StackPanel.Resources>
 			<StackPanel>
-				<TextBlock Text="SB1" />
-				<Button Tag="{Binding NavTestPLCVM.SB1EN}"
-						Command="{Binding NavTestPLCVM.SBToggleCommand}"
-						CommandParameter="1" />
+				<TextBlock Text="Q00" />
+				<Ellipse Tag="{Binding NavTestPLCVM.Q00}" />
 			</StackPanel>
 			<StackPanel>
-				<TextBlock Text="SB2" />
-				<Button Tag="{Binding NavTestPLCVM.SB2EN}"
-						Command="{Binding NavTestPLCVM.SBToggleCommand}"
-						CommandParameter="2" />
+				<TextBlock Text="Q01" />
+				<Ellipse Tag="{Binding NavTestPLCVM.Q01}" />
 			</StackPanel>
 			<StackPanel>
-				<TextBlock Text="SB3" />
-				<Button Tag="{Binding NavTestPLCVM.SB3EN}"
-						Command="{Binding NavTestPLCVM.SBToggleCommand}"
-						CommandParameter="3" />
+				<TextBlock Text="Q02" />
+				<Ellipse Tag="{Binding NavTestPLCVM.Q02}" />
 			</StackPanel>
 			<StackPanel>
-				<TextBlock Text="SB4" />
-				<Button Tag="{Binding NavTestPLCVM.SB4EN}"
-						Command="{Binding NavTestPLCVM.SBToggleCommand}"
-						CommandParameter="4" />
-			</StackPanel>
-			<StackPanel>
-				<TextBlock Text="SB5" />
-				<Button Tag="{Binding NavTestPLCVM.SB5EN}"
-						Command="{Binding NavTestPLCVM.SBToggleCommand}"
-						CommandParameter="5" />
-			</StackPanel>
-			<StackPanel>
-				<TextBlock Text="SB6" />
-				<Button Tag="{Binding NavTestPLCVM.SB6EN}"
-						Command="{Binding NavTestPLCVM.SBToggleCommand}"
-						CommandParameter="6" />
+				<TextBlock Text="Q03" />
+				<Ellipse Tag="{Binding NavTestPLCVM.Q03}" />
 			</StackPanel>
 		</StackPanel>
-		<DockPanel Grid.Column="1">
+		<StackPanel Grid.Column="1"
+					Orientation="Vertical"
+					VerticalAlignment="Center">
+			<StackPanel.Resources>
+				<Style TargetType="{x:Type StackPanel}">
+					<Setter Property="HorizontalAlignment"
+							Value="Center" />
+					<Setter Property="Orientation"
+							Value="Horizontal" />
+				</Style>
+
+				<Style TargetType="{x:Type TextBlock}">
+					<Setter Property="Foreground"
+							Value="{DynamicResource GlobalFG}" />
+					<Setter Property="FontFamily"
+							Value="Cascadia Code" />
+					<Setter Property="VerticalAlignment"
+							Value="Center" />
+					<Setter Property="FontSize"
+							Value="40" />
+				</Style>
+			</StackPanel.Resources>
+			<StackPanel>
+				<Ellipse Tag="{Binding NavTestPLCVM.Q04}" />
+				<TextBlock Text="Q04" />
+			</StackPanel>
+			<StackPanel>
+				<Ellipse Tag="{Binding NavTestPLCVM.Q05}" />
+				<TextBlock Text="Q05" />
+			</StackPanel>
+			<StackPanel>
+				<Ellipse Tag="{Binding NavTestPLCVM.Q06}" />
+				<TextBlock Text="Q06" />
+			</StackPanel>
+			<StackPanel>
+				<Ellipse Tag="{Binding NavTestPLCVM.Q07}" />
+				<TextBlock Text="Q07" />
+			</StackPanel>
+		</StackPanel>
+		<DockPanel Grid.Column="2">
 			<Button DockPanel.Dock="Top"
 					Content="{x:Static loc:Loc.PLCOpenILS}"
 					Command="{Binding NavTestPLCVM.LoadILSCommand,Mode=OneWay}"
@@ -291,76 +248,41 @@
 					</Style>
 				</Button.Style>
 			</Button>
-			<TextBox DockPanel.Dock="Bottom"
-					 Margin="10"
-					 IsReadOnly="True"
-					 MinHeight="50"
-					 Text="{Binding NavTestPLCVM.ILSText,Mode=OneWay}"
-					 Background="Transparent" />
-		</DockPanel>
-		<StackPanel Grid.Column="2"
-					Orientation="Vertical"
-					VerticalAlignment="Center">
-			<StackPanel.Resources>
-				<Style TargetType="{x:Type StackPanel}">
-					<Setter Property="HorizontalAlignment"
-							Value="Center" />
-					<Setter Property="Orientation"
-							Value="Horizontal" />
-				</Style>
-				<Style TargetType="{x:Type Ellipse}">
-					<Setter Property="Height"
-							Value="50" />
-					<Setter Property="Width"
-							Value="50" />
-					<Setter Property="Stroke"
-							Value="Gray" />
-					<Setter Property="Fill"
-							Value="{DynamicResource GlobalBG}" />
-					<Setter Property="StrokeThickness"
-							Value="4" />
-					<Setter Property="Margin"
-							Value="10" />
-					<Style.Triggers>
-						<Trigger Property="Tag"
-								 Value="True">
+			<Grid DockPanel.Dock="Bottom">
+				<Rectangle Grid.Column="2"
+						   Height="10"
+						   Width="10"
+						   Margin="10,10,10,0"
+						   HorizontalAlignment="Right"
+						   VerticalAlignment="Bottom">
+					<Rectangle.Style>
+						<Style TargetType="{x:Type Rectangle}">
 							<Setter Property="Fill"
-									Value="Lime" />
-						</Trigger>
-						<Trigger Property="IsMouseOver"
-								 Value="True">
-							<Setter Property="Cursor"
-									Value="No" />
-						</Trigger>
-					</Style.Triggers>
-				</Style>
-				<Style TargetType="{x:Type TextBlock}">
-					<Setter Property="Foreground"
-							Value="{DynamicResource GlobalFG}" />
-					<Setter Property="FontFamily"
-							Value="Cascadia Code" />
-					<Setter Property="VerticalAlignment"
-							Value="Center" />
-					<Setter Property="FontSize"
-							Value="40" />
-				</Style>
-			</StackPanel.Resources>
-			<StackPanel>
-				<Ellipse Tag="{Binding NavTestPLCVM.Q01}" />
-				<TextBlock Text="Q01" />
-			</StackPanel>
-			<StackPanel>
-				<Ellipse Tag="{Binding NavTestPLCVM.Q02}" />
-				<TextBlock Text="Q02" />
-			</StackPanel>
-			<StackPanel>
-				<Ellipse Tag="{Binding NavTestPLCVM.Q03}" />
-				<TextBlock Text="Q03" />
-			</StackPanel>
-			<StackPanel>
-				<Ellipse Tag="{Binding NavTestPLCVM.Q04}" />
-				<TextBlock Text="Q04" />
-			</StackPanel>
-		</StackPanel>
+									Value="Gray" />
+							<Style.Triggers>
+								<DataTrigger Binding="{Binding NavTestPLCVM.Updating, Mode=OneWay}"
+											 Value="Update">
+									<DataTrigger.EnterActions>
+										<BeginStoryboard>
+											<Storyboard>
+												<ColorAnimation Storyboard.TargetProperty="Fill.(SolidColorBrush.Color)"
+																From="Green"
+																To="Gray"
+																Duration="0:0:0.5" />
+											</Storyboard>
+										</BeginStoryboard>
+									</DataTrigger.EnterActions>
+								</DataTrigger>
+							</Style.Triggers>
+						</Style>
+					</Rectangle.Style>
+				</Rectangle>
+				<TextBox Margin="10,10,10,0"
+						 IsReadOnly="True"
+						 MinHeight="50"
+						 Text="{Binding NavTestPLCVM.ILSText, Mode=OneWay}"
+						 Background="Transparent" />
+			</Grid>
+		</DockPanel>
 	</Grid>
 </UserControl>

@@ -52,14 +52,21 @@ namespace StdEqpTesting.ViewModel
 
 		public int JPEGQuality
 		{
-			get
-			{
-				return Properties.Settings.Default.ImageSaveQuality;
-			}
+			get => Properties.Settings.Default.ImageSaveQuality;
 			set
 			{
 				Properties.Settings.Default.ImageSaveQuality = value;
 				Properties.Settings.Default.Save();
+			}
+		}
+		public int UpdateInterval
+		{
+			get => Properties.Settings.Default.PLCUpdateInterval;
+			set
+			{
+				Properties.Settings.Default.PLCUpdateInterval = value;
+				Properties.Settings.Default.Save();
+				OnPropertyChanged(nameof(UpdateInterval));
 			}
 		}
 
