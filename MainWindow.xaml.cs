@@ -1,5 +1,4 @@
-﻿using StdEqpTesting.View;
-using StdEqpTesting.ViewModel;
+﻿using StdEqpTesting.ViewModel;
 using System.Windows;
 
 namespace StdEqpTesting
@@ -14,9 +13,11 @@ namespace StdEqpTesting
 		{
 			InitializeComponent();
 			DataContext = MainVM;
-
+#if RELEASE
+			MainVM.MainWindowVM.LoadNextWnd(this);
+#endif
 #if SKIPLOGINDBG
-			HomeViewWindow mainViewWindow = new HomeViewWindow(new Model.UserInfo { ID = 0, theme = 0, type = 0, username = "VicTest" });
+			HomeViewWindow mainViewWindow = new HomeViewWindow(new Model.UserInfo { ID = 0, theme = 0, type = (Model.UserTypeEnum)0, username = "VicTest" });
 			mainViewWindow.Show();
 			Close();
 #endif

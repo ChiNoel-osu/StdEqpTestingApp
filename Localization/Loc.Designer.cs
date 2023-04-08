@@ -124,6 +124,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changed user type of %User to %Type..
+        /// </summary>
+        public static string AdminChangeUserType {
+            get {
+                return ResourceManager.GetString("AdminChangeUserType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Auto add.
         /// </summary>
         public static string AutoAddRecvStr {
@@ -849,6 +858,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search Failed.
+        /// </summary>
+        public static string SearchFail {
+            get {
+                return ResourceManager.GetString("SearchFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Port Defaults.
         /// </summary>
         public static string SettingDefaultCOM {
@@ -1022,6 +1040,43 @@ namespace StdEqpTesting.Localization {
         public static string TestName {
             get {
                 return ResourceManager.GetString("TestName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Startup Theme.
+        /// </summary>
+        public static string Theme {
+            get {
+                return ResourceManager.GetString("Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dark.
+        /// </summary>
+        public static string ThemeDark {
+            get {
+                return ResourceManager.GetString("ThemeDark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Light.
+        /// </summary>
+        public static string ThemeLight {
+            get {
+                return ResourceManager.GetString("ThemeLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes your startup theme. Which will take effect the next time you start the application.
+        ///To temporary change your current theme, use the theme button above..
+        /// </summary>
+        public static string ThemeTT {
+            get {
+                return ResourceManager.GetString("ThemeTT", resourceCulture);
             }
         }
         

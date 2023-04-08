@@ -5,7 +5,7 @@ namespace StdEqpTesting.ViewModel
 {
 	public partial class MainViewModel : ObservableObject
 	{
-		public static MainViewModel MainVM { get; } = new MainViewModel();
+		public static MainViewModel MainVM { get; private set; }
 
 		public HomeViewVM HomeViewVM { get; } = new HomeViewVM();
 		public NavTestVM NavTestVM { get; } = new NavTestVM();
@@ -13,7 +13,7 @@ namespace StdEqpTesting.ViewModel
 		public NavTestImgVM NavTestImgVM { get; } = new NavTestImgVM();
 		public NavTestPLCVM NavTestPLCVM { get; } = new NavTestPLCVM();
 		public NavReviewVM NavReviewVM { get; } = new NavReviewVM();
-		public NavSettingsVM NavSettingsVM { get; } = new NavSettingsVM();
+		public NavSettingsVM NavSettingsVM { get; } //Late load.
 
 		//Accessing any ObservableProperty of this class will trigger CS0229 (in VS).
 		//But the code still work and no exceptions are thorn.
@@ -72,6 +72,15 @@ namespace StdEqpTesting.ViewModel
 				default:
 					throw new NotImplementedException();
 			}
+		}
+
+		public MainViewModel(Model.UserInfo userInfo)
+		{
+			MainVM = this;
+			HomeViewVM.UserName = userInfo.username;
+			HomeViewVM.UserType = userInfo.type;
+			SecondaryStatus = Localization.Loc.StatusLoggedIn.Replace("%User", userInfo.username).Replace("%Type", userInfo.type.ToString());
+			NavSettingsVM = new NavSettingsVM(userInfo);
 		}
 	}
 }

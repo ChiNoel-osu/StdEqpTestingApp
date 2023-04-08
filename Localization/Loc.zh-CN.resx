@@ -455,4 +455,23 @@
   <data name="ParseILSFail" xml:space="preserve">
     <value>无法解析指令文件, 已停止监控.</value>
   </data>
+  <data name="Theme" xml:space="preserve">
+    <value>启动主题</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>暗</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>亮</value>
+  </data>
+  <data name="ThemeTT" xml:space="preserve">
+    <value>更改启动主题. 下次启动时将会使用此主题.
+要临时更改主题, 请使用上面的主题按钮.</value>
+  </data>
+  <data name="SearchFail" xml:space="preserve">
+    <value>搜索失败</value>
+  </data>
+  <data name="AdminChangeUserType" xml:space="preserve">
+    <value>已将 %User 的用户类型更改为 %Type.</value>
+  </data>
 </root>

@@ -1,6 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Microsoft.Data.Sqlite;
+using StdEqpTesting.Model;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -15,28 +18,86 @@ namespace StdEqpTesting.ViewModel
 	public partial class NavSettingsVM : ObservableObject
 	{
 		bool init = true;
+		readonly UserInfo usr;
 
+		[ObservableProperty]
 		int _LangIndex;
-		public int LangIndex
+		partial void OnLangIndexChanged(int value)
 		{
-			get => _LangIndex;
-			set
+			Properties.Settings.Default.Locale = value switch
 			{
-				Properties.Settings.Default.Locale = (_LangIndex = value) switch
+				0 => "zh-CN",
+				1 => "en-US",
+				_ => throw new NotImplementedException(),
+			};
+			Properties.Settings.Default.Save();
+			App.Logger.Info("Changed application locale to " + Properties.Settings.Default.Locale);
+			CultureInfo.CurrentUICulture = new CultureInfo(Properties.Settings.Default.Locale);
+			if (!init && MessageBox.Show(Localization.Loc.SettingLangSaved, Localization.Loc.SettingLang, MessageBoxButton.YesNo, MessageBoxImage.None, MessageBoxResult.No) == MessageBoxResult.Yes)
+			{   //Restart to take effect.
+				Process.Start(Process.GetCurrentProcess().MainModule.FileName);
+				Application.Current.Shutdown();
+			}
+		}
+		[ObservableProperty]
+		int _ThemeIndex;
+		partial void OnThemeIndexChanged(int value)
+		{
+			App.Logger.Info("Changing theme to ordinal: " + value);
+			using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
+			{
+				SqliteCommand cmd = connection.CreateCommand();
+				cmd.CommandText = @"Update Users SET Theme=$Theme WHERE Username = $Username";
+				cmd.Parameters.AddWithValue("$Theme", value).SqliteType = SqliteType.Integer;
+				cmd.Parameters.AddWithValue("$Username", usr.username).SqliteType = SqliteType.Text;
+				connection.Open();
+				try
 				{
-					0 => "zh-CN",
-					1 => "en-US",
-					_ => throw new NotImplementedException(),
-				};
-				Properties.Settings.Default.Save();
-				CultureInfo.CurrentUICulture = new CultureInfo(Properties.Settings.Default.Locale);
-				if (!init && MessageBox.Show(Localization.Loc.SettingLangSaved, Localization.Loc.SettingLang, MessageBoxButton.YesNo, MessageBoxImage.None, MessageBoxResult.No) == MessageBoxResult.Yes)
-				{   //Restart to take effect.
-					Process.Start(Process.GetCurrentProcess().MainModule.FileName);
-					Application.Current.Shutdown();
+					cmd.ExecuteNonQuery();
+				}
+				catch (SqliteException ex)
+				{
+					MessageBox.Show(ex.Message);
+					App.Logger.Error(ex);
 				}
 			}
 		}
+
+		#region Admin settings
+		public bool IsAdmin { get; }
+		Dictionary<string, UserTypeEnum> UserAndTypeDict = new Dictionary<string, UserTypeEnum>();
+		public List<string> UserList { get; } = new List<string>();
+		[ObservableProperty]
+		int _UserListIndex = -1;
+		partial void OnUserListIndexChanged(int value)
+		{
+			UserTypeIndex = (int)UserAndTypeDict[UserList[value]];
+		}
+		[ObservableProperty]
+		int _UserTypeIndex = -1;
+		partial void OnUserTypeIndexChanged(int value)
+		{
+			using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadWrite }.ToString()))
+			{
+				SqliteCommand cmd = connection.CreateCommand();
+				cmd.CommandText = @"UPDATE Users SET Type = $Type WHERE Username = $Username";
+				cmd.Parameters.AddWithValue("$Type", value).SqliteType = SqliteType.Integer;
+				cmd.Parameters.AddWithValue("$Username", UserList[UserListIndex]).SqliteType = SqliteType.Text;
+				connection.Open();
+				try
+				{
+					cmd.ExecuteNonQuery();
+					cmd.DisposeAsync();
+					MainViewModel.MainVM.UpdateSecStatus(Localization.Loc.AdminChangeUserType.Replace("%User", UserList[UserListIndex]).Replace("%Type", ((UserTypeEnum)value).ToString()));
+				}
+				catch (SqliteException ex)
+				{
+					MessageBox.Show(ex.Message);
+					App.Logger.Error(ex);
+				}
+			}
+		}
+		#endregion
 
 		public string ImageSaveDir
 		{
@@ -171,16 +232,61 @@ namespace StdEqpTesting.ViewModel
 		[RelayCommand]
 		public void About() => new View.About().ShowDialog();
 
-		public NavSettingsVM()
+		public NavSettingsVM(UserInfo userInfo)
 		{
-			GetCOMSetting("NewCOMDefault");
+			//Save user info.
+			usr = userInfo;
+			IsAdmin = (int)usr.type <= 1;
 
-			LangIndex = Properties.Settings.Default.Locale switch
+			//Get serial port properties.
+			GetCOMSetting("NewCOMDefault");
+			//Get language setting.
+			_LangIndex = Properties.Settings.Default.Locale switch
 			{
 				"zh-CN" => 0,
 				"en-US" => 1,
 				_ => 0  //This is handled in App.xaml.cs (Reverting to zh-CN)
 			};
+			//Gets per-user theme setting and admin settings.
+			using (SqliteConnection connection = new SqliteConnection(new SqliteConnectionStringBuilder { DataSource = Properties.Settings.Default.DBConnString, Mode = SqliteOpenMode.ReadOnly }.ToString()))
+			{
+				SqliteCommand cmd = connection.CreateCommand();
+				cmd.CommandText = @"SELECT Theme FROM Users WHERE Username = $Username LIMIT 1";
+				cmd.Parameters.AddWithValue("$Username", userInfo.username).SqliteType = SqliteType.Text;
+				connection.Open();
+				try
+				{
+					SqliteDataReader reader = cmd.ExecuteReader();
+					reader.Read();
+					_ThemeIndex = reader.GetByte(0);
+					reader.DisposeAsync();
+				}
+				catch (SqliteException ex)
+				{
+					MessageBox.Show(ex.Message);
+					App.Logger.Error(ex);
+				}
+				//Also read user table if user is admin.
+				if (IsAdmin)
+				{
+					cmd.CommandText = @"SELECT Username,Type FROM Users";
+					try
+					{
+						SqliteDataReader reader = cmd.ExecuteReader();
+						while (reader.Read())
+						{
+							UserList.Add(reader.GetString(0));
+							UserAndTypeDict.Add(reader.GetString(0), (UserTypeEnum)reader.GetInt16(1));
+						}
+					}
+					catch (SqliteException ex)
+					{
+						MessageBox.Show(ex.Message);
+						App.Logger.Error(ex);
+					}
+				}
+				connection.CloseAsync();
+			}
 
 			COMSettingPorts.Add(Localization.Loc.SettingDefaultCOM);
 			foreach (string portName in SerialPort.GetPortNames())

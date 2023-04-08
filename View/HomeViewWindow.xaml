@@ -15,7 +15,7 @@
 		Height="600"
 		Width="800"
 		MinHeight="520"
-		MinWidth="750">
+		MinWidth="725">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>

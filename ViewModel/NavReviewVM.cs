@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace StdEqpTesting.ViewModel
@@ -53,9 +53,17 @@ namespace StdEqpTesting.ViewModel
 						connection.Open();
 						using SqliteCommand command = connection.CreateCommand();
 						command.CommandText = $"SELECT * FROM ComTestData WHERE TestName LIKE '%{SearchString}%'";
-						using SqliteDataReader reader = command.ExecuteReader();
-						while (reader.Read())
-							COMDataGridSource.Add(new COMDataGridModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetInt64(8)));
+						try
+						{
+							using SqliteDataReader reader = command.ExecuteReader();
+							while (reader.Read())
+								COMDataGridSource.Add(new COMDataGridModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetString(6), reader.GetString(7), reader.GetInt64(8)));
+						}
+						catch (SqliteException ex)
+						{
+							MessageBox.Show(ex.Message);
+							MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.SearchFail, true, 4);
+						}
 					}
 					break;
 				case 1: //Displacement Data
@@ -65,9 +73,17 @@ namespace StdEqpTesting.ViewModel
 						connection.Open();
 						using SqliteCommand command = connection.CreateCommand();
 						command.CommandText = $"SELECT * FROM DispTestData WHERE TestName LIKE '%{SearchString}%'";
-						using SqliteDataReader reader = command.ExecuteReader();
-						while (reader.Read())
-							DISPDataGridSource.Add(new DISPDataGridModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetInt64(6)));
+						try
+						{
+							using SqliteDataReader reader = command.ExecuteReader();
+							while (reader.Read())
+								DISPDataGridSource.Add(new DISPDataGridModel(reader.GetInt32(0), reader.GetString(1), reader.GetString(2), reader.GetString(3), reader.GetString(4), reader.GetString(5), reader.GetInt64(6)));
+						}
+						catch (SqliteException ex)
+						{
+							MessageBox.Show(ex.Message);
+							MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.SearchFail, true, 4);
+						}
 					}
 					break;
 				default:
@@ -164,11 +180,11 @@ namespace StdEqpTesting.ViewModel
 
 		public NavReviewVM()
 		{
-			Task.Run(() =>
-			{
-				ReadDB(0);
-				ReadDB(1);
-			});
+			//Task.Run(() =>
+			//{
+			//	ReadDB(0);
+			//	ReadDB(1);
+			//});
 			COMDataGridSource.CollectionChanged += COMDataGridSource_CollectionChanged;
 			DISPDataGridSource.CollectionChanged += DISPDataGridSource_CollectionChanged;
 			DataGridSource = COMDataGridSource; //Index 0

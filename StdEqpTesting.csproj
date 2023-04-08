@@ -10,6 +10,9 @@
     <Configurations>Debug;Release;SkipLoginDbg</Configurations>
     <XamlDebuggingInformation>True</XamlDebuggingInformation>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <Authors>Victor</Authors>
+    <Version>1.0.0-beta</Version>
+    <FileVersion>$(Version)</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

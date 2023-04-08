@@ -58,11 +58,7 @@ namespace StdEqpTesting.View
 		public HomeViewWindow(UserInfo userInfo)
 		{
 			InitializeComponent();
-			DataContext = MainViewModel.MainVM;
-			//Gets the user info passed from loginWindow.
-			((MainViewModel)DataContext).HomeViewVM.UserName = userInfo.username;
-			((MainViewModel)DataContext).HomeViewVM.UserType = userInfo.type;
-			((MainViewModel)DataContext).SecondaryStatus = Localization.Loc.StatusLoggedIn.Replace("%User", userInfo.username).Replace("%Type", userInfo.type.ToString());
+			DataContext = new MainViewModel(userInfo);
 			#region Theme Init
 			if (userInfo.theme == 0)
 			{

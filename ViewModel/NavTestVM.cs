@@ -56,7 +56,7 @@ namespace StdEqpTesting.ViewModel
 		public NavTestVM()
 		{
 			ReGetCOMList();
-			//Update status. Delay 1 sec otherwise MainVM would be null.
+			//HACK: Update status. Delay 1 sec otherwise MainVM would be null.
 			Task.Run(() =>
 			{
 				Thread.Sleep(1000);

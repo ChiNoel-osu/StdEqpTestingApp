@@ -25,6 +25,7 @@
 					VerticalAlignment="Center">
 			<TextBlock Text="Multi-Purpose Master Computer"
 					   FontWeight="Bold"
+					   MouseRightButtonUp="TextBlock_MouseRightButtonUp"
 					   FontSize="15" />
 			<TextBlock Text="Victor's Graduate Project"
 					   FontStyle="Italic" />
