@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -167,10 +168,8 @@ namespace StdEqpTesting.ViewModel
 			WriteTimeout = setting.WriteTimeout;
 		}
 
-		public void GetImgSetting()
-		{
-
-		}
+		[RelayCommand]
+		public void About() => new View.About().ShowDialog();
 
 		public NavSettingsVM()
 		{

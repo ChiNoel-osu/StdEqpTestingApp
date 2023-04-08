@@ -1,0 +1,8 @@
+Q00 True
+Q01 True
+Q02 False
+Q03 False
+Q04 True
+Q05 True
+Q06 False
+Q07 True

@@ -110,6 +110,7 @@ namespace StdEqpTesting.ViewModel
 		{
 			if ((bool)(SimStatus = !_SimStatus))
 			{
+				MainViewModel.MainVM.UpdateSecStatus(string.Empty);
 				Task.Run(() =>
 				{
 					cts = new CancellationTokenSource();
@@ -141,9 +142,20 @@ namespace StdEqpTesting.ViewModel
 						ILS2D[i, 1] = op[1].Trim();
 				}
 				Application.Current.Dispatcher.Invoke(() => { Updating = "Update"; });
-				for (ushort i = 0; i < ILS2D.GetLength(0); i++)
-					this.GetType().GetProperty(ILS2D[i, 0]).SetValue(this, ILS2D[i, 1]);
-				Application.Current.Dispatcher.Invoke(() => { Updating = "Nope"; });
+				try
+				{
+					for (ushort i = 0; i < ILS2D.GetLength(0); i++)
+						this.GetType().GetProperty(ILS2D[i, 0]).SetValue(this, ILS2D[i, 1]);
+				}
+				catch (Exception ex)
+				{
+					SimStatus = false;
+					MainViewModel.MainVM.UpdateSecStatus(Localization.Loc.ParseILSFail);
+					App.Logger.Error(ex.InnerException.Message);
+					MessageBox.Show(ex.InnerException.Message);
+					throw new TaskCanceledException("Failed parsing ILS file, exiting.");
+				}
+				Updating = "Nope";
 				Thread.Sleep(Properties.Settings.Default.PLCUpdateInterval);
 			}
 		}

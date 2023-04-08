@@ -426,10 +426,10 @@
     <value>PLC</value>
   </data>
   <data name="PLCOpenILS" xml:space="preserve">
-    <value>打开指令表文件</value>
+    <value>打开指令文件</value>
   </data>
   <data name="PLCLoadedILS" xml:space="preserve">
-    <value>已加载指令表文件 %Path</value>
+    <value>已加载指令文件 %Path</value>
   </data>
   <data name="PLCNotLoadILS" xml:space="preserve">
     <value>未加载ILS文件.</value>
@@ -451,5 +451,8 @@
   </data>
   <data name="UpdateInterval" xml:space="preserve">
     <value>更新间隔 (毫秒)</value>
+  </data>
+  <data name="ParseILSFail" xml:space="preserve">
+    <value>无法解析指令文件, 已停止监控.</value>
   </data>
 </root>

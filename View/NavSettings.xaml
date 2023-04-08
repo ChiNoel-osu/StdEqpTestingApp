@@ -359,6 +359,7 @@
 			</TabItem>
 		</TabControl>
 		<Button Content="About"
+				Command="{Binding NavSettingsVM.AboutCommand}"
 				Focusable="False"
 				HorizontalAlignment="Right"
 				VerticalAlignment="Bottom" />

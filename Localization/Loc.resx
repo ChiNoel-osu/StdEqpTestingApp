@@ -433,4 +433,7 @@ Leaving this field empty will make the image to be saved in the root folder of t
   <data name="UpdateInterval" xml:space="preserve">
     <value>Update Interval (ms)</value>
   </data>
+  <data name="ParseILSFail" xml:space="preserve">
+    <value>Failed to parse ILS file, monitoring has stopped.</value>
+  </data>
 </root>

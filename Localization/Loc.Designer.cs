@@ -606,6 +606,15 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to parse ILS file, monitoring has stopped..
+        /// </summary>
+        public static string ParseILSFail {
+            get {
+                return ResourceManager.GetString("ParseILSFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PLC.
         /// </summary>
         public static string PLC {

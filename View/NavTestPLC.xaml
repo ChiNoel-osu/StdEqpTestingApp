@@ -249,12 +249,19 @@
 				</Button.Style>
 			</Button>
 			<Grid DockPanel.Dock="Bottom">
+				<TextBox Margin="10,10,10,0"
+						 IsReadOnly="True"
+						 MinHeight="50"
+						 Text="{Binding NavTestPLCVM.ILSText, Mode=OneWay}"
+						 ToolTip="This field is read-only."
+						 Background="Transparent" />
 				<Rectangle Grid.Column="2"
 						   Height="10"
 						   Width="10"
 						   Margin="10,10,10,0"
 						   HorizontalAlignment="Right"
-						   VerticalAlignment="Bottom">
+						   VerticalAlignment="Bottom"
+						   ToolTip="SimUpdate">
 					<Rectangle.Style>
 						<Style TargetType="{x:Type Rectangle}">
 							<Setter Property="Fill"
@@ -277,11 +284,6 @@
 						</Style>
 					</Rectangle.Style>
 				</Rectangle>
-				<TextBox Margin="10,10,10,0"
-						 IsReadOnly="True"
-						 MinHeight="50"
-						 Text="{Binding NavTestPLCVM.ILSText, Mode=OneWay}"
-						 Background="Transparent" />
 			</Grid>
 		</DockPanel>
 	</Grid>
