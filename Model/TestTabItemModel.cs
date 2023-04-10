@@ -215,12 +215,40 @@ namespace StdEqpTesting.Model
 		{
 			get => _PortName;
 			set
-			{   //Should only run once.
+			{   //Should only run once when it's starting up.
 				if (value != Loc.NoCOMTabHeader)
 				{
-					if (!File.Exists(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", value + "SP.json")))
-						//New COM Port that doesn't have a json file. This should not trigger as long as user don't try to.
-						MainViewModel.MainVM.NavSettingsVM.GetCOMSetting(PortName);
+					#region Copied from NavSettingsVM
+					string configDir = Properties.Settings.Default.ConfigFolderDir;
+					string filePath;
+					//Generate COM Default json if not exist.
+					if (!File.Exists(filePath = Path.Combine(configDir, "COM", "NewCOMDefaultSP.json")))
+					{
+						App.Logger.Warn("New COM Port Default setting file not found, creating one.");
+						Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+						File.WriteAllText(filePath, JsonSerializer.Serialize(new Model.COMPortPropModel()
+						{
+							BaudRate = 9600,
+							Parity = Parity.None,
+							DataBits = 8,
+							StopBits = StopBits.One,
+							Handshake = Handshake.None,
+							EncodingString = Encoding.ASCII.WebName,
+							ReadTimeout = 1000,
+							WriteTimeout = 1000
+						}));
+					}
+					//Generate individual COM prop json if not exist.
+					foreach (string portName in SerialPort.GetPortNames())
+						//COM1~COM9 cannot be used as file names as they're reserved by system.
+						//Adding "SP" as a suffix here.
+						if (!File.Exists(filePath = Path.Combine(configDir, "COM", portName + "SP.json")))
+						{
+							App.Logger.Warn(portName + "setting file not found, copying from NewCOMDefaultSP.json.");
+							Directory.CreateDirectory(Path.GetDirectoryName(filePath));
+							File.Copy(Path.Combine(configDir, "COM", "NewCOMDefaultSP.json"), filePath);
+						}
+					#endregion
 					COMPortPropModel setting = JsonSerializer.Deserialize<COMPortPropModel>(File.ReadAllText(Path.Combine(Properties.Settings.Default.ConfigFolderDir, "COM", value + "SP.json")));
 					BaudRate = setting.BaudRate;
 					Parity = setting.Parity;

@@ -218,7 +218,7 @@ namespace StdEqpTesting.ViewModel
 			//Read config
 			if (init || name is null) return;
 			if (name == Localization.Loc.SettingDefaultCOM) name = "NewCOMDefault";
-			Model.COMPortPropModel setting = JsonSerializer.Deserialize<Model.COMPortPropModel>(File.ReadAllText(Path.Combine(configDir, "COM", name + "SP.json")));
+			COMPortPropModel setting = JsonSerializer.Deserialize<COMPortPropModel>(File.ReadAllText(Path.Combine(configDir, "COM", name + "SP.json")));
 			BaudRate = setting.BaudRate;
 			ParityOrdinal = (int)setting.Parity;
 			DataBits = setting.DataBits;
