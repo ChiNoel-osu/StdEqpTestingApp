@@ -13,6 +13,9 @@ namespace StdEqpTesting
 		{
 			InitializeComponent();
 			DataContext = MainVM;
+#if DEBUG
+			//Continue as normal.
+#endif
 #if RELEASE
 			MainVM.MainWindowVM.LoadNextWnd(this);
 #endif

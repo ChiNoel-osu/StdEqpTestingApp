@@ -52,7 +52,7 @@ namespace StdEqpTesting
 				}
 			}
 			#endregion
-#if Release
+#if RELEASE
 			#region Global exception handling
 			AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
 			Dispatcher.UnhandledException += Dispatcher_UnhandledException;
