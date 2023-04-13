@@ -20,9 +20,6 @@
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</d:UserControl.Resources>
-	<UserControl.Resources>
-		<Converter:LogicalNotConverter x:Key="LogicalNotConverter" />
-	</UserControl.Resources>
 	<UserControl.InputBindings>
 		<KeyBinding Key="F5"
 					Command="{Binding NavTestImgVM.GetCameraCommand}" />

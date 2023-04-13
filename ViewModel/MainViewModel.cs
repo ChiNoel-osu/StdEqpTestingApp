@@ -13,7 +13,7 @@ namespace StdEqpTesting.ViewModel
 		public NavTestImgVM NavTestImgVM { get; } = new NavTestImgVM();
 		public NavTestPLCVM NavTestPLCVM { get; } = new NavTestPLCVM();
 		public NavReviewVM NavReviewVM { get; } = new NavReviewVM();
-		public NavSettingsVM NavSettingsVM { get; } //Late load.
+		public NavSettingsVM NavSettingsVM { get; } //Late load bc it need user info.
 
 		//Accessing any ObservableProperty of this class will trigger CS0229 (in VS).
 		//But the code still work and no exceptions are thorn.

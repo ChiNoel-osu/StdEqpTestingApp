@@ -20,7 +20,7 @@ namespace StdEqpTesting
 			MainVM.MainWindowVM.LoadNextWnd(this);
 #endif
 #if SKIPLOGINDBG
-			HomeViewWindow mainViewWindow = new HomeViewWindow(new Model.UserInfo { ID = 0, theme = 0, type = (Model.UserTypeEnum)0, username = "VicTest" });
+			View.HomeViewWindow mainViewWindow = new View.HomeViewWindow(new Model.UserInfo { ID = 0, theme = 0, type = (Model.UserTypeEnum)0, username = "VicTest" });
 			mainViewWindow.Show();
 			Close();
 #endif

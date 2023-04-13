@@ -46,7 +46,8 @@ namespace StdEqpTesting.Model
 		CancellationTokenSource cts;
 		CancellationToken ct;
 		SerialPort serialPort = new SerialPort();   //The one and only SerialPort in this Tab.
-		System.Timers.Timer timer = new System.Timers.Timer(1000) { AutoReset = true };
+		const int addInterval = 1000;
+		System.Timers.Timer timer = new System.Timers.Timer(addInterval) { AutoReset = true };
 		[RelayCommand]
 		public void Connect()
 		{
@@ -87,7 +88,7 @@ namespace StdEqpTesting.Model
 							if (!string.IsNullOrEmpty(incoming))
 							{
 								Message += incoming;
-								timer.Interval = 1000;  //Setting the interval will cause the timer to reset.
+								timer.Interval = addInterval;  //Setting the interval will cause the timer to reset.
 							}
 							Thread.Sleep(160);  //Wait time before next serial read to save some CPU time.
 						}
