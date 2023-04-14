@@ -29,14 +29,8 @@ namespace StdEqpTesting.Model
 		long _Time;
 		public object Time
 		{
-			get
-			{
-				return DateTimeOffset.FromUnixTimeSeconds(_Time).LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss");
-			}
-			private set
-			{
-				_Time = (long)value;
-			}
+			get => DateTimeOffset.FromUnixTimeSeconds(_Time).LocalDateTime.ToString("yyyy/MM/dd HH:mm:ss");
+			private set { _Time = (long)value; }
 		}
 		private void COMDataGridModel_PropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
 		{   //Data Grid updated, update DB as well.

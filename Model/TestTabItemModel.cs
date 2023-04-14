@@ -4,7 +4,6 @@ using Microsoft.Data.Sqlite;
 using StdEqpTesting.Localization;
 using StdEqpTesting.ViewModel;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.IO.Ports;
@@ -210,7 +209,7 @@ namespace StdEqpTesting.Model
 		public bool NoCOM { get; }
 
 		#region Port properties
-		List<FileSystemWatcher> fsWatchers = new List<FileSystemWatcher>();
+		FileSystemWatcher currentFSWatcher;
 		string _PortName;
 		public string PortName
 		{
@@ -263,7 +262,7 @@ namespace StdEqpTesting.Model
 					FileSystemWatcher fsWatcher = new FileSystemWatcher(Path.Combine(Directory.GetCurrentDirectory(), Properties.Settings.Default.ConfigFolderDir, "COM"))
 					{ Filter = value + "SP.json", NotifyFilter = NotifyFilters.LastWrite, EnableRaisingEvents = true };
 					fsWatcher.Changed += FsWatcher_Changed;
-					fsWatchers.Add(fsWatcher);  //Save the watcher so it don't get disposed.
+					currentFSWatcher = fsWatcher;  //Save the watcher so it don't get GC'd.
 				}
 				_PortName = value;
 			}

@@ -13,6 +13,7 @@
     <Authors>Victor</Authors>
     <Version>1.0.1-beta</Version>
     <FileVersion>$(Version)</FileVersion>
+    <Company>VictorWPFSolutions</Company>
   </PropertyGroup>
 
   <ItemGroup>
