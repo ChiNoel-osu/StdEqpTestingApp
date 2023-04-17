@@ -82,7 +82,7 @@ namespace StdEqpTesting.ViewModel
 				return errorMsg;
 			}
 		}
-		public string Error => throw new System.NotImplementedException();
+		public string Error => throw new NotImplementedException();
 		#endregion
 
 		[RelayCommand]
@@ -109,6 +109,7 @@ namespace StdEqpTesting.ViewModel
 					cmd.Parameters.AddWithValue("$Username", Username).SqliteType = SqliteType.Text;
 					cmd.Parameters.AddWithValue("$Password", pwHash).SqliteType = SqliteType.Text;
 					cmd.Parameters.AddWithValue("$Type", UserTypeEnum.User).SqliteType = SqliteType.Integer;
+					//Current theme as initial theme for registering user.
 					if (currentTheme == "Dark")
 						cmd.Parameters.AddWithValue("$Theme", 0).SqliteType = SqliteType.Integer;
 					else if (currentTheme == "Light")

@@ -172,10 +172,10 @@ And should have at least 4 characters.</value>
     <value>Data List</value>
   </data>
   <data name="NoCOMTabHeader" xml:space="preserve">
-    <value>No COM port detected</value>
+    <value>No COM device detected</value>
   </data>
   <data name="NoCOMTabInstruction" xml:space="preserve">
-    <value>Please check your settings and press F5 to refresh.</value>
+    <value>Please check your system settings and press F5 to refresh.</value>
   </data>
   <data name="RefreshBtn" xml:space="preserve">
     <value>🔄 Refresh</value>

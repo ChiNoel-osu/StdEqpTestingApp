@@ -552,7 +552,7 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No COM port detected.
+        ///   Looks up a localized string similar to No COM device detected.
         /// </summary>
         public static string NoCOMTabHeader {
             get {
@@ -561,7 +561,7 @@ namespace StdEqpTesting.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please check your settings and press F5 to refresh..
+        ///   Looks up a localized string similar to Please check your system settings and press F5 to refresh..
         /// </summary>
         public static string NoCOMTabInstruction {
             get {

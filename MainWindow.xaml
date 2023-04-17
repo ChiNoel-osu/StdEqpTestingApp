@@ -9,7 +9,6 @@
 		d:DataContext="{d:DesignInstance Type=viewmodel:StartupMainViewModel}"
 		mc:Ignorable="d"
 		WindowStartupLocation="CenterScreen"
-		Background="#1E1E1E"
 		Title="{x:Static loc:Loc.MainWndTitle}"
 		Height="800"
 		Width="800">
@@ -17,13 +16,18 @@
 		<Grid.RowDefinitions>
 			<RowDefinition />
 			<RowDefinition />
-		</Grid.RowDefinitions>
+		</Grid.RowDefinitions> 
 		<Button Content="CLICK ME"
 				HorizontalAlignment="Right"
 				VerticalAlignment="Top"
 				FontSize="20"
 				Command="{Binding MainWindowVM.LoadNextWndCommand}"
 				CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=Window, Mode=FindAncestor}}" />
-		
+		<StackPanel HorizontalAlignment="Center" Grid.Row="1" Orientation="Horizontal">
+			<RadioButton Content="COM Device"/>
+			<RadioButton Content="Imaging"/>
+			<RadioButton Content="something"/>
+			<RadioButton Content="settings"/>
+		</StackPanel>
 	</Grid>
 </Window>
