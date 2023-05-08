@@ -455,4 +455,7 @@ To temporary change your current theme, use the theme button above.</value>
   <data name="AdminChangeUserType" xml:space="preserve">
     <value>Changed user type of %User to %Type.</value>
   </data>
+  <data name="WrongSetting" xml:space="preserve">
+    <value>Invalid Parameter</value>
+  </data>
 </root>

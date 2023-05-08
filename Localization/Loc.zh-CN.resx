@@ -474,4 +474,7 @@
   <data name="AdminChangeUserType" xml:space="preserve">
     <value>已将 %User 的用户类型更改为 %Type.</value>
   </data>
+  <data name="WrongSetting" xml:space="preserve">
+    <value>设置错误</value>
+  </data>
 </root>

@@ -1106,5 +1106,14 @@ namespace StdEqpTesting.Localization {
                 return ResourceManager.GetString("WriteT", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Parameter.
+        /// </summary>
+        public static string WrongSetting {
+            get {
+                return ResourceManager.GetString("WrongSetting", resourceCulture);
+            }
+        }
     }
 }

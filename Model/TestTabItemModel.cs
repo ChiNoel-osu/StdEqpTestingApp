@@ -255,7 +255,15 @@ namespace StdEqpTesting.Model
 					DataBits = setting.DataBits;
 					StopBits = setting.StopBits;
 					Handshake = setting.Handshake;
-					Encoding = Encoding.GetEncoding(setting.EncodingString);
+					try
+					{
+						Encoding = Encoding.GetEncoding(setting.EncodingString);
+					}
+					catch (ArgumentException ex)
+					{
+						Encoding = Encoding.ASCII;
+						MessageBox.Show(ex.Message, Loc.WrongSetting);
+					}
 					ReadTimeout = setting.ReadTimeout;
 					WriteTimeout = setting.WriteTimeout;
 
@@ -278,7 +286,15 @@ namespace StdEqpTesting.Model
 				DataBits = setting.DataBits;
 				StopBits = setting.StopBits;
 				Handshake = setting.Handshake;
-				Encoding = Encoding.GetEncoding(setting.EncodingString);
+				try
+				{
+					Encoding = Encoding.GetEncoding(setting.EncodingString);
+				}
+				catch (ArgumentException ex)
+				{
+					Encoding = Encoding.ASCII;
+					MessageBox.Show(ex.Message, Loc.WrongSetting);
+				}
 				ReadTimeout = setting.ReadTimeout;
 				WriteTimeout = setting.WriteTimeout;
 			}
