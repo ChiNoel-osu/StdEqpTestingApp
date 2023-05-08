@@ -128,8 +128,8 @@ namespace StdEqpTesting.ViewModel
 			};
 			if ((bool)saveCSVDialog.ShowDialog())
 			{
-				File.WriteAllTextAsync(saveCSVDialog.FileName, csvString.ToString());
-				MainViewModel.MainVM.UpdateSecStatus(Localization.Loc.ExportedCSV, true);
+				File.WriteAllTextAsync(saveCSVDialog.FileName, csvString.ToString(), Encoding.UTF8);
+				MainViewModel.MainVM.UpdateSecStatus(Localization.Loc.ExportedCSV.Replace("%Path", saveCSVDialog.FileName), true);
 			}
 			else
 			{

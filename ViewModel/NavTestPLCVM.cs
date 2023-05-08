@@ -145,7 +145,10 @@ namespace StdEqpTesting.ViewModel
 				try
 				{
 					for (ushort i = 0; i < ILS2D.GetLength(0); i++)
+					{
+						if (string.IsNullOrEmpty(ILS2D[i, 0])) continue;
 						this.GetType().GetProperty(ILS2D[i, 0]).SetValue(this, ILS2D[i, 1]);
+					}
 				}
 				catch (Exception ex)
 				{

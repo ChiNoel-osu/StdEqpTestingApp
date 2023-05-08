@@ -11,7 +11,7 @@
     <XamlDebuggingInformation>True</XamlDebuggingInformation>
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <Authors>Victor</Authors>
-    <Version>1.0.1-beta</Version>
+    <Version>1.0.2-beta</Version>
     <FileVersion>$(Version)</FileVersion>
     <Company>VictorWPFSolutions</Company>
   </PropertyGroup>
