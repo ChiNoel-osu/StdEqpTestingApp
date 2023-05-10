@@ -400,6 +400,8 @@
 									</Grid.RowDefinitions>
 									<Grid.Resources>
 										<Style TargetType="{x:Type TextBlock}">
+											<d:Setter Property="Foreground"
+													  Value="White" />
 											<Setter Property="Foreground"
 													Value="{DynamicResource GlobalFG}" />
 										</Style>
@@ -486,7 +488,7 @@
 									FontSize="20"
 									MinHeight="60"
 									MinWidth="100"
-									Command="{Binding ConnectCommand, Mode=OneWay}"
+									Command="{Binding ConnectCommand}"
 									Margin="10,0">
 								<Button.Style>
 									<Style TargetType="{x:Type Button}">
@@ -618,6 +620,8 @@
 									   FontSize="15"
 									   Text="{x:Static loc:Loc.RecvStr}" />
 							<TextBox Grid.Row="1"
+									 d:Background="Transparent"
+									 d:Foreground="White"
 									 TextWrapping="Wrap"
 									 Text="{Binding Message, UpdateSourceTrigger=PropertyChanged}"
 									 FontSize="22"
@@ -672,6 +676,8 @@
 									   d:Foreground="White"
 									   FontSize="15" />
 							<TextBox FontSize="20"
+									 d:Background="Transparent"
+									 d:Foreground="White"
 									 Text="{Binding TestName}" />
 							<DockPanel>
 								<Button Content="{x:Static loc:Loc.AddUnit}"
@@ -726,7 +732,9 @@
 							<TextBox DockPanel.Dock="Top"
 									 Text="{Binding AdditionalInfo}"
 									 FontSize="18"
-									 Margin="10,0" />
+									 Margin="10,0"
+									 d:Background="Transparent"
+									 d:Foreground="White"/>
 							<TextBlock Text="{x:Static loc:Loc.Average}"
 									   ToolTip="{x:Static loc:Loc.AverageTT}"
 									   Margin="10,0,0,0"
@@ -739,6 +747,8 @@
 									 ToolTip="{x:Static loc:Loc.AverageTT}"
 									 IsReadOnly="True"
 									 FontSize="20"
+									 d:Background="Transparent"
+									 d:Foreground="White"
 									 Margin="10,0,10,10" />
 						</DockPanel>
 					</Grid>

@@ -65,19 +65,19 @@ namespace StdEqpTesting
 		#region Global exception handling
 		private void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
 		{
-			throw new NotImplementedException();
+			Logger.Warn(((Task)sender).Exception.Message);
+			MessageBox.Show(((Task)sender).Exception.Message);
 		}
 
 		private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
 		{
-			throw new NotImplementedException();
+			MessageBox.Show(e.Exception.Message);
 		}
 
 		private void Dispatcher_UnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
 		{
 			Logger.Fatal($"The sender is: {sender}\n{e.Exception}");
 			MessageBox.Show($"The application ran into a serious problem and is going to be shutdown. The following information might be helpful:\nThe sender is: {sender}\n{e.Exception}\n\nAlso check the log folder.", "Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			throw new NotImplementedException();
 		}
 
 		public void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
