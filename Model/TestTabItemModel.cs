@@ -96,7 +96,7 @@ namespace StdEqpTesting.Model
 					timer.Start();  //Timer for auto add.
 				}
 				catch (Exception e)
-				{   //TODO: Make it pretty.
+				{
 					App.Logger.Error(e.ToString());
 					MessageBox.Show(e.Message);
 				}

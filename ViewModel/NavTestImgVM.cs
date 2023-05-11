@@ -67,7 +67,7 @@ namespace StdEqpTesting.ViewModel
 				VCD.NewFrame -= OnNewFrame;
 				VCD.SignalToStop();
 				this.BitmapSource = null;
-				long stoppingTime = DateTimeOffset.Now.ToUnixTimeSeconds();	//Failsafe for stopping.
+				long stoppingTime = DateTimeOffset.Now.ToUnixTimeSeconds(); //Failsafe for stopping.
 				while (VCD.IsRunning || DateTimeOffset.Now.ToUnixTimeSeconds() > stoppingTime + 5) ;    //Wait for it to stop
 			}
 			else

@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using StdEqpTesting.ViewModel;
 using System;
 using System.Globalization;
 using System.IO;
@@ -65,8 +66,7 @@ namespace StdEqpTesting
 		#region Global exception handling
 		private void TaskScheduler_UnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
 		{
-			Logger.Warn(((Task)sender).Exception.Message);
-			MessageBox.Show(((Task)sender).Exception.Message);
+			MainViewModel.MainVM.UpdateSecStatus(((Task)sender).Exception.Message, true, 3);
 		}
 
 		private void Current_DispatcherUnhandledException(object sender, System.Windows.Threading.DispatcherUnhandledExceptionEventArgs e)
