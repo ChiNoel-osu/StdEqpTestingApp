@@ -12,8 +12,8 @@
 		WindowStartupLocation="CenterScreen"
 		Background="{DynamicResource GlobalBG}"
 		Title="{x:Static loc:Loc.LoginWndTitle}"
-		Height="225"
-		Width="250">
+		Height="260"
+		Width="300">
 	<Window.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
@@ -24,16 +24,17 @@
 	</Window.Resources>
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="56" />
+			<RowDefinition Height="65" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 		<StackPanel Grid.Row="0"
 					HorizontalAlignment="Center">
 			<TextBlock Text="{x:Static loc:Loc.LoginWelcome}"
-					   FontSize="20"
+					   FontSize="25"
 					   Margin="0,5,0,0"
 					   HorizontalAlignment="Center" />
 			<TextBlock Text="{Binding LoginWindowVM.Status, Mode=OneWay}"
+					   FontSize="14"
 					   d:Text="{x:Static loc:Loc.LoginEnterCred}"
 					   HorizontalAlignment="Center" />
 		</StackPanel>
@@ -73,9 +74,10 @@
 		<StackPanel Grid.Row="1"
 					Margin="20,2">
 			<TextBlock Text="{x:Static loc:Loc.LoginUsername}"
-					   Margin="0,4" />
+					   FontSize="15"
+					   Margin="0,6,0,4" />
 			<TextBox Text="{Binding LoginWindowVM.Username, Mode=OneWayToSource, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-					 Height="20"
+					 FontSize="15"
 					 Background="{DynamicResource GlobalBG}"
 					 Foreground="{DynamicResource GlobalFG}"
 					 CaretBrush="{DynamicResource GlobalCaret}"
@@ -106,10 +108,11 @@
 				</TextBox.Style>
 			</TextBox>
 			<TextBlock Text="{x:Static loc:Loc.LoginPassword}"
-					   Margin="0,4" />
+					   FontSize="15"
+					   Margin="0,6,0,4" />
 			<PasswordBox model:BindablePasswordBox.Attach="True"
 						 model:BindablePasswordBox.Password="{Binding LoginWindowVM.Password, Mode=OneWayToSource, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
-						 Height="20"
+						 FontSize="15"
 						 Background="{DynamicResource GlobalBG}"
 						 Foreground="{DynamicResource GlobalFG}"
 						 CaretBrush="{DynamicResource GlobalCaret}"
@@ -155,8 +158,9 @@
 				<StackPanel HorizontalAlignment="Right"
 							Orientation="Horizontal">
 					<Button IsEnabled="{Binding LoginWindowVM.NoInputError, Mode=OneWay}"
-							Width="50"
-							Height="25"
+							Width="60"
+							Height="30"
+							FontSize="14"
 							Focusable="False"
 							Margin="0,0,10,0"
 							HorizontalAlignment="Right"
@@ -164,8 +168,9 @@
 							CommandParameter="{Binding ElementName=ThemeBtn, Path=Content}"
 							Content="{x:Static loc:Loc.RegisterButton}" />
 					<Button IsEnabled="{Binding LoginWindowVM.NoInputError, Mode=OneWay}"
-							Width="50"
-							Height="25"
+							Width="60"
+							Height="30"
+							FontSize="14"
 							HorizontalAlignment="Right"
 							Command="{Binding LoginWindowVM.LoginCommand}"
 							CommandParameter="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}, Mode=FindAncestor}}"
