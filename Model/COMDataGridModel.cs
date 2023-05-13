@@ -49,7 +49,7 @@ namespace StdEqpTesting.Model
 			catch (SqliteException ex)
 			{
 				MainViewModel.MainVM.UpdateMainStatus(Localization.Loc.NotSaved2DB, true, 3);
-				MessageBox.Show(Localization.Loc.SQLReviewEx.Replace("%Exception", ex.Message), "SQL command failed.", MessageBoxButton.OK, MessageBoxImage.Warning); ;
+				MessageBox.Show(Localization.Loc.SQLReviewEx.Replace("%Exception", ex.Message), "SQL command failed.", MessageBoxButton.OK, MessageBoxImage.Warning);
 			}
 		}
 		public string[] ToStringArray() => new string[] { ID.ToString(), (string)Time, this.User, this.TestName, this.ValueType, this.TestValue, this.TestUnit, this.Tag, this.COMPort };

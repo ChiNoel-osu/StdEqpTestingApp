@@ -51,6 +51,7 @@ namespace StdEqpTesting.ViewModel
 				TabItemSource.Remove(noCOM);
 			TabIndex = tempTabIndex;
 			MainViewModel.MainVM?.UpdateMainStatus(Localization.Loc.FoundCOMDevices.Replace("%Num", COMList.Count.ToString()), true);
+			MainViewModel.MainVM?.NavSettingsVM.InitCOMSettingsBox();
 		}
 
 		public NavTestVM()

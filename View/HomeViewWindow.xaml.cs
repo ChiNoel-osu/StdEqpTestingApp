@@ -1,7 +1,6 @@
 ﻿using StdEqpTesting.Model;
 using StdEqpTesting.ViewModel;
 using System;
-using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;

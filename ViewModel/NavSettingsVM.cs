@@ -232,6 +232,14 @@ namespace StdEqpTesting.ViewModel
 		[RelayCommand]
 		public void About() => new View.About().ShowDialog();
 
+		public void InitCOMSettingsBox()
+		{
+			COMSettingPorts.Clear();
+			COMSettingPorts.Add(Localization.Loc.SettingDefaultCOM);
+			foreach (string portName in SerialPort.GetPortNames())
+				COMSettingPorts.Add(portName);
+		}
+
 		public NavSettingsVM(UserInfo userInfo)
 		{
 			//Save user info.
@@ -288,9 +296,7 @@ namespace StdEqpTesting.ViewModel
 				connection.CloseAsync();
 			}
 
-			COMSettingPorts.Add(Localization.Loc.SettingDefaultCOM);
-			foreach (string portName in SerialPort.GetPortNames())
-				COMSettingPorts.Add(portName);
+			InitCOMSettingsBox();
 
 			init = false;
 		}
